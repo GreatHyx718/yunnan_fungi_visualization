@@ -1,0 +1,1770 @@
+[
+{
+"class": "Sordariomycetes",
+"order": "Hypocreales",
+"family": "Cordycipitaceae",
+"genus": "Cordyceps",
+"species": "Cordyceps militaris",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Agaricaceae",
+"genus": "Agaricus",
+"species": "Agaricus rubescens",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Agaricaceae",
+"genus": "Agaricus",
+"species": "Agaricus virgineoides",
+"status": [
+"P"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita caojizong",
+"status": [
+"E"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita citrinoannulata",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita cupreobrunneus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita depauperatus",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita imazekii",
+"status": [
+"E"
+],
+"n": 6
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita masasiensis",
+"status": [
+"U",
+"N"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita pantherina",
+"status": [
+"N"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Amanitaceae",
+"genus": "Amanita",
+"species": "Amanita pseudoporphyria",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Biannulariaceae",
+"genus": "Catathelasma",
+"species": "Catathelasma ventricosum",
+"status": [
+"E"
+],
+"n": 20
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Cortinariaceae",
+"genus": "Cortinarius",
+"species": "Cortinarius balteatoalbus",
+"status": [
+"U"
+],
+"n": 10
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Cortinariaceae",
+"genus": "Cortinarius",
+"species": "Cortinarius caperatus",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Cortinariaceae",
+"genus": "Cortinarius",
+"species": "Cortinarius flavescentipes",
+"status": [
+"U",
+"N"
+],
+"n": 6
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Cortinariaceae",
+"genus": "Cortinarius",
+"species": "Cortinarius vernus",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hydnangiaceae",
+"genus": "Laccaria",
+"species": "Laccaria laccata",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hydnangiaceae",
+"genus": "Laccaria",
+"species": "Laccaria vinaceoavellanea",
+"status": [
+"E"
+],
+"n": 13
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hygrophoraceae",
+"genus": "Hygrophorus",
+"species": "Hygrophorus agathosmus",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hygrophoraceae",
+"genus": "Hygrophorus",
+"species": "Hygrophorus hypothejus",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hygrophoraceae",
+"genus": "Hygrophorus",
+"species": "Hygrophorus purpurascens",
+"status": [
+"E"
+],
+"n": 14
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hygrophoraceae",
+"genus": "Hygrophorus",
+"species": "Hygrophorus russula",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hymenogastraceae",
+"genus": "Naucoria",
+"species": "Naucoria fellea",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Hymenogastraceae",
+"genus": "Psilocybe",
+"species": "Psilocybe semilanceata",
+"status": [
+"P"
+],
+"n": 14
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Lyophyllum",
+"species": "Lyophyllum decastes",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Lyophyllum",
+"species": "Lyophyllum fumosum",
+"status": [
+"E"
+],
+"n": 16
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Lyophyllum",
+"species": "Lyophyllum shimeji",
+"status": [
+"E"
+],
+"n": 84
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces bulborhizus",
+"status": [
+"E"
+],
+"n": 10
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces clypeatus",
+"status": [
+"E"
+],
+"n": 189
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces eurrhizus",
+"status": [
+"E"
+],
+"n": 66
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces heimii",
+"status": [
+"E"
+],
+"n": 9
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces medius",
+"status": [
+"E"
+],
+"n": 13
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces microcarpus",
+"status": [
+"E"
+],
+"n": 134
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Termitomyces",
+"species": "Termitomyces radicatus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Lyophyllaceae",
+"genus": "Tephrocybe",
+"species": "Tephrocybe ancida",
+"status": [
+"U",
+"N"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Omphalotaceae",
+"genus": "Lentinula",
+"species": "Lentinula lateritia",
+"status": [
+"U",
+"N"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Physalacriaceae",
+"genus": "Hymenopellis",
+"species": "Hymenopellis radicata",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Pleurotaceae",
+"genus": "Pleurotus",
+"species": "Pleurotus giganteus",
+"status": [
+"U"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Pseudoclitocybaceae",
+"genus": "Pseudoclitocybe",
+"species": "Pseudoclitocybe cyathiformis",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma albobrunneum",
+"status": [
+"M"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma dulciolens",
+"status": [
+"U",
+"N"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma equestre",
+"status": [
+"M"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma joachimii",
+"status": [
+"U"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma matsutake",
+"status": [
+"E"
+],
+"n": 18
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma stans",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Tricholomataceae",
+"genus": "Tricholoma",
+"species": "Tricholoma terreum",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Agaricales incertae sedis",
+"genus": "Clitocybe",
+"species": "Clitocybe nebularis",
+"status": [
+"E"
+],
+"n": 26
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Agaricales incertae sedis",
+"genus": "Lepista",
+"species": "Lepista sordida",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Agaricales",
+"family": "Agaricales incertae sedis",
+"genus": "Leucocybe",
+"species": "Leucocybe connata",
+"status": [
+"M"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Auriculariales",
+"family": "Auriculariaceae",
+"genus": "Auricularia",
+"species": "Auricularia cornea",
+"status": [
+"E"
+],
+"n": 31
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Aureoboletus",
+"species": "Aureoboletus moravicus",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Austroboletus",
+"species": "Austroboletus gracilis",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Baorangia",
+"species": "Baorangia bicolor",
+"status": [
+"U"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus aereus",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus eastwoodiae",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus edulis s.l.",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus pseudosulphureus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus reticulatus",
+"status": [
+"E"
+],
+"n": 67
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus rhodopurpureus",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Boletus",
+"species": "Boletus satanas",
+"status": [
+"P"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Butyriboletus",
+"species": "Butyriboletus appendiculatus",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Butyriboletus",
+"species": "Butyriboletus pseudospeciosus",
+"status": [
+"U"
+],
+"n": 15
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Butyriboletus",
+"species": "Butyriboletus subappendiculatus",
+"status": [
+"U",
+"N"
+],
+"n": 10
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Caloboletus",
+"species": "Caloboletus radicans",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Harrya",
+"species": "Harrya chromapes",
+"status": [
+"U",
+"N"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Heimioporus",
+"species": "Heimioporus japonicus",
+"status": [
+"P"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Neoboletus",
+"species": "Neoboletus multipunctatus",
+"status": [
+"U"
+],
+"n": 9
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Neoboletus",
+"species": "Neoboletus obscureumbrinus",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Pulveroboletus",
+"species": "Pulveroboletus brunneopunctatus",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Retiboletus",
+"species": "Retiboletus retipes",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Rugiboletus",
+"species": "Rugiboletus extremiorientalis",
+"status": [
+"U"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Sutorius",
+"species": "Sutorius uridiformis",
+"status": [
+"U"
+],
+"n": 9
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Tylopilus",
+"species": "Tylopilus microsporus",
+"status": [
+"P"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Tylopilus",
+"species": "Tylopilus neofelleus",
+"status": [
+"P"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletaceae",
+"genus": "Tylopilus",
+"species": "Tylopilus obscurus",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Boletinellaceae",
+"genus": "Phlebopus",
+"species": "Phlebopus portentosus",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Gomphidiaceae",
+"genus": "Chroogomphus",
+"species": "Chroogomphus rutilus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Gyroporaceae",
+"genus": "Gyroporus",
+"species": "Gyroporus ballouii",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Sclerodermataceae",
+"genus": "Scleroderma",
+"species": "Scleroderma yunnanense",
+"status": [
+"E"
+],
+"n": 14
+},
+{
+"class": "Agaricomycetes",
+"order": "Boletales",
+"family": "Suillaceae",
+"genus": "Suillus",
+"species": "Suillus bovinus",
+"status": [
+"M"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus amethysteus",
+"status": [
+"E"
+],
+"n": 7
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus cibarius",
+"status": [
+"E"
+],
+"n": 90
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus cinereus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus cinnabarinus",
+"status": [
+"E"
+],
+"n": 27
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus enelensis",
+"status": [
+"U",
+"N"
+],
+"n": 9
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus formosus",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus friesii",
+"status": [
+"U"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus lateritius",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus lewisii",
+"status": [
+"U",
+"N"
+],
+"n": 13
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus pallens",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus roseocanus",
+"status": [
+"U"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus subalbidus",
+"status": [
+"E"
+],
+"n": 23
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Cantharellus",
+"species": "Cantharellus tenuithrix",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Craterellus",
+"species": "Craterellus cornucopioides",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Cantharellales",
+"family": "Hydnaceae",
+"genus": "Craterellus",
+"species": "Craterellus luteus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Gomphus",
+"species": "Gomphus clavatus",
+"status": [
+"E"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria apiculata",
+"status": [
+"E"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria araiospora",
+"status": [
+"E"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria aurantiisiccescens",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria aurea",
+"status": [
+"M"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria botrytis",
+"status": [
+"E"
+],
+"n": 16
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria conjunctipes",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria cystidiophora",
+"status": [
+"U"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria flavobrunnescens",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria formosa",
+"status": [
+"M"
+],
+"n": 7
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria fumigata",
+"status": [
+"P"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria obtusissima",
+"status": [
+"E"
+],
+"n": 13
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria pinicola",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Gomphales",
+"family": "Gomphaceae",
+"genus": "Ramaria",
+"species": "Ramaria rubrievanescens",
+"status": [
+"U",
+"N"
+],
+"n": 26
+},
+{
+"class": "Agaricomycetes",
+"order": "Hymenochaetales",
+"family": "Hymenochaetales incertae sedis",
+"genus": "Trichaptum",
+"species": "Trichaptum abietinum",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Polyporales",
+"family": "Cerrenaceae",
+"genus": "Cerrena",
+"species": "Cerrena unicolor",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Polyporales",
+"family": "Grifolaceae",
+"genus": "Grifola",
+"species": "Grifola frondosa",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Polyporales",
+"family": "Polyporaceae",
+"genus": "Amauroderma",
+"species": "Amauroderma rugosum",
+"status": [
+"U"
+],
+"n": 19
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Albatrellaceae",
+"genus": "Albatrellus",
+"species": "Albatrellus confluens",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius deliciosus",
+"status": [
+"E"
+],
+"n": 7
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius deterrimus",
+"status": [
+"E"
+],
+"n": 8
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius fulvissimus",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius hatsudake",
+"status": [
+"E"
+],
+"n": 10
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius piperatus",
+"status": [
+"M"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius quieticolor",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius sanguifluus",
+"status": [
+"E"
+],
+"n": 8
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius semisanguifluus",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius bertillonii",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius dwaliensis",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius glaucescens",
+"status": [
+"U",
+"N"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius leae",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius piperatus",
+"status": [
+"M"
+],
+"n": 8
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius rugatus",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius subvolemus",
+"status": [
+"U",
+"N"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius tenuicystidiatus",
+"status": [
+"E"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Lactarius",
+"species": "Lactarius volemus",
+"status": [
+"E"
+],
+"n": 34
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula aeruginea",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula albonigra",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula amoenolens",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula aquosa",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula aurea",
+"status": [
+"M"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula aurora",
+"status": [
+"E"
+],
+"n": 4
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula cyanoxantha",
+"status": [
+"E"
+],
+"n": 43
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula densifolia",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula graminea",
+"status": [
+"U"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula minutula",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula nobilis",
+"status": [
+"P"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula paludosa",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula pubescens",
+"status": [
+"P"
+],
+"n": 3
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula renidens",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula rosea",
+"status": [
+"E"
+],
+"n": 5
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula stenocystidiata",
+"status": [
+"E"
+],
+"n": 7
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula turci",
+"status": [
+"E"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula versicolor",
+"status": [
+"U"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula vinosa",
+"status": [
+"E"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula vinosobrunnea",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Russula",
+"species": "Russula virescens",
+"status": [
+"E"
+],
+"n": 205
+},
+{
+"class": "Agaricomycetes",
+"order": "Russulales",
+"family": "Russulaceae",
+"genus": "Scutiger",
+"species": "Scutiger pes-caprae",
+"status": [
+"E"
+],
+"n": 9
+},
+{
+"class": "Agaricomycetes",
+"order": "Thelephorales",
+"family": "Bankeraceae",
+"genus": "Sarcodon",
+"species": "Sarcodon leucopus",
+"status": [
+"E"
+],
+"n": 8
+},
+{
+"class": "Agaricomycetes",
+"order": "Thelephorales",
+"family": "Bankeraceae",
+"genus": "Sarcodon",
+"species": "Sarcodon squamosus",
+"status": [
+"U",
+"N"
+],
+"n": 2
+},
+{
+"class": "Agaricomycetes",
+"order": "Thelephorales",
+"family": "Thelephoraceae",
+"genus": "Pseudotomentella",
+"species": "Pseudotomentella mucidula",
+"status": [
+"U"
+],
+"n": 1
+},
+{
+"class": "Agaricomycetes",
+"order": "Thelephorales",
+"family": "Thelephoraceae",
+"genus": "Thelephora",
+"species": "Thelephora aurantiotincta",
+"status": [
+"E"
+],
+"n": 9
+},
+{
+"class": "Agaricomycetes",
+"order": "Thelephorales",
+"family": "Thelephoraceae",
+"genus": "Thelephora",
+"species": "Thelephora ganbajun",
+"status": [
+"E"
+],
+"n": 413
+},
+{
+"class": "Agaricomycetes",
+"order": "Thelephorales",
+"family": "Thelephoraceae",
+"genus": "Thelephora",
+"species": "Thelephora vialis",
+"status": [
+"E"
+],
+"n": 114
+}
+]

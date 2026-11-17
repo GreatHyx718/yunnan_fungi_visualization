@@ -1,0 +1,2227 @@
+[
+ {
+  "name": "Catinella",
+  "zh": "小碗菌属",
+  "rank": "GENUS",
+  "keys": [
+   8694604
+  ],
+  "match": "manual",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Rhytidhysteron",
+  "zh": "皱裂菌属",
+  "rank": "GENUS",
+  "keys": [
+   2612504
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Tryblidiella",
+  "zh": "卷边盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2612501
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Shiraia",
+  "zh": "竹黄属",
+  "rank": "GENUS",
+  "keys": [
+   2615461
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Geoglossum",
+  "zh": "地舌菌属",
+  "rank": "GENUS",
+  "keys": [
+   2531663
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 17
+ },
+ {
+  "name": "Microglossum",
+  "zh": "小舌菌属",
+  "rank": "GENUS",
+  "keys": [
+   7677481
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Nothomitra",
+  "zh": "假地杖菌属",
+  "rank": "GENUS",
+  "keys": [
+   7787659
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sarcoleotia",
+  "zh": "肉锤菌属",
+  "rank": "GENUS",
+  "keys": [
+   2586893
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Trichoglossum",
+  "zh": "毛舌菌属",
+  "rank": "GENUS",
+  "keys": [
+   2586918
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 21
+ },
+ {
+  "name": "Chlorociboria",
+  "zh": "绿杯盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   8034517
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Chlorosplenium",
+  "zh": "绿盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580482
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Dermea",
+  "zh": "皮盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580677
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Pezicula",
+  "zh": "无柄盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2581047
+  ],
+  "match": "manual",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Godronia",
+  "zh": "长孢盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2579062
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ascocoryne",
+  "zh": "紫胶菌属",
+  "rank": "GENUS",
+  "keys": [
+   2584341
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ascotremella",
+  "zh": "胶盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2582488
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Cordierites",
+  "zh": "复柄盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   10901776
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ionomidotis",
+  "zh": "聚盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   11058807
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Chlorencoelia",
+  "zh": "绿散胞盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580536
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Neobulgaria",
+  "zh": "新胶鼓菌属",
+  "rank": "GENUS",
+  "keys": [
+   2582161
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 6
+ },
+ {
+  "name": "Leotia",
+  "zh": "锤舌菌属",
+  "rank": "GENUS",
+  "keys": [
+   2537102
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 8
+ },
+ {
+  "name": "Rutstroemia",
+  "zh": "蜡盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580404
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Ciboria",
+  "zh": "杯盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580375
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Encoelia",
+  "zh": "散胞盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580360
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Mitrula",
+  "zh": "地杖菌属",
+  "rank": "GENUS",
+  "keys": [
+   2536984
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sclerotinia",
+  "zh": "核盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580402
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 5
+ },
+ {
+  "name": "Hemiglossum",
+  "zh": "假地舌菌属",
+  "rank": "GENUS",
+  "keys": [
+   3489928
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Leucoglossum",
+  "zh": "白舌菌属",
+  "rank": "GENUS",
+  "keys": [
+   8271265
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Bulgaria",
+  "zh": "胶鼓菌属",
+  "rank": "GENUS",
+  "keys": [
+   9789778
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Myriodiscus",
+  "zh": "胶莓盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2584377
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Cudonia",
+  "zh": "地锤菌属",
+  "rank": "GENUS",
+  "keys": [
+   2578992
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 4
+ },
+ {
+  "name": "Spathularia",
+  "zh": "地匙菌属",
+  "rank": "GENUS",
+  "keys": [
+   2537017
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 3
+ },
+ {
+  "name": "Spathulariopsis",
+  "zh": "拟地匙菌属",
+  "rank": "GENUS",
+  "keys": [
+   2578989
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Colpoma",
+  "zh": "弯壳菌属",
+  "rank": "GENUS",
+  "keys": [
+   2579423
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Neolecta",
+  "zh": "无丝盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2599663
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ascobolus",
+  "zh": "粪盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   9076535
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 4
+ },
+ {
+  "name": "Wolfina",
+  "zh": "沃尔夫盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   8031990
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Discina",
+  "zh": "平盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593354
+  ],
+  "match": "manual",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Gyromitra",
+  "zh": "鹿花菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593331
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 3
+ },
+ {
+  "name": "Hydnotrya",
+  "zh": "腔块菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593381
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Balsamia",
+  "zh": "胶枞块菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594687
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Helvella",
+  "zh": "马鞍菌属",
+  "rank": "GENUS",
+  "keys": [
+   2521377
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 11
+ },
+ {
+  "name": "Paxina",
+  "zh": "伞盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   7438153
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Wynnella",
+  "zh": "小丛耳属",
+  "rank": "GENUS",
+  "keys": [
+   2594841
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Psilopezia",
+  "zh": "裸盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2553166
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Disciotis",
+  "zh": "皱盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594660
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Morchella",
+  "zh": "羊肚菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594601
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Verpa",
+  "zh": "钟菌属",
+  "rank": "GENUS",
+  "keys": [
+   5259065
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Pachyella",
+  "zh": "厚盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2595013
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Peziza",
+  "zh": "盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   8766080
+  ],
+  "match": "manual",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Plicaria",
+  "zh": "摺盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594530
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sarcosphaera",
+  "zh": "球肉盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594998
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Terfezia",
+  "zh": "地菇属",
+  "rank": "GENUS",
+  "keys": [
+   2593142
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Acervus",
+  "zh": "小孢盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594529
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Aleuria",
+  "zh": "网孢盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2581719
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Aleurina",
+  "zh": "饰孢盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594089
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ascosparassis",
+  "zh": "绣球盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   3495993
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Cheilymenia",
+  "zh": "缘刺盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2580622
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Genabea",
+  "zh": "假基块菌属",
+  "rank": "GENUS",
+  "keys": [
+   3295957
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Genea",
+  "zh": "囊被块菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593379
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Geopora",
+  "zh": "地孔菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593329
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 20
+ },
+ {
+  "name": "Geopyxis",
+  "zh": "地杯菌属",
+  "rank": "GENUS",
+  "keys": [
+   2581684
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Humaria",
+  "zh": "土盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   5255238
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 16
+ },
+ {
+  "name": "Hydnocystis",
+  "zh": "腔囊块菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593232
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Jafnea",
+  "zh": "南费盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   3496429
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Melastiza",
+  "zh": "弯毛盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593966
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Moravecia",
+  "zh": "毛氏盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   3269108
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Otidea",
+  "zh": "侧盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593788
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Rhodoscypha",
+  "zh": "瑰丽盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594537
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Scutellinia",
+  "zh": "盾盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2586663
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sowerbyella",
+  "zh": "索氏盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594515
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Tarzetta",
+  "zh": "疣杯菌属",
+  "rank": "GENUS",
+  "keys": [
+   2583500
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Tricharina",
+  "zh": "薄毛盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594555
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Rhizina",
+  "zh": "根盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2577817
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Aurophora",
+  "zh": "耳盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594975
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Cookeina",
+  "zh": "毛杯菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594928
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 19
+ },
+ {
+  "name": "Microstoma",
+  "zh": "小口盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594890
+  ],
+  "match": "manual",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Phillipsia",
+  "zh": "歪盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2594888
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Pithya",
+  "zh": "柏小艳盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2586427
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sarcoscypha",
+  "zh": "肉杯菌属",
+  "rank": "GENUS",
+  "keys": [
+   2581823
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Wynnea",
+  "zh": "丛耳属",
+  "rank": "GENUS",
+  "keys": [
+   3497649
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Galiella",
+  "zh": "盖尔盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593441
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Plectania",
+  "zh": "暗盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593447
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Pseudoplectania",
+  "zh": "假黑盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593402
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sarcosoma",
+  "zh": "肉盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593412
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Urnula",
+  "zh": "脚瓶盘菌属",
+  "rank": "GENUS",
+  "keys": [
+   2584415
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Choiromyces",
+  "zh": "猪块菌属",
+  "rank": "GENUS",
+  "keys": [
+   2593180
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Paradoxa",
+  "zh": "奇块菌属",
+  "rank": "GENUS",
+  "keys": [
+   3269109
+  ],
+  "match": "DOUBTFUL",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Tuber",
+  "zh": "块菌属",
+  "rank": "GENUS",
+  "keys": [
+   8282501
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 19
+ },
+ {
+  "name": "Claviceps",
+  "zh": "麦角菌属",
+  "rank": "GENUS",
+  "keys": [
+   2562525
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Metacordyceps",
+  "zh": "绿僵虫草属",
+  "rank": "GENUS",
+  "keys": [
+   2562708
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 11
+ },
+ {
+  "name": "Metarhizium",
+  "zh": "绿僵菌属",
+  "rank": "GENUS",
+  "keys": [
+   2562464
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 26
+ },
+ {
+  "name": "Cordyceps",
+  "zh": "虫草属",
+  "rank": "GENUS",
+  "keys": [
+   2560661,
+   7532950
+  ],
+  "match": "manual",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 9
+ },
+ {
+  "name": "Isaria",
+  "zh": "棒束孢属",
+  "rank": "GENUS",
+  "keys": [
+   5237309
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Phytocordyceps",
+  "zh": "植生虫草属",
+  "rank": "GENUS",
+  "keys": [
+   3287901,
+   2560661
+  ],
+  "match": "SYNONYM",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 7
+ },
+ {
+  "name": "Torrubiella",
+  "zh": "锥壳属",
+  "rank": "GENUS",
+  "keys": [
+   2560482
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Hypocrea",
+  "zh": "肉座菌属",
+  "rank": "GENUS",
+  "keys": [
+   2553183
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Podostroma",
+  "zh": "肉座壳属",
+  "rank": "GENUS",
+  "keys": [
+   2561566
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Drechmeria",
+  "zh": "掘氏梅里霉属",
+  "rank": "GENUS",
+  "keys": [
+   2562534
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ophiocordyceps",
+  "zh": "线虫草属",
+  "rank": "GENUS",
+  "keys": [
+   2560546
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 21
+ },
+ {
+  "name": "Perennicordyceps",
+  "zh": "多年虫草属",
+  "rank": "GENUS",
+  "keys": [
+   8043943
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Polycephalomyces",
+  "zh": "多头菌属",
+  "rank": "GENUS",
+  "keys": [
+   2562129
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 6
+ },
+ {
+  "name": "Tolypocladium",
+  "zh": "弯颈霉属",
+  "rank": "GENUS",
+  "keys": [
+   2561405
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 3
+ },
+ {
+  "name": "Daldinia",
+  "zh": "轮层炭壳属",
+  "rank": "GENUS",
+  "keys": [
+   2576892
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 4
+ },
+ {
+  "name": "Engleromyces",
+  "zh": "肉球菌属",
+  "rank": "GENUS",
+  "keys": [
+   2576280
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Hypoxylon",
+  "zh": "炭团菌属",
+  "rank": "GENUS",
+  "keys": [
+   2560481
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 3
+ },
+ {
+  "name": "Xylaria",
+  "zh": "炭角菌属",
+  "rank": "GENUS",
+  "keys": [
+   2568748
+  ],
+  "match": "ACCEPTED",
+  "group": "ascomycete_genus",
+  "records_before_dedupe": 16
+ },
+ {
+  "name": "Arthoniaceae",
+  "zh": "斑衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8363
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 17
+ },
+ {
+  "name": "Chrysotrichaceae",
+  "zh": "金絮衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4281419
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Melaspileaceae",
+  "zh": "黑斑衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8360
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Opegraphaceae",
+  "zh": "孔文衣科",
+  "rank": "FAMILY",
+  "keys": [
+   3305494
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Roccellaceae",
+  "zh": "染料衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8359
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Coniocybaceae",
+  "zh": "粉头衣科",
+  "rank": "FAMILY",
+  "keys": [
+   6243
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Abrothallaceae",
+  "zh": "纤柔菌科",
+  "rank": "FAMILY",
+  "keys": [
+   8401066
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Lichenoconiaceae",
+  "zh": "衣外菌科",
+  "rank": "FAMILY",
+  "keys": [
+   7839992
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Monoblastiaceae",
+  "zh": "单芽菌科",
+  "rank": "FAMILY",
+  "keys": [
+   4843
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Mycosphaerellaceae",
+  "zh": "球囊菌科",
+  "rank": "FAMILY",
+  "keys": [
+   4797
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 22
+ },
+ {
+  "name": "Arthopyreniaceae",
+  "zh": "星核衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8356
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Strigulaceae",
+  "zh": "叶上衣科",
+  "rank": "FAMILY",
+  "keys": [
+   1945
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Trypetheliaceae",
+  "zh": "乳嘴衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4845
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Xanthopyreniaceae",
+  "zh": "黄核衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8351
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Mycocaliciaceae",
+  "zh": "粉衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4844
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Celotheliaceae",
+  "zh": "干瘤菌科",
+  "rank": "FAMILY",
+  "keys": [
+   8353
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Pyrenulaceae",
+  "zh": "小核衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8352
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Verrucariaceae",
+  "zh": "瓶口衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4841
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 19
+ },
+ {
+  "name": "Acarosporaceae",
+  "zh": "微孢衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8347
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 6
+ },
+ {
+  "name": "Arctomiaceae",
+  "zh": "极地衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4838
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Anamylopsoraceae",
+  "zh": "柄盘衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4839,
+   8345
+  ],
+  "match": "SYNONYM",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Baeomycetaceae",
+  "zh": "羊角衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8345
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Trapeliaceae",
+  "zh": "褐边衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8344
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Xylographaceae",
+  "zh": "木刻衣科",
+  "rank": "FAMILY",
+  "keys": [
+   3557381
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Caliciaceae",
+  "zh": "粉衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4115
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Candelariaceae",
+  "zh": "黄烛衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8343
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Hymeneliaceae",
+  "zh": "膜衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4829
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Arthrorhaphidaceae",
+  "zh": "珠节衣科",
+  "rank": "FAMILY",
+  "keys": [
+   6242
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Brigantiaeaceae",
+  "zh": "锈疣衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4834
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Carbonicolaceae",
+  "zh": "炭菌科",
+  "rank": "FAMILY",
+  "keys": [
+   7430970
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Elixiaceae",
+  "zh": "盘耳衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4109
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Fuscideaceae",
+  "zh": "棕网盘科",
+  "rank": "FAMILY",
+  "keys": [
+   8367
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ophioparmaceae",
+  "zh": "盾叶衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8365
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Protothelenellaceae",
+  "zh": "原乳衣科",
+  "rank": "FAMILY",
+  "keys": [
+   6244
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Ropalosporaceae",
+  "zh": "锥形孢科",
+  "rank": "FAMILY",
+  "keys": [
+   4110
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Thelenellaceae",
+  "zh": "乳衣科",
+  "rank": "FAMILY",
+  "keys": [
+   6245
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Biatorellaceae",
+  "zh": "小蜡盘科",
+  "rank": "FAMILY",
+  "keys": [
+   8341
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Byssolomataceae",
+  "zh": "旋衣科",
+  "rank": "FAMILY",
+  "keys": [
+   3563348
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Cladoniaceae",
+  "zh": "石蕊科",
+  "rank": "FAMILY",
+  "keys": [
+   8328
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 16
+ },
+ {
+  "name": "Crocyniaceae",
+  "zh": "棉絮衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4842
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Haematommataceae",
+  "zh": "赤星衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8325
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Lecanoraceae",
+  "zh": "茶渍科",
+  "rank": "FAMILY",
+  "keys": [
+   4828
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 16
+ },
+ {
+  "name": "Malmideaceae",
+  "zh": "柄座衣科",
+  "rank": "FAMILY",
+  "keys": [
+   6755203
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Megalariaceae",
+  "zh": "托盘衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8319
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Mycoblastaceae",
+  "zh": "黑红衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8310
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Parmeliaceae",
+  "zh": "梅衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8305
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 117
+ },
+ {
+  "name": "Psilolechiaceae",
+  "zh": "裸衣科",
+  "rank": "FAMILY",
+  "keys": [
+   9736942
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Psoraceae",
+  "zh": "鳞网衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4813
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Ramalinaceae",
+  "zh": "树花科",
+  "rank": "FAMILY",
+  "keys": [
+   4812
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 9
+ },
+ {
+  "name": "Ramboldiaceae",
+  "zh": "果衣科",
+  "rank": "FAMILY",
+  "keys": [
+   9674650
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Scoliciosporaceae",
+  "zh": "绦孢衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4811
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sphaerophoraceae",
+  "zh": "球粉衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4810
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Sporastatiaceae",
+  "zh": "多孢衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8428462
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Squamarinaceae",
+  "zh": "鳞茶渍科",
+  "rank": "FAMILY",
+  "keys": [
+   3272067
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Stereocaulaceae",
+  "zh": "珊瑚枝科",
+  "rank": "FAMILY",
+  "keys": [
+   8302
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Strangosporaceae",
+  "zh": "峡孢菌科",
+  "rank": "FAMILY",
+  "keys": [
+   9797927
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Lecideaceae",
+  "zh": "网衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8296
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Leprocaulaceae",
+  "zh": "绒枝科",
+  "rank": "FAMILY",
+  "keys": [
+   9439202
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Coenogoniaceae",
+  "zh": "绒衣科",
+  "rank": "FAMILY",
+  "keys": [
+   5857
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Gomphillaceae",
+  "zh": "楔形衣科",
+  "rank": "FAMILY",
+  "keys": [
+   2161
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Graphidaceae",
+  "zh": "文字衣科",
+  "rank": "FAMILY",
+  "keys": [
+   2176
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Gyalectaceae",
+  "zh": "凹盘衣科",
+  "rank": "FAMILY",
+  "keys": [
+   2149
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Phlyctidaceae",
+  "zh": "疱衣菌科",
+  "rank": "FAMILY",
+  "keys": [
+   5838
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Porinaceae",
+  "zh": "污核衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8391
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Stictidaceae",
+  "zh": "点盘菌科",
+  "rank": "FAMILY",
+  "keys": [
+   8390
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Coccocarpiaceae",
+  "zh": "瓦衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8389
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Collemataceae",
+  "zh": "胶衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8377
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Lobariaceae",
+  "zh": "肺衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8375
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 11
+ },
+ {
+  "name": "Nephromataceae",
+  "zh": "肾盘衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8374
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Pannariaceae",
+  "zh": "鳞叶衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4119
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 3
+ },
+ {
+  "name": "Peltigeraceae",
+  "zh": "地卷科",
+  "rank": "FAMILY",
+  "keys": [
+   8373
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 1
+ },
+ {
+  "name": "Placynthiaceae",
+  "zh": "胎座衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4118
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Coccotremataceae",
+  "zh": "球孔衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4117
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Icmadophilaceae",
+  "zh": "霜降衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8372
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 5
+ },
+ {
+  "name": "Megasporaceae",
+  "zh": "大孢衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4116
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 2
+ },
+ {
+  "name": "Ochrolechiaceae",
+  "zh": "肉疣衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4114
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Pertusariaceae",
+  "zh": "鸡皮衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4113
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Catillariaceae",
+  "zh": "腊肠衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4833
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Rhizocarpaceae",
+  "zh": "地图衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8371
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Letrouitiaceae",
+  "zh": "多极孢衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8370
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Megalosporaceae",
+  "zh": "大孢衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4112
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Physciaceae",
+  "zh": "蜈蚣衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8369
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 4
+ },
+ {
+  "name": "Teloschistaceae",
+  "zh": "黄枝衣科",
+  "rank": "FAMILY",
+  "keys": [
+   8368
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 11
+ },
+ {
+  "name": "Umbilicariaceae",
+  "zh": "石耳科",
+  "rank": "FAMILY",
+  "keys": [
+   4108
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Vezdaeaceae",
+  "zh": "维氏衣科",
+  "rank": "FAMILY",
+  "keys": [
+   5750
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Lichinaceae",
+  "zh": "异极衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4104
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Peltulaceae",
+  "zh": "盾衣科",
+  "rank": "FAMILY",
+  "keys": [
+   4103
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 0
+ },
+ {
+  "name": "Hygrophoraceae",
+  "zh": "蜡伞科",
+  "rank": "FAMILY",
+  "keys": [
+   4176
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 410
+ },
+ {
+  "name": "Tricholomataceae",
+  "zh": "口蘑科",
+  "rank": "FAMILY",
+  "keys": [
+   8787
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 538
+ },
+ {
+  "name": "Clavulinaceae",
+  "zh": "锁珊菌科",
+  "rank": "FAMILY",
+  "keys": [
+   8459
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 26
+ },
+ {
+  "name": "Corticiaceae",
+  "zh": "伏革菌科",
+  "rank": "FAMILY",
+  "keys": [
+   8461
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 7
+ },
+ {
+  "name": "Tremellaceae",
+  "zh": "银耳科",
+  "rank": "FAMILY",
+  "keys": [
+   3827
+  ],
+  "match": "ACCEPTED",
+  "group": "lichen_family",
+  "records_before_dedupe": 19
+ },
+ {
+  "name": "Agaricomycetes",
+  "zh": "",
+  "rank": "CLASS",
+  "keys": [
+   186
+  ],
+  "match": "class",
+  "group": "basidiomycete_class",
+  "records_before_dedupe": 11430
+ },
+ {
+  "name": "Dacrymycetes",
+  "zh": "",
+  "rank": "CLASS",
+  "keys": [
+   273
+  ],
+  "match": "class",
+  "group": "basidiomycete_class",
+  "records_before_dedupe": 19
+ },
+ {
+  "name": "Tremellomycetes",
+  "zh": "",
+  "rank": "CLASS",
+  "keys": [
+   149
+  ],
+  "match": "class",
+  "group": "basidiomycete_class",
+  "records_before_dedupe": 770
+ }
+]

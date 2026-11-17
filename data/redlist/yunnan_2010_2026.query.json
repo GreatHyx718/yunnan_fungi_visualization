@@ -1,0 +1,44 @@
+{
+  "retrieved": "2026-11-12",
+  "source": "GBIF occurrence search API (api.gbif.org/v1/occurrence/search)",
+  "filters": {
+    "country": "CN",
+    "gadmGid": "CHN.30_1",
+    "hasCoordinate": "true",
+    "hasGeospatialIssue": "false",
+    "year": "2010,2026"
+  },
+  "taxonKey_count": 203,
+  "scope": {
+    "ascomycete_genera": 107,
+    "lichen_families": 92,
+    "basidiomycete_classes": [
+      "Agaricomycetes",
+      "Dacrymycetes",
+      "Tremellomycetes"
+    ]
+  },
+  "api_total": 12764,
+  "records_total": 12764,
+  "records_kept": 918,
+  "records_excluded": {
+    "lichen_family": 211,
+    "material_sample_non_soil": 195,
+    "marburg_2014": 631,
+    "soil_dna": 10809
+  },
+  "exclusion_rules": {
+    "soil_dna": "basisOfRecord=MATERIAL_SAMPLE and datasetKey in {\"9f0e1ca6-fb08-4c72-9a4a-1e3b7a528c10\": \"Tedersoo et al. global soil samples\", \"bd14614c-4d72-4763-8710-1cea514311cc\": \"EUKARYOME\"}",
+    "marburg_2014": "datasetKey=c711c16e-8db5-4f66-aa06-03d9e472fbbc and year=2014",
+    "material_sample_non_soil": "basisOfRecord=MATERIAL_SAMPLE (any other dataset: GenBank, iBOL, airborne spore sampling)",
+    "lichen_family": "family is one of the 92 lichen families and class is not Agaricomycetes, Dacrymycetes or Tremellomycetes",
+    "order": "first match wins, in the order listed"
+  },
+  "files": {
+    "kept": "yunnan_2010_2026.jsonl",
+    "excluded_soil_dna": "excluded_soil_dna.jsonl",
+    "excluded_other": "excluded_other.jsonl",
+    "taxa": "taxa_keys.json"
+  },
+  "refiltered": "2026-11-14"
+}

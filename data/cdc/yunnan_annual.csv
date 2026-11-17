@@ -1,0 +1,8 @@
+﻿year,incidents,patients,deaths,fatality_pct,note
+2019,,,14,,deaths from text sentence; no table row
+2020,81,244,7,2.87,
+2021,59,200,4,2.00,
+2022,131,404,9,2.23,
+2023,81,225,1,0.44,
+2024,99,281,0,0,
+2025,109,261,2,0.77,

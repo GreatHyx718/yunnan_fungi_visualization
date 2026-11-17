@@ -1,0 +1,21 @@
+﻿month,rank,genus,family,records,species_n,species,records_with_toxicity_flag,records_all_months,month_total_records,month_total_genera,tie_note
+6,1,Butyriboletus,Boletaceae,12,1,Butyriboletus roseoflavus (12),12,27,26,11,
+6,2,Coprinus,Agaricaceae,5,1,Coprinus comatus (5),5,9,26,11,
+6,3,Boletus,Boletaceae,1,1,Boletus sinoedulis (1),0,9,26,11,与另外 8 个属并列 1 条
+6,4,Phallus,Phallaceae,1,1,Phallus indusiatus (1),0,7,26,11,与另外 8 个属并列 1 条
+6,5,Schizophyllum,Schizophyllaceae,1,1,Schizophyllum commune (1),0,7,26,11,与另外 8 个属并列 1 条
+7,1,Thelephora,Thelephoraceae,5,1,Thelephora ganbajun (5),0,16,31,21,
+7,2,Amanita,Amanitaceae,4,3,Amanita hemibapha (2); Amanita pseudoporphyria (1); Amanita sinensis (1),1,15,31,21,
+7,3,Tricholoma,Tricholomataceae,2,1,Tricholoma matsutake (2),0,9,31,21,与另外 2 个属并列 2 条
+7,4,Phallus,Phallaceae,2,2,Phallus indusiatus (1); Phallus rubrovolvatus (1),0,7,31,21,与另外 2 个属并列 2 条
+7,5,Sutorius,Boletaceae,2,1,Sutorius brunneissimus (2),0,4,31,21,与另外 2 个属并列 2 条
+8,1,Amanita,Amanitaceae,9,5,Amanita ochracea (4); Amanita hemibapha (2); Amanita fritillaria (1); Amanita pseudoporphyria (1); Amanita sinensis (1),2,15,78,33,与另外 1 个属并列 9 条
+8,2,Suillus,Suillaceae,9,6,Suillus kunmingensis (3); Suillus granulatus (2); Suillus americanus (1); Suillus phylopictus (1); Suillus pinetorum (1); Suillus placidus (1),4,10,78,33,与另外 1 个属并列 9 条
+8,3,Thelephora,Thelephoraceae,8,1,Thelephora ganbajun (8),0,16,78,33,
+8,4,Tricholoma,Tricholomataceae,7,1,Tricholoma matsutake (7),0,9,78,33,
+8,5,Boletus,Boletaceae,4,3,Boletus reticuloceps (2); Boletus sinoedulis (1); Boletus violaceofuscus (1),0,9,78,33,
+9,1,Boletus,Boletaceae,2,2,Boletus reticuloceps (1); Boletus violaceofuscus (1),0,9,17,14,与另外 2 个属并列 2 条
+9,2,Helvella,Helvellaceae,2,1,Helvella crispa (2),2,4,17,14,与另外 2 个属并列 2 条
+9,3,Polyozellus,Thelephoraceae,2,1,Polyozellus multiplex (2),0,2,17,14,与另外 2 个属并列 2 条
+9,4,Butyriboletus,Boletaceae,1,1,Butyriboletus roseoflavus (1),1,27,17,14,与另外 10 个属并列 1 条
+9,5,Thelephora,Thelephoraceae,1,1,Thelephora ganbajun (1),0,16,17,14,与另外 10 个属并列 1 条

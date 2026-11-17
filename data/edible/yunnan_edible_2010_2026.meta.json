@@ -1,0 +1,25 @@
+{
+  "built": "2026-11-17",
+  "input": "data/redlist/yunnan_2010_2026_combined.jsonl",
+  "records_in": 1188,
+  "records_edible": 199,
+  "species": 87,
+  "genera": 58,
+  "records_edible_status": {
+    "edible": 139,
+    "edible_with_toxicity_flag": 60
+  },
+  "rule": "Species-level match of the GBIF species name (and GBIF synonyms) to Wu 2019 Table 1 and Zhang 2021 Table 2. A record is kept if either source marks the species edible (E), including species the sources also mark poisonous (P). Records identified only to genus, and species not listed as edible, are not included.",
+  "fields_added": [
+    "edible_status",
+    "edible_source",
+    "toxicity_flag_source",
+    "literature_name"
+  ],
+  "files": [
+    "yunnan_edible_2010_2026.jsonl",
+    "yunnan_edible_2010_2026.csv",
+    "edible_genera.csv",
+    "reference_tables/"
+  ]
+}

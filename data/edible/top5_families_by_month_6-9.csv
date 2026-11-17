@@ -1,0 +1,21 @@
+﻿month,rank,family,records,genus_n,species_n,genera,records_with_toxicity_flag,records_all_months,month_total_records,month_total_families,tie_note
+6,1,Boletaceae,14,3,3,Butyriboletus (12); Boletus (1); Rugiboletus (1),12,53,26,7,
+6,2,Agaricaceae,6,2,2,Coprinus (5); Agaricus (1),5,13,26,7,
+6,3,Phallaceae,2,2,2,Phallus (1); Pseudocolus (1),0,8,26,7,
+6,4,Schizophyllaceae,1,1,1,Schizophyllum (1),0,7,26,7,与另外 3 个科并列 1 条
+6,5,Lycoperdaceae,1,1,1,Calvatia (1),0,6,26,7,与另外 3 个科并列 1 条
+7,1,Boletaceae,8,7,7,Sutorius (2); Baorangia (1); Boletellus (1); Boletus (1); Hourangia (1); Phylloporus (1); Retiboletus (1),2,53,31,13,
+7,2,Thelephoraceae,5,1,1,Thelephora (5),0,18,31,13,与另外 1 个科并列 5 条
+7,3,Amanitaceae,5,2,4,Amanita (4); Zhuliangomyces (1),1,16,31,13,与另外 1 个科并列 5 条
+7,4,Russulaceae,2,2,2,Lactarius (1); Lactifluus (1),0,9,31,13,与另外 2 个科并列 2 条
+7,5,Tricholomataceae,2,1,1,Tricholoma (2),0,9,31,13,与另外 2 个科并列 2 条
+8,1,Boletaceae,13,7,9,Boletus (4); Rubroboletus (3); Sutorius (2); Butyriboletus (1); Lanmaoa (1); Rugiboletus (1); Xerocomus (1),5,53,78,22,
+8,2,Amanitaceae,9,1,5,Amanita (9),2,16,78,22,与另外 1 个科并列 9 条
+8,3,Suillaceae,9,1,6,Suillus (9),4,10,78,22,与另外 1 个科并列 9 条
+8,4,Thelephoraceae,8,1,1,Thelephora (8),0,18,78,22,
+8,5,Tricholomataceae,7,1,1,Tricholoma (7),0,9,78,22,
+9,1,Boletaceae,3,2,3,Boletus (2); Butyriboletus (1),1,53,17,12,与另外 1 个科并列 3 条
+9,2,Thelephoraceae,3,2,2,Polyozellus (2); Thelephora (1),0,18,17,12,与另外 1 个科并列 3 条
+9,3,Helvellaceae,2,1,1,Helvella (2),2,4,17,12,
+9,4,Amanitaceae,1,1,1,Amanita (1),0,16,17,12,与另外 8 个科并列 1 条
+9,5,Suillaceae,1,1,1,Suillus (1),0,10,17,12,与另外 8 个科并列 1 条

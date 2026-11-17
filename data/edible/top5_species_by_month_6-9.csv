@@ -1,0 +1,21 @@
+﻿month,rank,species,genus,family,records,records_all_months,edible_status,month_total_records,month_total_species,tie_note
+6,1,Butyriboletus roseoflavus,Butyriboletus,Boletaceae,12,27,edible_with_toxicity_flag,26,11,
+6,2,Coprinus comatus,Coprinus,Agaricaceae,5,9,edible_with_toxicity_flag,26,11,
+6,3,Schizophyllum commune,Schizophyllum,Schizophyllaceae,1,7,edible,26,11,与另外 8 个种并列 1 条
+6,4,Phallus indusiatus,Phallus,Phallaceae,1,5,edible,26,11,与另外 8 个种并列 1 条
+6,5,Agaricus campestris,Agaricus,Agaricaceae,1,2,edible,26,11,与另外 8 个种并列 1 条
+7,1,Thelephora ganbajun,Thelephora,Thelephoraceae,5,16,edible,31,24,
+7,2,Tricholoma matsutake,Tricholoma,Tricholomataceae,2,9,edible,31,24,与另外 2 个种并列 2 条
+7,3,Amanita hemibapha,Amanita,Amanitaceae,2,4,edible,31,24,与另外 2 个种并列 2 条
+7,4,Sutorius brunneissimus,Sutorius,Boletaceae,2,4,edible,31,24,与另外 2 个种并列 2 条
+7,5,Coprinus comatus,Coprinus,Agaricaceae,1,9,edible_with_toxicity_flag,31,24,与另外 19 个种并列 1 条
+8,1,Thelephora ganbajun,Thelephora,Thelephoraceae,8,16,edible,78,47,
+8,2,Tricholoma matsutake,Tricholoma,Tricholomataceae,7,9,edible,78,47,
+8,3,Amanita ochracea,Amanita,Amanitaceae,4,5,edible,78,47,
+8,4,Russula virescens,Russula,Russulaceae,3,4,edible,78,47,与另外 2 个种并列 3 条
+8,5,Rubroboletus sinicus,Rubroboletus,Boletaceae,3,3,edible_with_toxicity_flag,78,47,与另外 2 个种并列 3 条
+9,1,Helvella crispa,Helvella,Helvellaceae,2,4,edible_with_toxicity_flag,17,15,与另外 1 个种并列 2 条
+9,2,Polyozellus multiplex,Polyozellus,Thelephoraceae,2,2,edible,17,15,与另外 1 个种并列 2 条
+9,3,Butyriboletus roseoflavus,Butyriboletus,Boletaceae,1,27,edible_with_toxicity_flag,17,15,与另外 12 个种并列 1 条
+9,4,Thelephora ganbajun,Thelephora,Thelephoraceae,1,16,edible,17,15,与另外 12 个种并列 1 条
+9,5,Schizophyllum commune,Schizophyllum,Schizophyllaceae,1,7,edible,17,15,与另外 12 个种并列 1 条

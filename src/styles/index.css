@@ -1,0 +1,208 @@
+:root {
+  --ink: #2c2824;
+  --ink-soft: #5e584f;
+  --paper: #f4efe4;
+  --teal: #2f8f8a;
+  --ochre: #c47b32;
+  --serif-cn: "Noto Serif SC", "Songti SC", serif;
+  --serif-en: "Source Serif 4", "Noto Serif SC", serif;
+  --sans: "Noto Sans SC", "Source Serif 4", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+}
+
+.cover {
+  min-height: 100vh;
+}
+
+/* Cover: a 1920x1080 stage scaled like background-size: cover.
+   Children are positioned in % of the stage so they track the artwork. */
+.masthead {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.masthead-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100vw, 100dvh * 16 / 9);
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  background-size: 100% 100%;
+  container-type: inline-size;
+}
+
+.title-img,
+.subtitle-img {
+  position: absolute;
+  left: calc(202 / 1920 * 100%);
+  height: auto;
+  display: block;
+}
+
+.title-img {
+  top: calc(174 / 1080 * 100%);
+  width: calc(880 / 1920 * 100%);
+}
+
+.subtitle-img {
+  top: calc(600 / 1080 * 100%);
+  width: calc(776 / 1920 * 100%);
+}
+
+.authors {
+  position: absolute;
+  left: calc(206 / 1920 * 100%);
+  top: calc(750 / 1080 * 100%);
+  font-family: var(--serif-en);
+  color: #567855;
+}
+
+.authors p {
+  margin: 0;
+  font-size: 1.35cqw;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.authors .affiliation {
+  font-weight: 400;
+}
+
+/* ---- Page 2: taxonomy force-directed graphs ---- */
+.taxonomy {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 4.2rem 2rem 1rem;
+  overflow: hidden;
+  background: var(--paper);
+}
+.tax-head {
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.tax-head h2 {
+  margin: 0 0 0.3rem;
+  font-family: var(--serif-en);
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+.tax-head h2 span {
+  margin-left: 0.4rem;
+  font-family: var(--serif-cn);
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.tax-head p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.tax-stage {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 2rem;
+}
+.tax-graph {
+  margin: 0;
+  width: calc(var(--d) * 1px);
+  max-width: 100%;
+  text-align: center;
+}
+.tax-graph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  touch-action: pan-y;
+}
+.tax-graph figcaption {
+  margin-top: 0.3rem;
+  font-family: var(--serif-en);
+  color: var(--ink);
+}
+.tax-graph figcaption span {
+  margin-left: 0.6rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.tax-graph figcaption span[lang] {
+  font-family: var(--serif-cn);
+}
+.tax-region {
+  fill: rgba(47, 143, 138, 0.06);
+  stroke: rgba(47, 143, 138, 0.35);
+  stroke-dasharray: 4 5;
+}
+.tax-links line {
+  stroke: #9b9283;
+  stroke-width: 1;
+}
+.tax-node {
+  cursor: grab;
+}
+.tax-node circle {
+  stroke: var(--paper);
+  stroke-width: 1;
+}
+.tax-label {
+  font-family: var(--serif-en);
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 3px;
+  pointer-events: none;
+}
+.tax-label.phylum { font-size: 14px; font-weight: 600; }
+.tax-label.class { font-size: 11px; }
+.tax-label.order { font-size: 10px; }
+.tax-label.family { font-size: 8px; }
+.tax-label.genus { font-size: 7px; font-style: italic; }
+.tax-label.species { font-size: 7px; font-style: italic; }
+.tax-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.tax-legend span[lang] {
+  font-family: var(--serif-cn);
+}
+.tax-legend i {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+}
