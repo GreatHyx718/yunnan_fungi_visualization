@@ -68,12 +68,6 @@ body {
 .step-head {
   margin-bottom: 1.4rem;
 }
-.sec-num {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--p-400);
-}
 .step-head h2 {
   margin: 0.1rem 0 0.3rem;
   font-family: var(--font-display);

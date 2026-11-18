@@ -69,7 +69,6 @@ export default function Hotspots() {
   return (
     <Step
       id="hotspots"
-      num="07"
       en="Where the peak season is busiest"
       zh="高发地区与出菇日历"
       desc="Counties are shaded by records in June–September. Click a county to pick its prefecture; the calendar shows its top 8 families or genera by month."

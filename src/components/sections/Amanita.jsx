@@ -94,7 +94,6 @@ export default function Amanita() {
   return (
     <Step
       id="amanita"
-      num="08"
       en="One genus, two kinds of mushroom: Amanita"
       zh="鹅膏属：同一属里既有可食种，也有致命种"
       desc={`Amanita has ${totalAm} records in ${spCount.filter(([k]) => k !== "Unidentified species").length} species, ${am.length} with coordinates and ${peakAm} in June–September. It includes edible species such as A. hemibapha and lethal ones such as A. pseudoporphyria, which is why observation does not mean edibility.`}

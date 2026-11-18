@@ -14,12 +14,11 @@ export function Bi({ en, zh }) {
   );
 }
 
-export function Step({ id, num, en, zh, desc, descZh, children, wide }) {
+export function Step({ id, en, zh, desc, descZh, children, wide }) {
   return (
     <section className={`step${wide ? " wide" : ""}`} id={id}>
       <div className="step-inner">
         <header className="step-head">
-          <span className="sec-num">{num}</span>
           <h2>
             <Bi en={en} zh={zh} />
           </h2>

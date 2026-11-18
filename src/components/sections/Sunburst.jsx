@@ -135,7 +135,6 @@ export default function Sunburst() {
   return (
     <Step
       id="hierarchy"
-      num="01"
       en="Taxonomic hierarchy"
       zh="分类层级与范围"
       desc="1,188 GBIF records from Yunnan (2010–2026), all in kingdom Fungi. Arc length is the record count. Click an arc to zoom in, click the centre to go back."

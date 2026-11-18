@@ -35,7 +35,6 @@ export default function Top5() {
   return (
     <Step
       id="top5"
-      num="05"
       en="Top 5 families by month"
       zh="每月 top5（按科）"
       desc="Edible-range records only (199 records), counted by family with all years combined. This is a ranking of record counts, not of places."

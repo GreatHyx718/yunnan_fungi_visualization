@@ -57,7 +57,6 @@ export default function Poison() {
   return (
     <Step
       id="poisoning"
-      num="09"
       en="Part III · Poisoning in Yunnan"
       zh="云南中毒数据"
       desc="China CDC reports give province-level poisoning counts for Yunnan. They are shown next to the GBIF records, not combined with them."
@@ -67,19 +66,19 @@ export default function Poison() {
       <div className="tm-grid three">
         <div className="panel">
           <div className="panel-label">
-            <Bi en="9a · Patients per year" zh="年度中毒人数" /> <Badge kind="cdc">CDC</Badge>
+            <Bi en="Patients per year" zh="年度中毒人数" /> <Badge kind="cdc">CDC</Badge>
           </div>
           <Bars rows={annual.map((a) => ({ l: a.year, v: a.patients }))} x={null} y={yp} color={C.signal} label="patients" tip={tip} />
         </div>
         <div className="panel">
           <div className="panel-label">
-            <Bi en="9a · Deaths per year" zh="年度死亡数" /> <Badge kind="cdc">CDC</Badge>
+            <Bi en="Deaths per year" zh="年度死亡数" /> <Badge kind="cdc">CDC</Badge>
           </div>
           <Bars rows={annual.map((a) => ({ l: a.year, v: a.deaths }))} x={null} y={yd} color={C.signalDeep} label="deaths" tip={tip} />
         </div>
         <div className="panel">
           <div className="panel-label">
-            <Bi en="9b · Records, Jun–Sep, all years" zh="总记录 vs 毒蘑菇记录" /> <Badge kind="gbif">GBIF</Badge>
+            <Bi en="Records, Jun–Sep, all years" zh="总记录 vs 毒蘑菇记录" /> <Badge kind="gbif">GBIF</Badge>
           </div>
           <svg viewBox={`0 0 ${W} ${H}`} className="chart">
             {yt.ticks(5).map((t) => (
@@ -115,7 +114,7 @@ export default function Poison() {
 
       <div className="panel">
         <div className="panel-label">
-          <Bi en="9c · Poisoning incidents per month, 2025 only" zh="2025 年云南月度中毒起数" /> <Badge kind="cdc">CDC</Badge>
+          <Bi en="Poisoning incidents per month, 2025 only" zh="2025 年云南月度中毒起数" /> <Badge kind="cdc">CDC</Badge>
         </div>
         <svg viewBox={`0 0 ${W * 2} ${H}`} className="chart wide-chart">
           {y25.ticks(4).map((t) => (

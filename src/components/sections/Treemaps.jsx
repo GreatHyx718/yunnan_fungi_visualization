@@ -49,7 +49,6 @@ export default function Treemaps() {
   return (
     <Step
       id="composition"
-      num="04"
       en="What was recorded each month"
       zh="6–9 月每月的菌类构成"
       desc="One treemap per month, grouped by family. Tile area is the share of that month's records. Tiles marked ▲ contain records of species the literature also lists as poisonous."

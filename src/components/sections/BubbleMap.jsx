@@ -47,7 +47,6 @@ export default function BubbleMap() {
   return (
     <Step
       id="map"
-      num="02"
       en="Observations by prefecture and county"
       zh="各州市观测数量"
       desc="Prefectures give the boundaries; each bubble sits on a county and its area is proportional to the number of records."

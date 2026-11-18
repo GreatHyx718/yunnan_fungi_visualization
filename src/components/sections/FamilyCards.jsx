@@ -174,7 +174,6 @@ export default function FamilyCards() {
         <div className="cards-sticky">
           <div className="step-inner">
             <header className="step-head">
-              <span className="sec-num">06</span>
               <h2>
                 <Bi en="Family cards" zh="每月 top5 科名片" />
               </h2>

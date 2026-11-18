@@ -31,7 +31,6 @@ export default function MonthBars() {
   return (
     <Step
       id="months"
-      num="03"
       en="Observations by month"
       zh="月份间观测数量"
       desc={`Records peak from June to September (${fmt(peakN)} of ${fmt(records.length - noMonth)} records with a month). Each bar is split into records in the edible range and all others.`}

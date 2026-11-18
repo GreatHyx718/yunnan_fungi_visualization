@@ -1,5 +1,5 @@
 import Cover from "./components/layout/Cover.jsx";
-import Sunburst from "./components/sections/Sunburst.jsx";
+import Sunburst from "./components/sections/HierarchyNetwork.jsx";
 import BubbleMap from "./components/sections/BubbleMap.jsx";
 import MonthBars from "./components/sections/MonthBars.jsx";
 import Treemaps from "./components/sections/Treemaps.jsx";
