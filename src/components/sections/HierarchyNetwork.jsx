@@ -76,6 +76,7 @@ export default function HierarchyNetwork() {
     const timers = [];
     let anim = 0;
     let flyAnim = 0;
+    let zoomAnim = 0;
     const later = (fn, ms) => {
       timers.push(setTimeout(fn, ms));
     };
@@ -325,7 +326,7 @@ export default function HierarchyNetwork() {
       return [r.width, r.height];
     };
     const zoomer = zoom()
-      .scaleExtent([0.15, 8])
+      .scaleExtent([0.3, 8])
       .filter((e) => (e.type === "wheel" ? e.ctrlKey || e.metaKey : !e.button))
       .on("zoom", (e) => {
         view.attr("transform", e.transform);
@@ -371,6 +372,7 @@ export default function HierarchyNetwork() {
     function goTo(target) {
       if (busy || target === focus) return;
       busy = true;
+      cancelAnimationFrame(zoomAnim);
       hover = null;
       setTip(null);
       const shown = new Set(nodes.map((n) => n.id));
@@ -469,7 +471,38 @@ export default function HierarchyNetwork() {
         const target = ancestorsOf(focus).concat(nodes).find((n) => n.id === id);
         if (target) goTo(target);
       },
-      zoomBy: (f) => svg.call(zoomer.scaleBy, f),
+      // +/- scale the whole map about the focus dot (the root "云南菌菇" in the opening view).
+      // The dot's position is read from what is drawn; if it is out of the box, use the box centre.
+      zoomBy: (f) => {
+        if (busy) return;
+        cancelAnimationFrame(zoomAnim);
+        const cur = svg.property("__zoom");
+        const [w, h] = size();
+        if (!cur || !Number.isFinite(cur.k) || !w || !h) return;
+        let px = NaN, py = NaN;
+        const dot = nodeSel.filter((d) => d === focus).select(".fn-dot").node();
+        if (dot) {
+          const r = dot.getBoundingClientRect();
+          const box = wrap.getBoundingClientRect();
+          px = r.left + r.width / 2 - box.left;
+          py = r.top + r.height / 2 - box.top;
+        }
+        if (!(px > 0 && px < w && py > 0 && py < h)) [px, py] = [w / 2, h / 2];
+        const k1 = Math.max(0.3, Math.min(8, cur.k * f));
+        const r = k1 / cur.k;
+        const to = { x: px - (px - cur.x) * r, y: py - (py - cur.y) * r, k: k1 };
+        const t0 = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - t0) / 220);
+          const e = ease(p);
+          svg.call(
+            zoomer.transform,
+            zoomIdentity.translate(cur.x + (to.x - cur.x) * e, cur.y + (to.y - cur.y) * e).scale(cur.k + (to.k - cur.k) * e),
+          );
+          if (p < 1) zoomAnim = requestAnimationFrame(step);
+        };
+        zoomAnim = requestAnimationFrame(step);
+      },
       refit: () => flyTo(fitSlots()),
       up: () => focus.parent && goTo(focus.parent),
       down: () => {
@@ -481,6 +514,7 @@ export default function HierarchyNetwork() {
       timers.forEach(clearTimeout);
       cancelAnimationFrame(anim);
       cancelAnimationFrame(flyAnim);
+      cancelAnimationFrame(zoomAnim);
       clearTimeout(wheelReset);
       sim.stop();
       svgRef.current?.removeEventListener("wheel", onWheel);

@@ -68,3 +68,45 @@
     height: 80vh;
   }
 }
+
+/* Scrolling text blocks: each block has its own vertical rule. The block that belongs to the
+   chart state on screen is dark, the others are grey (as in the Wagyu reference). */
+.story-col--blocks {
+  padding: 0;
+  border-right: 0;
+}
+.story-block {
+  margin-bottom: 42vh;
+  padding: 0.4rem 1.6rem 0.6rem 0;
+  border-right: 2px solid #cfcfcf;
+  color: #b4b4b4;
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+.story-block:last-child {
+  margin-bottom: 36vh;
+}
+.story-block.is-active {
+  border-right-color: var(--text-1);
+}
+.story-block .story-head h2 {
+  color: inherit;
+}
+.story-block p {
+  margin: 0 0 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: inherit;
+}
+.story-block.is-active .story-head h2 {
+  color: var(--text-1);
+}
+.story-block.is-active p {
+  color: var(--text-2);
+}
+@media (max-width: 900px) {
+  .story-block {
+    margin-bottom: 2rem;
+    border-right: 0;
+    padding-right: 0;
+  }
+}

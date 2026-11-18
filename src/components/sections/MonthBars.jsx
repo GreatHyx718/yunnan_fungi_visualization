@@ -1,14 +1,43 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { scaleLinear } from "d3-scale";
 import { C, MONTH_ABBR, PEAK, fmt, records } from "../../utils/theme.js";
-import { Bi, Note, Step, useTip } from "../../utils/ui.jsx";
+import { useTip } from "../../utils/ui.jsx";
+import "../../styles/storyLayout.css";
 
 const W = 880;
 const H = 360;
 const PAD = { l: 48, r: 16, t: 20, b: 40 };
+// Months outside the highlight: greys with the same lightness as the light greens they replace
+// (#a8c1b1 -> #b8b8b8, #d4e0d8 -> #dcdcdc).
+const MUTED_EDIBLE = "#b8b8b8";
+const MUTED_OTHER = "#dcdcdc";
 
 export default function MonthBars() {
   const tip = useTip();
+  // phase 0: all twelve months look alike; phase 1: June–September are highlighted
+  const [phase, setPhase] = useState(0);
+  const stepRefs = useRef([]);
+  // June–September light up once the second paragraph has scrolled into the upper part of the screen,
+  // and fall back when the reader scrolls up again
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const el = stepRefs.current[1];
+      if (el) setPhase(el.getBoundingClientRect().top < window.innerHeight * 0.55 ? 1 : 0);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
   const { rows, noMonth } = useMemo(() => {
     const rows = Array.from({ length: 12 }, (_, i) => ({ m: i + 1, edible: 0, other: 0 }));
     let noMonth = 0;
@@ -27,17 +56,31 @@ export default function MonthBars() {
     .range([H - PAD.b, PAD.t]);
   const bw = (W - PAD.l - PAD.r) / 12;
   const peakN = rows.filter((r) => PEAK.includes(r.m)).reduce((a, r) => a + r.edible + r.other, 0);
+  const withMonth = records.length - noMonth;
+  const peakShare = Math.round((peakN / withMonth) * 100);
+  const august = rows[7].edible + rows[7].other;
 
   return (
-    <Step
-      id="months"
-      en="Observations by month"
-      zh="月份间观测数量"
-      desc={`Records peak from June to September (${fmt(peakN)} of ${fmt(records.length - noMonth)} records with a month). Each bar is split into records in the edible range and all others.`}
-      descZh="6–9 月为高发期；每根柱分为可食范围内与其他。"
-    >
-      <div className="panel">
-        <svg viewBox={`0 0 ${W} ${H}`} className="chart" role="img" aria-label="Stacked bar chart of records per month">
+    <section id="months" className="story-section">
+      <div className="story-col story-col--blocks">
+        <div className={`story-block${phase === 0 ? " is-active" : ""}`}>
+          <header className="story-head">
+            <h2>Observations by month</h2>
+          </header>
+          <p>Grandma never checks a calendar; she watches the sky. The data is blunter.</p>
+        </div>
+        <div className={`story-block${phase === 1 ? " is-active" : ""}`}>
+          <p ref={(el) => (stepRefs.current[1] = el)}>
+            There are {fmt(peakN)} entries from June to September, accounting for approximately {peakShare}% of the records that include
+            month information. August has the highest number, with {fmt(august)} entries.
+          </p>
+          <p>June, July, August, and September, the four months. Let&rsquo;s open the basket month by month.</p>
+        </div>
+      </div>
+
+      <div className="story-stage month-stage">
+        <div className="month-chart">
+          <svg viewBox={`0 0 ${W} ${H}`} className="chart" role="img" aria-label="Stacked bar chart of records per month">
           {y.ticks(5).map((t) => (
             <g key={t}>
               <line x1={PAD.l} x2={W - PAD.r} y1={y(t)} y2={y(t)} stroke={C.n100} />
@@ -48,10 +91,11 @@ export default function MonthBars() {
           ))}
           {rows.map((r, i) => {
             const peak = PEAK.includes(r.m);
+            const lit = phase === 0 || peak; // in phase 1 only June–September stay in full colour
             const x = PAD.l + i * bw + bw * 0.14;
             const w = bw * 0.72;
-            const colE = peak ? C.p400 : C.p200;
-            const colO = peak ? C.a400 : C.n200;
+            const colE = lit ? C.p400 : MUTED_EDIBLE;
+            const colO = lit ? C.a400 : MUTED_OTHER;
             return (
               <g
                 key={r.m}
@@ -73,25 +117,26 @@ export default function MonthBars() {
                 <text x={x + w / 2} y={y(r.edible + r.other) - 6} textAnchor="middle" className="bar-n">
                   {r.edible + r.other}
                 </text>
-                <text x={x + w / 2} y={H - PAD.b + 18} textAnchor="middle" className={peak ? "axis strong" : "axis"}>
+                <text x={x + w / 2} y={H - PAD.b + 18} textAnchor="middle" className={phase === 1 && peak ? "axis strong" : "axis"}>
                   {MONTH_ABBR[i]}
                 </text>
               </g>
             );
           })}
         </svg>
-        <div className="legend">
-          <span><i className="sw-chip" style={{ background: C.p400 }} /> Edible range, Jun–Sep <span className="zh">可食范围</span></span>
-          <span><i className="sw-chip" style={{ background: C.a400 }} /> Other, Jun–Sep <span className="zh">其他</span></span>
-          <span><i className="sw-chip" style={{ background: C.p200 }} /> Edible range, other months</span>
-          <span><i className="sw-chip" style={{ background: C.n200 }} /> Other, other months</span>
+          <div className="legend">
+            <span><i className="sw-chip" style={{ background: C.p400 }} /> Edible range <span className="zh">可食范围</span></span>
+            <span><i className="sw-chip" style={{ background: C.a400 }} /> Other records <span className="zh">其他</span></span>
+            {phase === 1 ? (
+              <span className="legend-fade">
+                <i className="sw-chip" style={{ background: MUTED_EDIBLE }} />
+                <i className="sw-chip" style={{ background: MUTED_OTHER }} /> Other months
+              </span>
+            ) : null}
+          </div>
         </div>
         {tip.node}
       </div>
-      <Note>
-        {noMonth} records have no month and are left out. Counts come from all years (2010–2026) combined, so a few active years can drive the peak.
-        <span className="zh"> 缺月份的记录 {noMonth} 条未计入。</span>
-      </Note>
-    </Step>
+    </section>
   );
 }

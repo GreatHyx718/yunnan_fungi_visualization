@@ -961,3 +961,18 @@ tbody tr:hover {
   color: var(--text-3);
   background: var(--bg-page);
 }
+
+/* Observations by month: chart centred in the story stage, no card */
+.month-stage {
+  display: flex;
+  align-items: center;
+}
+.month-chart {
+  width: 100%;
+}
+.month-chart rect {
+  transition: fill 0.6s ease;
+}
+.month-chart .legend-fade .sw-chip {
+  margin-right: 0.15rem;
+}
