@@ -520,6 +520,31 @@ body {
   font-size: 9px;
   stroke: none;
 }
+/* the map and its note share one box: same left edge, same width */
+.bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: 100%;
+  margin: 0 auto;
+}
+.bubble-map {
+  display: block;
+  height: calc(100% - 2.6rem);
+  width: auto;
+}
+.bubble-wrap .story-note {
+  position: static;
+  width: 0;
+  min-width: 100%;
+  max-width: none;
+  margin: 0.6rem 0 0;
+  margin-top: 1.8rem;
+}
+/* the note may break between its two clauses, never inside one */
+.bubble-wrap .story-note span {
+  white-space: nowrap;
+}
 .bubble {
   transition: fill-opacity var(--t-fast);
 }

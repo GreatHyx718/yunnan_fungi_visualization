@@ -8,6 +8,7 @@ import { records, fmt } from "../../utils/theme.js";
 import { Bi } from "../../utils/ui.jsx";
 import { buildTree, ancestorsOf, visibleFor, defaultChild, pathBetween, clusterTargets, SLOT_SIZE, slotOf } from "../../utils/taxonTree.js";
 import { Legend, HoverCard, zhOf } from "./HierarchyPanels.jsx";
+import "../../styles/storyLayout.css";
 import "../../styles/hierarchyNetwork.css";
 
 const DIM = 0.15;
@@ -494,14 +495,14 @@ export default function HierarchyNetwork() {
   const focus = crumbs[crumbs.length - 1];
 
   return (
-    <section id="hierarchy" className="fn-section">
-      <div className="fn-story">
-        <header className="fn-head">
+    <section id="hierarchy" className="story-section">
+      <div className="story-col">
+        <header className="story-head">
           <h2>
             <Bi en="Taxonomic hierarchy" />
           </h2>
         </header>
-        <div className="fn-text">
+        <div className="story-text">
           <p>
             I&rsquo;m Xiaojun. I used to follow Grandma up the mountain; now I study away from home and only come back in summer.
           </p>
@@ -512,7 +513,7 @@ export default function HierarchyNetwork() {
         </div>
       </div>
 
-      <div className="fn-stage">
+      <div className="story-stage">
         <div className="fn-canvas" ref={wrapRef}>
           <svg ref={svgRef} className="fn-svg" role="img" aria-label="Force-directed taxonomy map from phylum to species" />
         </div>
