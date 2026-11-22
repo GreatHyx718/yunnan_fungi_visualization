@@ -79,17 +79,40 @@ const countyList = counties.features.map((f) => ({
   center: f.properties.center,
 }));
 
-const top5 = csv("data/edible/top5_families_by_month_6-9.csv", 11).map((c) => ({
-  month: +c[0],
-  rank: +c[1],
-  family: c[2],
-  records: +c[3],
-  genusN: +c[4],
-  speciesN: +c[5],
-  flagged: +c[7],
-  allMonths: +c[8],
-  monthTotal: +c[9],
-}));
+const topMonths = [6, 7, 8, 9, 10];
+const edibleRecords = records.filter((r) => r.ed);
+const allMonthCounts = new Map();
+for (const r of edibleRecords) {
+  const family = r.fa || "Unidentified";
+  allMonthCounts.set(family, (allMonthCounts.get(family) || 0) + 1);
+}
+const top5 = topMonths.flatMap((month) => {
+  const monthRecords = edibleRecords.filter((r) => r.m === month);
+  const families = new Map();
+  for (const r of monthRecords) {
+    const family = r.fa || "Unidentified";
+    const item = families.get(family) || { family, records: 0, genera: new Set(), species: new Set(), flagged: 0 };
+    item.records++;
+    if (r.ge) item.genera.add(r.ge);
+    if (r.sp) item.species.add(r.sp);
+    if (r.ed === 2) item.flagged++;
+    families.set(family, item);
+  }
+  return [...families.values()]
+    .sort((a, b) => b.records - a.records || allMonthCounts.get(b.family) - allMonthCounts.get(a.family) || a.family.localeCompare(b.family))
+    .slice(0, 5)
+    .map((item, index) => ({
+      month,
+      rank: index + 1,
+      family: item.family,
+      records: item.records,
+      genusN: item.genera.size,
+      speciesN: item.species.size,
+      flagged: item.flagged,
+      allMonths: allMonthCounts.get(item.family),
+      monthTotal: monthRecords.length,
+    }));
+});
 
 const cdc = {
   annual: csv("data/cdc/part3_yunnan_annual_patients_deaths.csv", 3).map((c) => ({

@@ -1,14 +1,67 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { C, FAMILY_ZH, MONTH_ABBR, PEAK, familyColor, prefName, records } from "../../utils/theme.js";
+import { C, FAMILY_ZH, MONTH_ABBR, familyColor, prefName, records } from "../../utils/theme.js";
 import { Badge, Bi, Step, Tabs, Tag } from "../../utils/ui.jsx";
-import { MONTH_NAME, RankBars, byMonth } from "./Top5.jsx";
+import { MONTH_NAME, byMonth } from "./Top5.jsx";
+import boletusImage from "../../images/boletus-sinoedulis-single中华美味牛肝菌（白牛肝） 1.png";
+import rubroboletusImage from "../../images/Rubroboletus sinicus中华红孔牛肝菌（红见手） 1.png";
+import agaricusImage from "../../images/agaricus-campestris-3mushrooms四孢蘑菇 1.png";
+import amanitaHemibaphaImage from "../../images/amanita-hemibapha-v2半色彩鹅膏（鸡蛋菌） 1.png";
+import amanitaOchraceaImage from "../../images/amanita-ochracea赭色鹅膏 1.png";
+import helvellaImage from "../../images/helvella-crispa皱马鞍菌（白马鞍） 1.png";
+import lycoperdaceaeImage from "../../images/lycoperdaceae-puffball马勃科 1.png";
+import phallusImage from "../../images/phallus-indusiatus-pencil长裙竹荪 1.png";
+import russulaImage from "../../images/russulaceae-russula红菇科 1.png";
+import schizophyllumImage from "../../images/schizophyllum-balanced裂褶菌 1.png";
+import suillusImage from "../../images/suillus-brunneissimus-v2褐乳牛肝菌（荞面菌） 1.png";
+import thelephoraImage from "../../images/thelephora-ganbajun-bright干巴革菌（干巴菌） 1.png";
+import tricholomaImage from "../../images/tricholoma-matsutake-v2松口蘑（松茸） 1.png";
+import physalacriaceaeImage from "../../images/physalacriaceae-ramaria 1.png";
+import coprinusImage from "../../images/coprinus-comatus毛头鬼伞 1.png";
 
-const monthEdible = Object.fromEntries(PEAK.map((m) => [m, records.filter((r) => r.m === m && r.ed).length]));
+const FAMILY_CARD_MONTHS = [6, 7, 8, 9, 10];
+const monthEdible = Object.fromEntries(FAMILY_CARD_MONTHS.map((m) => [m, records.filter((r) => r.m === m && r.ed).length]));
+const MONTH_IMAGES = {
+  6: [
+    { family: "Boletaceae", src: boletusImage, size: "large" },
+    { family: "Agaricaceae", src: agaricusImage, size: "medium" },
+    { family: "Phallaceae", src: phallusImage, size: "medium" },
+    { family: "Schizophyllaceae", src: schizophyllumImage, size: "small" },
+    { family: "Lycoperdaceae", src: lycoperdaceaeImage, size: "small" },
+  ],
+  7: [
+    { family: "Boletaceae", src: rubroboletusImage, size: "large" },
+    { family: "Thelephoraceae", src: thelephoraImage, size: "medium" },
+    { family: "Amanitaceae", src: amanitaHemibaphaImage, size: "medium" },
+    { family: "Russulaceae", src: russulaImage, size: "small" },
+    { family: "Tricholomataceae", src: tricholomaImage, size: "medium" },
+  ],
+  8: [
+    { family: "Boletaceae", src: rubroboletusImage, size: "large" },
+    { family: "Amanitaceae", src: amanitaOchraceaImage, size: "medium" },
+    { family: "Suillaceae", src: suillusImage, size: "medium" },
+    { family: "Thelephoraceae", src: thelephoraImage, size: "small" },
+    { family: "Tricholomataceae", src: tricholomaImage, size: "medium" },
+  ],
+  9: [
+    { family: "Boletaceae", src: boletusImage, size: "large" },
+    { family: "Thelephoraceae", src: thelephoraImage, size: "medium" },
+    { family: "Helvellaceae", src: helvellaImage, size: "small" },
+    { family: "Amanitaceae", src: amanitaHemibaphaImage, size: "medium" },
+    { family: "Suillaceae", src: suillusImage, size: "medium" },
+  ],
+  10: [
+    { family: "Agaricaceae", src: coprinusImage, size: "large" },
+    { family: "Physalacriaceae", src: physalacriaceaeImage, size: "medium" },
+    { family: "Lycoperdaceae", src: lycoperdaceaeImage, size: "medium" },
+    { family: "Thelephoraceae", src: thelephoraImage, size: "small" },
+    { family: "Schizophyllaceae", src: schizophyllumImage, size: "medium" },
+  ],
+};
 
 function familyStats(family) {
   const all = records.filter((r) => r.fa === family);
   const ed = all.filter((r) => r.ed);
-  const perMonth = PEAK.map((m) => ed.filter((r) => r.m === m).length);
+  const perMonth = FAMILY_CARD_MONTHS.map((m) => ed.filter((r) => r.m === m).length);
   const coord = ed.filter((r) => r.pf != null);
   const prefs = new Map();
   for (const r of coord) prefs.set(r.pf, (prefs.get(r.pf) || 0) + 1);
@@ -29,13 +82,21 @@ function familyStats(family) {
 
 function MonthMini({ values, totals }) {
   const max = Math.max(...values, 1);
+  // Calculate actual bar heights and ensure no overlap
+  const barHeights = values.map((v) => (v / max) * 52 + (v ? 2 : 0));
+  const minGap = 3; // minimum gap between bars to prevent visual overlap
+  
+  // Adjust heights if they would cause overlap issues
+  const maxAllowedHeight = 52;
+  const adjustedHeights = barHeights.map((h) => Math.min(h, maxAllowedHeight));
+  
   return (
     <div className="mini-bars">
       {values.map((v, i) => (
         <div key={i} className="mini-col">
           <span className="mini-n">{v}</span>
-          <i style={{ height: `${(v / max) * 52 + (v ? 2 : 0)}px` }} />
-          <span className="mini-m">{MONTH_ABBR[PEAK[i] - 1]}</span>
+          <i style={{ height: `${adjustedHeights[i]}px` }} />
+          <span className="mini-m">{MONTH_ABBR[FAMILY_CARD_MONTHS[i] - 1]}</span>
           <span className="mini-share">{totals[i] ? `${((v / totals[i]) * 100).toFixed(0)}%` : "–"}</span>
         </div>
       ))}
@@ -71,8 +132,7 @@ function ElevationStrip({ dem }) {
 
 function Card({ family, month }) {
   const s = useMemo(() => familyStats(family), [family]);
-  const monthRow = byMonth(month).find((r) => r.family === family);
-  const totals = PEAK.map((m) => monthEdible[m]);
+  const totals = FAMILY_CARD_MONTHS.map((m) => monthEdible[m]);
   return (
     <article className="card" style={{ "--fam": familyColor(family) }}>
       <header>
@@ -100,7 +160,7 @@ function Card({ family, month }) {
         </div>
       </div>
       <h4>
-        <Bi en="Edible records, Jun–Sep (and share of that month)" zh="6–9 月分布与月内占比" />
+        <Bi en="Edible records, Jun–Oct (and share of that month)" zh="6–10 月分布与月内占比" />
       </h4>
       <MonthMini values={s.perMonth} totals={totals} />
       <h4>
@@ -121,36 +181,46 @@ function Card({ family, month }) {
           <li>No coordinates</li>
         )}
       </ol>
-      <p className="small">
-        Based on {s.coord} edible records with coordinates; each prefecture holds only a few.
-      </p>
-      <p className="scope">
-        This family has {s.all} records in total, {s.notEdible} of them outside the edible range. <b>Observation ≠ edibility.</b>
-        <span className="zh">该科全部记录 {s.all} 条，不在可食范围 {s.notEdible} 条。观测 ≠ 可食用。</span>
-      </p>
-      {monthRow ? (
-        <p className="small">
-          {MONTH_NAME[month]}: {monthRow.records} of {monthRow.monthTotal} edible records (n small, read with care).
-        </p>
-      ) : null}
     </article>
   );
 }
 
+function FamilyImageCollage({ month, activeFamily }) {
+  const images = MONTH_IMAGES[month] || [];
+  return (
+    <div className={`family-art${images.length ? "" : " family-art--empty"}`} aria-label={`${MONTH_NAME[month]} mushroom illustrations`}>
+      {images.map(({ family, src, size }) => (
+        <div
+          className={`family-art__bubble family-art__bubble--${size}${activeFamily === family ? " is-current" : ""}`}
+          key={family}
+        >
+          <img src={src} alt="" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function FamilyCards() {
-  const [month, setMonth] = useState(6);
+  const [month, setMonth] = useState(8);
   const [idx, setIdx] = useState(0);
   const outer = useRef(null);
+  const cardsBody = useRef(null);
+  const [scrollSpan, setScrollSpan] = useState(0);
+  const [manualControl, setManualControl] = useState(false);
   const rows = byMonth(month);
 
   useEffect(() => {
     const onScroll = () => {
+      if (manualControl) return; // Don't update idx during tab changes
       const el = outer.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
       const span = r.height - window.innerHeight;
+      if (span <= 0) return;
       const p = Math.min(0.9999, Math.max(0, -r.top / span));
-      setIdx(Math.floor(p * 5));
+      const newIdx = Math.floor(p * 5);
+      setIdx(newIdx);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -159,44 +229,55 @@ export default function FamilyCards() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [month, manualControl]);
 
-  const jump = (i) => {
-    const el = outer.current;
-    const span = el.offsetHeight - window.innerHeight;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + ((i + 0.5) / 5) * span, behavior: "smooth" });
-  };
+  useEffect(() => {
+    const el = cardsBody.current;
+    if (!el) return;
+    const measure = () => {
+      const height = el.getBoundingClientRect().height;
+      // Increase scroll span for slower scrolling (more distance per card)
+      setScrollSpan(Math.ceil(height * 6));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [month]);
 
   return (
     <section className="step cards-step" id="cards">
-      <div ref={outer} className="cards-outer">
+      <div ref={outer} className="cards-outer" style={scrollSpan ? { height: `calc(100vh + ${scrollSpan}px)` } : undefined}>
         <div className="cards-sticky">
           <div className="step-inner">
             <header className="step-head">
               <h2>
-                <Bi en="Family cards" zh="每月 top5 科名片" />
+                <Bi en="Family cards" />
               </h2>
               <p className="sec-desc">
-                Scroll to move through the five families of the chosen month, from rank 1 to rank 5. The chart on the left follows the card.
-                <span className="zh">滚动切换科名片，左侧排名同步高亮。</span>
+                Scroll to move through the five families of the chosen month, from rank 1 to rank 5. The illustration on the left follows the card.
               </p>
             </header>
             <Tabs
               value={month}
-              onChange={(m) => setMonth(m)}
-              options={PEAK.map((m) => ({ value: m, label: `${MONTH_NAME[m].slice(0, 3)} ${m}月 (${byMonth(m)[0].monthTotal})` }))}
+              onChange={(m) => {
+                // Immediately disable scroll listener and reset idx
+                setManualControl(true);
+                setMonth(m);
+                setIdx(0);
+                // Scroll to the top of the cards section
+                const section = document.getElementById("cards");
+                if (section) {
+                  const offsetTop = section.offsetTop;
+                  window.scrollTo({ top: offsetTop, behavior: "smooth" });
+                }
+                // Re-enable scroll listener after scroll animation completes
+                setTimeout(() => setManualControl(false), 800);
+              }}
+              options={FAMILY_CARD_MONTHS.map((m) => ({ value: m, label: `${MONTH_NAME[m].slice(0, 3)} (${byMonth(m)[0].monthTotal})` }))}
             />
-            <div className="cards-body">
-              <div className="panel cards-left">
-                <div className="panel-label">
-                  <Bi en={`${MONTH_NAME[month]} · top 5 families`} zh="排名" />
-                </div>
-                <RankBars month={month} active={idx} onPick={jump} />
-                <p className="small">
-                  Card {idx + 1} of 5 · n = {rows[0].monthTotal} edible records this month.
-                </p>
-              </div>
+            <div ref={cardsBody} className="cards-body">
+              <FamilyImageCollage month={month} activeFamily={rows[idx].family} />
               <Card family={rows[idx].family} month={month} key={`${month}-${rows[idx].family}`} />
             </div>
           </div>

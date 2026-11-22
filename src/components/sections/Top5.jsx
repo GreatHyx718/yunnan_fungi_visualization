@@ -1,7 +1,7 @@
 import { FAMILY_ZH, PEAK, familyColor, top5 } from "../../utils/theme.js";
 import { Alert, Bi, Note, Step, Tag } from "../../utils/ui.jsx";
 
-export const MONTH_NAME = { 6: "June", 7: "July", 8: "August", 9: "September" };
+export const MONTH_NAME = { 6: "June", 7: "July", 8: "August", 9: "September", 10: "October" };
 export const byMonth = (m) => top5.filter((t) => t.month === m).sort((a, b) => a.rank - b.rank);
 
 export function RankBars({ month, active, onPick, compact }) {

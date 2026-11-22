@@ -3,7 +3,6 @@ import Sunburst from "./components/sections/HierarchyNetwork.jsx";
 import BubbleMap from "./components/sections/BubbleMap.jsx";
 import MonthBars from "./components/sections/MonthBars.jsx";
 import Treemaps from "./components/sections/Treemaps.jsx";
-import Top5 from "./components/sections/Top5.jsx";
 import FamilyCards from "./components/sections/FamilyCards.jsx";
 import Hotspots from "./components/sections/Hotspots.jsx";
 import Amanita from "./components/sections/Amanita.jsx";
@@ -18,7 +17,6 @@ export default function App() {
         <BubbleMap />
         <MonthBars />
         <Treemaps />
-        <Top5 />
         <FamilyCards />
         <Hotspots />
         <Amanita />
