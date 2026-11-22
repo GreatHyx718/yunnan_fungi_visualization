@@ -82,8 +82,44 @@
   color: #b4b4b4;
   transition: color 0.4s ease, border-color 0.4s ease;
 }
+.story-block:first-child {
+  transform: translateY(3.0rem);
+}
+.story-block + .story-block {
+  transform: translateY(-1.0rem);
+}
 .story-block:last-child {
   margin-bottom: 36vh;
+}
+.story-block--intro {
+  margin-bottom: 5rem;
+}
+.story-block .story-month {
+  margin: 2.25rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: inherit;
+}
+.story-block--month .story-month {
+  margin: 0.15rem 0;
+}
+.treemap-stage {
+  display: flex;
+  align-items: center;
+}
+.treemap-chart {
+  width: 100%;
+}
+.treemap-story .story-block {
+  margin-bottom: 30vh;
+}
+.treemap-story .story-block--intro {
+  margin-bottom: 5rem;
+}
+.treemap-story .story-block:last-child {
+  margin-bottom: 28vh;
 }
 .story-block.is-active {
   border-right-color: var(--text-1);
@@ -108,5 +144,6 @@
     margin-bottom: 2rem;
     border-right: 0;
     padding-right: 0;
+    transform: none;
   }
 }

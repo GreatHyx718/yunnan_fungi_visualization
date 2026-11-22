@@ -365,6 +365,11 @@ body {
 .tip-warn {
   color: #e0c9b8;
 }
+.tip-months {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.55rem;
+}
 
 /* ---------- charts ---------- */
 .chart {

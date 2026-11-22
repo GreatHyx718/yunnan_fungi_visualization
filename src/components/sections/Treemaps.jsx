@@ -1,10 +1,14 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { hierarchy, treemap, treemapSquarify } from "d3-hierarchy";
-import { C, FAMILY_ZH, OTHER_COLOR, PEAK, familyColor, records, textOn } from "../../utils/theme.js";
-import { Alert, Bi, Note, Step, useTip } from "../../utils/ui.jsx";
+import { FAMILY_COLOR, M_LIST, OTHER_COLOR, records, textOn } from "../../utils/theme.js";
+import { useTip } from "../../utils/ui.jsx";
+import "../../styles/storyLayout.css";
 
-const W = 420;
-const H = 300;
+const W = 880;
+const H = 560;
+const MONTHS = [6, 7, 8, 9, 10];
+const MONTH_LABELS = ["Jun", "Jul", "Aug", "Sep", "Oct"];
+const MONTH_NAMES = ["June", "July", "August", "September", "October"];
 const UNID = "Unidentified";
 const OTHER = "Other families";
 
@@ -12,138 +16,152 @@ function monthTree(m) {
   const rs = records.filter((r) => r.m === m);
   const by = new Map();
   for (const r of rs) {
-    const k = r.fa || UNID;
-    const o = by.get(k) || { name: k, n: 0, edible: 0, flagged: 0 };
-    o.n++;
-    if (r.ed) o.edible++;
-    if (r.ed === 2) o.flagged++;
-    by.set(k, o);
+    const name = r.fa || UNID;
+    const item = by.get(name) || { name, n: 0, flagged: 0 };
+    item.n++;
+    if (r.ed === 2) item.flagged++;
+    by.set(name, item);
   }
+
   const all = [...by.values()].sort((a, b) => b.n - a.n);
   const keep = [];
-  const other = { name: OTHER, n: 0, edible: 0, flagged: 0, parts: 0 };
-  for (const o of all) {
-    // Tiny tiles are merged, unless they carry a toxicity flag or are the unidentified block.
-    if (o.name === UNID || o.n / rs.length >= 0.03 || o.flagged > 0) keep.push(o);
+  const other = { name: OTHER, n: 0, flagged: 0, parts: 0 };
+  for (const item of all) {
+    if (item.name === UNID || item.n / rs.length >= 0.03 || item.flagged > 0) keep.push(item);
     else {
-      other.n += o.n;
-      other.edible += o.edible;
+      other.n += item.n;
       other.parts++;
     }
   }
   if (other.n) keep.push(other);
-  return { n: rs.length, families: all.length, leaves: keep };
+  return { n: rs.length, leaves: keep, counts: by };
 }
 
 function layout(tree) {
   const root = hierarchy({ children: tree.leaves }).sum((d) => d.n || 0);
-  treemap().tile(treemapSquarify).size([W, H]).paddingInner(2)(root);
+  treemap().tile(treemapSquarify).size([W, H]).paddingInner(3)(root);
   return root.leaves();
 }
 
+function treemapColor(name) {
+  if (FAMILY_COLOR[name]) return FAMILY_COLOR[name];
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
+  return M_LIST[Math.abs(hash) % M_LIST.length];
+}
+
 export default function Treemaps() {
-  const [sel, setSel] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const stepRefs = useRef([]);
   const tip = useTip();
-  const months = useMemo(() => PEAK.map((m) => ({ m, tree: monthTree(m) })).map((o) => ({ ...o, leaves: layout(o.tree) })), []);
+  const months = useMemo(
+    () => MONTHS.map((m) => {
+      const tree = monthTree(m);
+      return { m, tree, leaves: layout(tree) };
+    }),
+    [],
+  );
+
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      let next = 0;
+      stepRefs.current.forEach((el, index) => {
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.55) next = index;
+      });
+      setActiveIndex(next);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const { tree, leaves } = months[activeIndex];
+  const comparisonCount = (name, month) => {
+    if (name === OTHER) return month.tree.leaves.find((item) => item.name === OTHER)?.n || 0;
+    return month.tree.counts.get(name)?.n || 0;
+  };
 
   return (
-    <Step
-      id="composition"
-      en="What was recorded each month"
-      zh="6–9 月每月的菌类构成"
-      desc="One treemap per month, grouped by family. Tile area is the share of that month's records. Tiles marked ▲ contain records of species the literature also lists as poisonous."
-      descZh="每月一张矩形树图，按科；▲ 表示含有毒标记的记录。"
-      wide
-    >
-      <div className="tm-grid">
-        {months.map(({ m, tree, leaves }) => (
-          <div className="panel" key={m}>
-            <div className="panel-label">
-              <Bi en={`${["June", "July", "August", "September"][m - 6]}`} zh={`${m} 月`} /> <span className="n-badge">n = {tree.n}</span>
-            </div>
-            <svg viewBox={`0 0 ${W} ${H}`} className="chart" role="img" aria-label={`Treemap of families in month ${m}`}>
-              {leaves.map((l) => {
-                const d = l.data;
-                const w = l.x1 - l.x0;
-                const h = l.y1 - l.y0;
-                const color = d.name === UNID ? "#d9d9d4" : d.name === OTHER ? OTHER_COLOR : familyColor(d.name);
-                const isSel = sel === d.name;
-                const label = d.name === OTHER ? `Other (${d.parts})` : d.name;
-                return (
-                  <g
-                    key={d.name}
-                    transform={`translate(${l.x0},${l.y0})`}
-                    className="tile"
-                    onClick={() => setSel(isSel ? null : d.name)}
-                    onMouseMove={(e) =>
-                      tip.show(
-                        e,
-                        <>
-                          <strong>{d.name}</strong>
-                          {FAMILY_ZH[d.name] ? <span className="zh">{FAMILY_ZH[d.name]}</span> : null}
-                          <div>
-                            {d.n} records · {((d.n / tree.n) * 100).toFixed(0)}% of {tree.n}
-                          </div>
-                          <div>In edible range: {d.edible}</div>
-                          {d.flagged ? <div className="tip-warn">Flagged poisonous in literature: {d.flagged}</div> : null}
-                        </>,
-                      )
-                    }
-                    onMouseLeave={tip.hide}
-                  >
-                    <rect
-                      width={w}
-                      height={h}
-                      fill={color}
-                      stroke={isSel ? C.p400 : d.flagged ? C.signal : "none"}
-                      strokeWidth={isSel ? 3 : 2}
-                      rx={3}
-                      opacity={sel && !isSel ? 0.45 : 1}
-                    />
-                    {w > 58 && h > 22 ? (
-                      <text x={6} y={16} fill={textOn(color)} className="tile-t">
-                        {label.length * 6.4 > w - 12 ? label.slice(0, Math.floor((w - 12) / 6.4) - 1) + "…" : label}
-                      </text>
-                    ) : null}
-                    {w > 34 && h > 36 ? (
-                      <text x={6} y={31} fill={textOn(color)} className="tile-s">
-                        {d.n}
-                      </text>
-                    ) : null}
-                    {d.flagged ? (
-                      <text x={w - 6} y={14} textAnchor="end" fill={textOn(color)} className="tile-s">
-                        ▲
-                      </text>
-                    ) : null}
-                  </g>
-                );
-              })}
-            </svg>
-            <p className="small">{tree.families} families, {tree.leaves.length} tiles shown.</p>
+    <section id="composition" className="story-section treemap-story">
+      <div className="story-col story-col--blocks">
+        <div className={`story-block story-block--intro${activeIndex === 0 ? " is-active" : ""}`}>
+          <header className="story-head">
+            <h2>What was recorded each month</h2>
+          </header>
+          <p>The treemap is grouped by family. Tile area is the share of that month&apos;s records. Tiles marked ▲ contain records of species the literature also lists as poisonous.</p>
+        </div>
+        <div
+          ref={(el) => (stepRefs.current[0] = el)}
+          className={`story-block story-block--month story-block--month-first${activeIndex === 0 ? " is-active" : ""}`}
+        >
+          <p className="story-month">June</p>
+        </div>
+        {MONTHS.slice(1).map((month, index) => (
+          <div
+            key={month}
+            ref={(el) => (stepRefs.current[index + 1] = el)}
+            className={`story-block story-block--month${activeIndex === index + 1 ? " is-active" : ""}`}
+          >
+            <p className="story-month">{MONTH_NAMES[index + 1]}</p>
           </div>
         ))}
       </div>
-      {tip.node}
-      {sel ? (
-        <div className="panel fam-detail">
-          <strong>{sel}</strong> {FAMILY_ZH[sel] ? <span className="zh">{FAMILY_ZH[sel]}</span> : null}
-          <div className="fam-detail-row">
-            {months.map(({ m, tree }) => {
-              const d = tree.leaves.find((x) => x.name === sel);
+
+      <div className="story-stage treemap-stage">
+        <div className="treemap-chart">
+          <svg viewBox={`0 0 ${W} ${H}`} className="chart" role="img" aria-label={`Treemap of families in ${MONTH_LABELS[activeIndex]}`}>
+            {leaves.map((leaf) => {
+              const item = leaf.data;
+              const width = leaf.x1 - leaf.x0;
+              const height = leaf.y1 - leaf.y0;
+              const color = item.name === UNID ? "#d9d9d4" : item.name === OTHER ? OTHER_COLOR : treemapColor(item.name);
+              const label = item.name === OTHER ? `Other (${item.parts})` : item.name;
               return (
-                <span key={m}>
-                  {["Jun", "Jul", "Aug", "Sep"][m - 6]}: <b>{d ? d.n : 0}</b>
-                </span>
+                <g
+                  key={item.name}
+                  transform={`translate(${leaf.x0},${leaf.y0})`}
+                  className="tile"
+                  onMouseMove={(event) =>
+                    tip.show(
+                      event,
+                      <>
+                        <strong>{item.name}</strong>
+                        <div>{item.n} records, {((item.n / tree.n) * 100).toFixed(0)}% of {tree.n}</div>
+                        <div className="tip-months">
+                          {months.map((month, index) => (
+                            <span key={month.m}>{MONTH_LABELS[index]}: <b>{comparisonCount(item.name, month)}</b></span>
+                          ))}
+                        </div>
+                      </>,
+                    )
+                  }
+                  onMouseLeave={tip.hide}
+                >
+                  <rect width={width} height={height} fill={color} rx={3} />
+                  {width > 58 && height > 22 ? (
+                    <text x={7} y={17} fill={textOn(color)} className="tile-t">
+                      {label.length * 6.4 > width - 14 ? `${label.slice(0, Math.floor((width - 14) / 6.4) - 1)}…` : label}
+                    </text>
+                  ) : null}
+                  {width > 34 && height > 38 ? <text x={7} y={33} fill={textOn(color)} className="tile-s">{item.n}</text> : null}
+                  {item.flagged ? <text x={width - 7} y={15} textAnchor="end" fill={textOn(color)} className="tile-s">▲</text> : null}
+                </g>
               );
             })}
-          </div>
+          </svg>
         </div>
-      ) : null}
-      <Alert kind="warning">
-        Each panel shows its own n. June has 95 records in 55 genera, so small tiles are merged into “Other families”; records without a family sit in “Unidentified”.
-        <span className="zh">需标注 n，小方块合并为“其他”，无科名的记录归入“未鉴定”。</span>
-      </Alert>
-      <Note>Click a tile to compare the same family across the four months.</Note>
-    </Step>
+        {tip.node}
+      </div>
+    </section>
   );
 }

@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { scaleLinear } from "d3-scale";
-import { C, MONTH_ABBR, PEAK, fmt, records } from "../../utils/theme.js";
+import { C, MONTH_ABBR, fmt, records } from "../../utils/theme.js";
 import { useTip } from "../../utils/ui.jsx";
 import "../../styles/storyLayout.css";
 
 const W = 880;
-const H = 360;
+const H = 500;
 const PAD = { l: 48, r: 16, t: 20, b: 40 };
+const HIGHLIGHT_MONTHS = [6, 7, 8, 9, 10];
 // Months outside the highlight: greys with the same lightness as the light greens they replace
 // (#a8c1b1 -> #b8b8b8, #d4e0d8 -> #dcdcdc).
 const MUTED_EDIBLE = "#b8b8b8";
@@ -14,10 +15,10 @@ const MUTED_OTHER = "#dcdcdc";
 
 export default function MonthBars() {
   const tip = useTip();
-  // phase 0: all twelve months look alike; phase 1: June–September are highlighted
+  // phase 0: all twelve months look alike; phase 1: June–October are highlighted
   const [phase, setPhase] = useState(0);
   const stepRefs = useRef([]);
-  // June–September light up once the second paragraph has scrolled into the upper part of the screen,
+  // June–October light up once the second paragraph has scrolled into the upper part of the screen,
   // and fall back when the reader scrolls up again
   useEffect(() => {
     let raf = 0;
@@ -55,7 +56,7 @@ export default function MonthBars() {
     .domain([0, Math.ceil(max / 100) * 100])
     .range([H - PAD.b, PAD.t]);
   const bw = (W - PAD.l - PAD.r) / 12;
-  const peakN = rows.filter((r) => PEAK.includes(r.m)).reduce((a, r) => a + r.edible + r.other, 0);
+  const peakN = rows.filter((r) => HIGHLIGHT_MONTHS.includes(r.m)).reduce((a, r) => a + r.edible + r.other, 0);
   const withMonth = records.length - noMonth;
   const peakShare = Math.round((peakN / withMonth) * 100);
   const august = rows[7].edible + rows[7].other;
@@ -74,7 +75,7 @@ export default function MonthBars() {
             There are {fmt(peakN)} entries from June to September, accounting for approximately {peakShare}% of the records that include
             month information. August has the highest number, with {fmt(august)} entries.
           </p>
-          <p>June, July, August, and September, the four months. Let&rsquo;s open the basket month by month.</p>
+          <p>June, July, August, September, and October, the five months. Let&rsquo;s open the basket month by month.</p>
         </div>
       </div>
 
@@ -90,7 +91,7 @@ export default function MonthBars() {
             </g>
           ))}
           {rows.map((r, i) => {
-            const peak = PEAK.includes(r.m);
+            const peak = HIGHLIGHT_MONTHS.includes(r.m);
             const lit = phase === 0 || peak; // in phase 1 only June–September stay in full colour
             const x = PAD.l + i * bw + bw * 0.14;
             const w = bw * 0.72;
