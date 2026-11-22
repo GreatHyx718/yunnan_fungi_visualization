@@ -56,14 +56,8 @@ export default function Hotspots() {
   
   const maxC = Math.max(...byCounty.values());
   const color = scaleSqrt().domain([0, maxC]).range([0, 1]);
-  const shade = (n) => {
-    if (!n) return C.map;
-    const t = color(n);
-    // interpolate #d4e0d8 -> #344C3D
-    const a = [212, 224, 216];
-    const b = [52, 76, 61];
-    return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(",")})`;
-  };
+  // Uniform map color - no shading by county data
+  const shade = (n) => C.map;
 
   // Create bubbles for counties with data
   const bubbles = counties
@@ -221,7 +215,7 @@ export default function Hotspots() {
                   d={pathGen(f)}
                   fill={shade(n)}
                   stroke="#fff"
-                  strokeWidth={1}
+                  strokeWidth={0.5}
                   opacity={id === hoveredBubble.id ? 1 : 0.3}
                 />
               );
@@ -232,7 +226,7 @@ export default function Hotspots() {
             d={pathGen(countyFeature)}
             fill="none"
             stroke="var(--signal)"
-            strokeWidth={3}
+            strokeWidth={1.5}
           />
         </svg>
         

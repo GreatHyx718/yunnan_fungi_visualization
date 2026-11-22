@@ -1,160 +1,301 @@
 import { scaleLinear } from "d3-scale";
-import { C, MONTH_ABBR, cdc } from "../../utils/theme.js";
-import { Alert, Badge, Bi, Note, Step, useTip } from "../../utils/ui.jsx";
+import { line, area } from "d3-shape";
+import { useMemo, useRef, useState, useEffect } from "react";
+import { C, cdc } from "../../utils/theme.js";
+import { useTip } from "../../utils/ui.jsx";
+import "../../styles/storyLayout.css";
 
-const W = 440;
-const H = 260;
-const PAD = { l: 40, r: 12, t: 22, b: 30 };
+// Colors from design system
+const COLORS = {
+  deaths: "#4a4a4a",      // --n-700 深灰
+  patients: "#888888"     // --n-500 浅灰
+};
 
-function Bars({ rows, x, y, color, label, tip }) {
-  const bw = (W - PAD.l - PAD.r) / rows.length;
+// Annual trends line chart component with scroll interaction
+function AnnualTrendsChart({ isCumulative, tip }) {
+  const data = useMemo(() => {
+    const years = [2020, 2021, 2022, 2023, 2024, 2025];
+    const result = years.map(y => {
+      const cdcRow = cdc.annual.find(d => d.year === y) || { patients: 0, deaths: 0 };
+      return {
+        year: y,
+        patients: cdcRow.patients,
+        deaths: cdcRow.deaths
+      };
+    });
+    return result;
+  }, []);
+
+  // Calculate cumulative data
+  const cumulativeData = useMemo(() => {
+    const cumulative = [];
+    let cumPatients = 0;
+    let cumDeaths = 0;
+    
+    data.forEach(d => {
+      cumPatients += d.patients;
+      cumDeaths += d.deaths;
+      
+      cumulative.push({
+        year: d.year,
+        patients: cumPatients,
+        deaths: cumDeaths
+      });
+    });
+    
+    return cumulative;
+  }, [data]);
+
+  const currentData = isCumulative ? cumulativeData : data;
+
+  const w = 720;
+  const h = 460;
+  const margin = { top: 30, right: 70, bottom: 80, left: 70 };
+  const chartW = w - margin.left - margin.right;
+  const chartH = h - margin.top - margin.bottom;
+
+  const xScale = scaleLinear()
+    .domain([2020, 2025])
+    .range([0, chartW]);
+
+  // Left Y axis for patients - use a tighter domain to spread out the line
+  const yScalePatients = scaleLinear()
+    .domain([0, Math.max(...currentData.map(d => d.patients)) * 1.1])
+    .range([chartH, 0]);
+
+  // Right Y axis for deaths - use a much larger multiplier to spread out the line
+  const yScaleDeaths = scaleLinear()
+    .domain([0, Math.max(...currentData.map(d => d.deaths)) * 1.3])
+    .range([chartH, 0]);
+
+  const lineGenPatients = line()
+    .x(d => xScale(d.year))
+    .y(d => yScalePatients(d.patients));
+
+  const lineGenDeaths = line()
+    .x(d => xScale(d.year))
+    .y(d => yScaleDeaths(d.deaths));
+
+  const areaGenPatients = area()
+    .x(d => xScale(d.year))
+    .y0(chartH)
+    .y1(d => yScalePatients(d.patients));
+
+  const areaGenDeaths = area()
+    .x(d => xScale(d.year))
+    .y0(chartH)
+    .y1(d => yScaleDeaths(d.deaths));
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="chart">
-      {y.ticks(4).map((t) => (
-        <g key={t}>
-          <line x1={PAD.l} x2={W - PAD.r} y1={y(t)} y2={y(t)} stroke={C.n100} />
-          <text x={PAD.l - 6} y={y(t)} dy="0.33em" textAnchor="end" className="axis">
-            {t}
-          </text>
-        </g>
-      ))}
-      {rows.map((r, i) => {
-        const v = r.v;
-        const xx = PAD.l + i * bw + bw * 0.18;
-        return (
-          <g
-            key={i}
-            onMouseMove={(e) => tip.show(e, <><strong>{r.l}</strong><div>{v} {label}</div></>)}
-            onMouseLeave={tip.hide}
-          >
-            <rect x={xx} y={y(v)} width={bw * 0.64} height={y(0) - y(v)} fill={r.c || color} rx={2} />
-            <text x={xx + bw * 0.32} y={y(v) - 5} textAnchor="middle" className="bar-n">
-              {v}
-            </text>
-            <text x={xx + bw * 0.32} y={H - PAD.b + 16} textAnchor="middle" className="axis">
-              {r.l}
+    <svg viewBox={`0 0 ${w} ${h}`} style={{ maxWidth: "100%", height: "auto" }}>
+      <g transform={`translate(${margin.left},${margin.top})`}>
+        {/* Grid lines */}
+        {[0, 0.25, 0.5, 0.75, 1].map(t => (
+          <line
+            key={t}
+            x1={0}
+            y1={chartH * t}
+            x2={chartW}
+            y2={chartH * t}
+            stroke="#e0e0e0"
+            strokeWidth={1}
+          />
+        ))}
+
+        {/* X axis */}
+        <line x1={0} y1={chartH} x2={chartW} y2={chartH} stroke="#333" strokeWidth={2} />
+        {data.map(d => (
+          <g key={d.year} transform={`translate(${xScale(d.year)},${chartH})`}>
+            <line y2={6} stroke="#333" strokeWidth={2} />
+            <text y={24} textAnchor="middle" fill="#333" fontSize={14} fontWeight={600}>{d.year}</text>
+          </g>
+        ))}
+
+        {/* Left Y axis (Patients) */}
+        <line x1={0} y1={0} x2={0} y2={chartH} stroke="#333" strokeWidth={2} />
+        {yScalePatients.ticks(5).map(t => (
+          <g key={t}>
+            <text x={-12} y={yScalePatients(t)} dy="0.35em" textAnchor="end" fontSize={12} fill="#666">
+              {t}
             </text>
           </g>
-        );
-      })}
+        ))}
+        <text
+          transform={`translate(-55,${chartH / 2}) rotate(-90)`}
+          textAnchor="middle"
+          fill={COLORS.patients}
+          fontSize={13}
+          fontWeight={600}
+        >
+          {isCumulative ? "Cumulative Patients" : "Poisoning Patients"}
+        </text>
+
+        {/* Right Y axis (Deaths) */}
+        <line x1={chartW} y1={0} x2={chartW} y2={chartH} stroke="#333" strokeWidth={2} />
+        {yScaleDeaths.ticks(5).map(t => (
+          <g key={t}>
+            <text x={chartW + 12} y={yScaleDeaths(t)} dy="0.35em" textAnchor="start" fontSize={12} fill="#666">
+              {t}
+            </text>
+          </g>
+        ))}
+        <text
+          transform={`translate(${chartW + 55},${chartH / 2}) rotate(90)`}
+          textAnchor="middle"
+          fill={COLORS.deaths}
+          fontSize={13}
+          fontWeight={600}
+        >
+          {isCumulative ? "Cumulative Deaths" : "Deaths"}
+        </text>
+
+        {/* Area fills for cumulative view */}
+        {isCumulative && (
+          <>
+            <path
+              d={areaGenPatients(currentData)}
+              fill={COLORS.patients}
+              fillOpacity={0.2}
+            />
+            <path
+              d={areaGenDeaths(currentData)}
+              fill={COLORS.deaths}
+              fillOpacity={0.2}
+            />
+          </>
+        )}
+
+        {/* Lines */}
+        <path
+          d={lineGenPatients(currentData)}
+          fill="none"
+          stroke={COLORS.patients}
+          strokeWidth={3}
+        />
+        <path
+          d={lineGenDeaths(currentData)}
+          fill="none"
+          stroke={COLORS.deaths}
+          strokeWidth={3}
+          strokeDasharray="6,4"
+        />
+
+        {/* Data points with tooltips */}
+        {currentData.map(d => (
+          <g key={`pts-${d.year}`}>
+            <circle 
+              cx={xScale(d.year)} 
+              cy={yScalePatients(d.patients)} 
+              r={6}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onMouseMove={(e) => tip.show(e, 
+                <>
+                  <strong>{d.year}</strong>
+                  <div>Poisoning Patients: {d.patients}</div>
+                </>
+              )}
+              onMouseLeave={tip.hide}
+            />
+            <circle cx={xScale(d.year)} cy={yScalePatients(d.patients)} r={4} fill={COLORS.patients} stroke="#fff" strokeWidth={2} pointerEvents="none" />
+            
+            <circle 
+              cx={xScale(d.year)} 
+              cy={yScaleDeaths(d.deaths)} 
+              r={6}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onMouseMove={(e) => tip.show(e, 
+                <>
+                  <strong>{d.year}</strong>
+                  <div>Deaths: {d.deaths}</div>
+                </>
+              )}
+              onMouseLeave={tip.hide}
+            />
+            <circle cx={xScale(d.year)} cy={yScaleDeaths(d.deaths)} r={4} fill={COLORS.deaths} stroke="#fff" strokeWidth={2} pointerEvents="none" />
+          </g>
+        ))}
+
+        {/* Legend below chart on the right side */}
+        <g transform={`translate(${chartW - 200},${chartH + 52})`}>
+          <g transform="translate(0,0)">
+            <line x1={0} y1={0} x2={30} y2={0} stroke={COLORS.patients} strokeWidth={2.5} />
+            <circle cx={15} cy={0} r={3.5} fill={COLORS.patients} stroke="#fff" strokeWidth={1.5} />
+            <text x={36} y={4} fontSize={12} fill="#333">Poisoning Patients</text>
+          </g>
+          <g transform="translate(0,24)">
+            <line x1={0} y1={0} x2={30} y2={0} stroke={COLORS.deaths} strokeWidth={2.5} strokeDasharray="6,4" />
+            <circle cx={15} cy={0} r={3.5} fill={COLORS.deaths} stroke="#fff" strokeWidth={1.5} />
+            <text x={36} y={4} fontSize={12} fill="#333">Deaths</text>
+          </g>
+        </g>
+      </g>
     </svg>
   );
 }
 
 export default function Poison() {
   const tip = useTip();
-  const annual = cdc.annual;
-  const yp = scaleLinear().domain([0, 450]).range([H - PAD.b, PAD.t]);
-  const yd = scaleLinear().domain([0, 10]).range([H - PAD.b, PAD.t]);
+  const stepRefs = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const timing = cdc.timing;
-  const yt = scaleLinear().domain([0, 500]).range([H - PAD.b, PAD.t]);
-  const bw = (W - PAD.l - PAD.r) / timing.length;
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
 
-  const m25 = cdc.monthly2025;
-  const y25 = scaleLinear().domain([0, 40]).range([H - PAD.b, PAD.t]);
+      let newIndex = 0;
+      stepRefs.current.forEach((ref, i) => {
+        if (!ref) return;
+        const rect = ref.getBoundingClientRect();
+        const top = rect.top + scrollY;
+        if (scrollY + windowHeight * 0.5 >= top) {
+          newIndex = i;
+        }
+      });
+
+      setActiveIndex(newIndex);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <Step
-      id="poisoning"
-      en="Part III · Poisoning in Yunnan"
-      zh="云南中毒数据"
-      desc="China CDC reports give province-level poisoning counts for Yunnan. They are shown next to the GBIF records, not combined with them."
-      descZh="CDC 数据与 GBIF 观测并列展示，不做相关计算。"
-      wide
-    >
-      <div className="tm-grid three">
-        <div className="panel">
-          <div className="panel-label">
-            <Bi en="Patients per year" zh="年度中毒人数" /> <Badge kind="cdc">CDC</Badge>
-          </div>
-          <Bars rows={annual.map((a) => ({ l: a.year, v: a.patients }))} x={null} y={yp} color={C.signal} label="patients" tip={tip} />
+    <section id="poisoning" className="story-section">
+      <div className="story-col story-col--blocks">
+        <div
+          ref={(el) => (stepRefs.current[0] = el)}
+          className={`story-block${activeIndex === 0 ? " is-active" : ""}`}
+        >
+          <header className="story-head">
+            <h2>Poisoning in Yunnan</h2>
+          </header>
+          <p>
+            From 2020 to 2025, Yunnan Province reported 1,615 mushroom poisoning patients and 23 deaths according to China CDC, with most incidents occurring during the rainy season from June to October.
+          </p>
         </div>
-        <div className="panel">
-          <div className="panel-label">
-            <Bi en="Deaths per year" zh="年度死亡数" /> <Badge kind="cdc">CDC</Badge>
-          </div>
-          <Bars rows={annual.map((a) => ({ l: a.year, v: a.deaths }))} x={null} y={yd} color={C.signalDeep} label="deaths" tip={tip} />
-        </div>
-        <div className="panel">
-          <div className="panel-label">
-            <Bi en="Records, Jun–Sep, all years" zh="总记录 vs 毒蘑菇记录" /> <Badge kind="gbif">GBIF</Badge>
-          </div>
-          <svg viewBox={`0 0 ${W} ${H}`} className="chart">
-            {yt.ticks(5).map((t) => (
-              <g key={t}>
-                <line x1={PAD.l} x2={W - PAD.r} y1={yt(t)} y2={yt(t)} stroke={C.n100} />
-                <text x={PAD.l - 6} y={yt(t)} dy="0.33em" textAnchor="end" className="axis">{t}</text>
-              </g>
-            ))}
-            {timing.map((r, i) => {
-              const x0 = PAD.l + i * bw + bw * 0.12;
-              const w = bw * 0.38;
-              return (
-                <g
-                  key={r.month}
-                  onMouseMove={(e) => tip.show(e, <><strong>{MONTH_ABBR[r.month - 1]}</strong><div>All records: {r.total}</div><div>Toxic-flagged: {r.toxic}</div></>)}
-                  onMouseLeave={tip.hide}
-                >
-                  <rect x={x0} y={yt(r.total)} width={w} height={yt(0) - yt(r.total)} fill={C.a400} rx={2} />
-                  <rect x={x0 + w + 4} y={yt(r.toxic)} width={w} height={yt(0) - yt(r.toxic)} fill={C.signal} rx={2} />
-                  <text x={x0 + w / 2} y={yt(r.total) - 5} textAnchor="middle" className="bar-n">{r.total}</text>
-                  <text x={x0 + w + 4 + w / 2} y={yt(r.toxic) - 5} textAnchor="middle" className="bar-n">{r.toxic}</text>
-                  <text x={x0 + w + 2} y={H - PAD.b + 16} textAnchor="middle" className="axis">{MONTH_ABBR[r.month - 1]}</text>
-                </g>
-              );
-            })}
-          </svg>
-          <div className="legend">
-            <span><i className="sw-chip" style={{ background: C.a400 }} /> All records</span>
-            <span><i className="sw-chip" style={{ background: C.signal }} /> Toxic-flagged records</span>
-          </div>
+
+        <div
+          ref={(el) => (stepRefs.current[1] = el)}
+          className={`story-block${activeIndex === 1 ? " is-active" : ""}`}
+        >
+          <p>
+            The cumulative view shows steady growth over the six-year period. While fatalities remain relatively low, the consistent rise in poisoning cases underscores the ongoing public health challenge.
+          </p>
         </div>
       </div>
 
-      <div className="panel">
-        <div className="panel-label">
-          <Bi en="Poisoning incidents per month, 2025 only" zh="2025 年云南月度中毒起数" /> <Badge kind="cdc">CDC</Badge>
+      <div className="story-stage">
+        <div className="month-stage" style={{ height: '100%' }}>
+          <div className="month-chart">
+            <AnnualTrendsChart isCumulative={activeIndex === 1} tip={tip} />
+          </div>
         </div>
-        <svg viewBox={`0 0 ${W * 2} ${H}`} className="chart wide-chart">
-          {y25.ticks(4).map((t) => (
-            <g key={t}>
-              <line x1={PAD.l} x2={W * 2 - PAD.r} y1={y25(t)} y2={y25(t)} stroke={C.n100} />
-              <text x={PAD.l - 6} y={y25(t)} dy="0.33em" textAnchor="end" className="axis">{t}</text>
-            </g>
-          ))}
-          {m25.map((r, i) => {
-            const b = (W * 2 - PAD.l - PAD.r) / 12;
-            const x0 = PAD.l + i * b + b * 0.18;
-            const peak = r.month >= 6 && r.month <= 9;
-            return (
-              <g key={r.month} onMouseMove={(e) => tip.show(e, <><strong>{MONTH_ABBR[i]} 2025</strong><div>{r.incidents} incidents</div></>)} onMouseLeave={tip.hide}>
-                <rect x={x0} y={y25(r.incidents)} width={b * 0.64} height={y25(0) - y25(r.incidents)} fill={peak ? C.signal : "#d9c8bc"} rx={2} />
-                <text x={x0 + b * 0.32} y={y25(r.incidents) - 5} textAnchor="middle" className="bar-n">{r.incidents}</text>
-                <text x={x0 + b * 0.32} y={H - PAD.b + 16} textAnchor="middle" className="axis">{MONTH_ABBR[i]}</text>
-              </g>
-            );
-          })}
-        </svg>
-        <p className="small">Total 109 incidents in 2025. Counts of incidents only, with no patient numbers.</p>
+        {tip.node}
       </div>
-      {tip.node}
-
-      <div className="alert-grid">
-        <Alert kind="warning">
-          The GBIF records span all years (2010–2026) and the CDC months are 2025 only. The two are shown side by side and not compared statistically.
-          <span className="zh">口径不同，只并列展示。</span>
-        </Alert>
-        <Alert kind="info">
-          “Toxic-flagged” means species marked poisonous (P) in Wu 2019 or Zhang 2021, plus species with a non-edible clinical group in CDC tables. This is a wide definition: it includes species that are edible but flagged, such as <i>Coprinus comatus</i> and <i>Butyriboletus roseoflavus</i>, which alone make up 12 of the 30 June records.
-        </Alert>
-        <Alert kind="warning">
-          2019 has only a death count (14) and no patient count, so it is left out of 9a. CDC table parsing is incomplete, so the true number of toxic-flagged records may be higher.
-        </Alert>
-      </div>
-      <Note>
-        Sources: China CDC Weekly foodborne outbreak reports 2019–2025 (province tables; 2025 Figure 2 heatmap row matched by total = 109); GBIF; Wu 2019 and Zhang 2021 species tables.
-      </Note>
-    </Step>
+    </section>
   );
 }
