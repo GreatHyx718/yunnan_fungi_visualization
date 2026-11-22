@@ -127,6 +127,18 @@ export default function Treemaps() {
     };
   }, []);
 
+  // largest identified family in each month, as a share of that month's records
+  const top = useMemo(() => {
+    const per = MONTHS.map((m) => {
+      const rs = records.filter((r) => r.m === m);
+      const c = new Map();
+      for (const r of rs) if (r.fa) c.set(r.fa, (c.get(r.fa) || 0) + 1);
+      const [name, n] = [...c.entries()].sort((a, b) => b[1] - a[1])[0];
+      return { name, pct: Math.round((n / rs.length) * 100) };
+    });
+    const rest = per.slice(1).map((p) => p.pct);
+    return { june: per[0], min: Math.min(...rest), max: Math.max(...rest) };
+  }, []);
   const { tree, leaves } = months[activeIndex];
   const comparisonCount = (name, month) => {
     if (name === OTHER) return month.tree.leaves.find((item) => item.name === OTHER)?.n || 0;
@@ -143,7 +155,11 @@ export default function Treemaps() {
           <header className="story-head">
             <h2>What was recorded each month</h2>
           </header>
-          <p>The treemap is grouped by family. Tile area is the share of that month&apos;s records. Tiles marked ▲ contain records of species the literature also lists as poisonous.</p>
+          <p>
+            No single family dominates. The largest takes {top.june.pct}% of June&apos;s records ({top.june.name}), and {top.min}% to {top.max}% in each
+            month from July to October. Tile area is a family&apos;s share of the month, and ▲ marks families with poisonous-flagged records.
+          </p>
+          <p className="story-hint">(*) Scroll from June to October. Hover a tile for that family&apos;s count in every month.</p>
         </div>
         <div
           ref={(el) => (stepRefs.current[0] = el)}

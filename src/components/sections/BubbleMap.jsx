@@ -2,6 +2,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { geoMercator, geoPath } from "d3-geo";
 import { C, counties, countyName, fmt, prefName, prefectures, records } from "../../utils/theme.js";
 import { useTip } from "../../utils/ui.jsx";
+import { toEnglishName } from "../../utils/placeName.js";
 import "../../styles/storyLayout.css";
 
 export const MAP_W = 640;
@@ -56,6 +57,10 @@ export default function BubbleMap() {
     })
     .sort((a, b) => b.n - a.n);
   const maxN = bubbles[0].n;
+  const prefTotals = new Map();
+  for (const b of bubbles) prefTotals.set(b.pref, (prefTotals.get(b.pref) || 0) + b.n);
+  const [topPrefId, topPrefN] = [...prefTotals.entries()].sort((a, b) => b[1] - a[1])[0];
+  const topPref = { en: prefName.get(topPrefId).en, n: topPrefN };
   const rad = (n) => Math.sqrt(n / maxN) * 34; // area proportional to count
   const noCoord = records.length - withCoord;
 
@@ -73,8 +78,12 @@ export default function BubbleMap() {
           <h2>Observations by prefecture and county</h2>
         </header>
         <div className="story-text">
-          <p>Grandma asks where to go this year. I open the map: the records are far from evenly spread.</p>
-          <p>We know where to look. When do we go?</p>
+          <p>
+            {topPref.en} holds {fmt(topPref.n)} of the {fmt(withCoord)} records with coordinates ({Math.round((topPref.n / withCoord) * 100)}%), and{" "}
+            {toEnglishName(bubbles[0].name)} alone has {fmt(bubbles[0].n)}. Of the {bubbles.length} counties with records,{" "}
+            {bubbles.filter((b) => b.n < 5).length} have fewer than five.
+          </p>
+          <p className="story-hint">(*) Hover a bubble for the county name and count.</p>
         </div>
       </div>
 
@@ -109,7 +118,7 @@ export default function BubbleMap() {
                   e,
                   <>
                     <strong>
-                      {b.name} <span className="zh">{prefName.get(b.pref).en}</span>
+                      {toEnglishName(b.name)} <span className="zh">{prefName.get(b.pref).en}</span>
                     </strong>
                     <div>{b.n} records</div>
                   </>,

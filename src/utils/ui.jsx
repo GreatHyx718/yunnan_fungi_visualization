@@ -1,37 +1,17 @@
 import { useState } from "react";
 
-/** English first, Chinese second. */
-export function Bi({ en, zh }) {
-  return (
-    <>
-      {en}
-      {zh ? (
-        <span className="zh" lang="zh-Hans">
-          {zh}
-        </span>
-      ) : null}
-    </>
-  );
+/** English label (the Chinese `zh` prop is ignored; the site is English only). */
+export function Bi({ en }) {
+  return <>{en}</>;
 }
 
-export function Step({ id, en, zh, desc, descZh, children, wide }) {
+export function Step({ id, en, desc, children, wide }) {
   return (
     <section className={`step${wide ? " wide" : ""}`} id={id}>
       <div className="step-inner">
         <header className="step-head">
-          <h2>
-            <Bi en={en} zh={zh} />
-          </h2>
-          {desc ? (
-            <p className="sec-desc">
-              {desc}
-              {descZh ? (
-                <span className="zh" lang="zh-Hans">
-                  {descZh}
-                </span>
-              ) : null}
-            </p>
-          ) : null}
+          <h2>{en}</h2>
+          {desc ? <p className="sec-desc">{desc}</p> : null}
         </header>
         {children}
       </div>

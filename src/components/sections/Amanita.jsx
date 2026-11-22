@@ -116,7 +116,7 @@ export default function Amanita() {
 // lists the species in that group.
 function FlowChart({ groups }) {
   const canvasRef = useRef(null);
-  const W = 780, H = 300, CX = 390, CY = 150, L = 210, END = 620, HW = 14, BAND = 36;
+  const W = 780, H = 300, CX = 300, CY = 150, L = 240, END = 620, HW = 14, BAND = 36;
   const channels = useMemo(
     () => [
       { y: 45, color: [140, 157, 131], label: "Edible", names: groups.edible },
@@ -197,9 +197,9 @@ function FlowChart({ groups }) {
       ctx.stroke();
       ctx.restore();
 
-      if (parts.length < 520 && Math.random() < 0.85) {
+      if (parts.length < 1000 && Math.random() < 0.9) {
         parts.push({
-          x: 0, y0: 20 + Math.random() * 260, vx: 0.9 + Math.random() * 0.6,
+          x: 0, y0: 20 + Math.random() * 260, vx: 0.45 + Math.random() * 0.3,
           ph: Math.random() * 6.28, amp: 2 + Math.random() * 4,
           ch: pickChannel(), off: (Math.random() * 2 - 1) * (HW - 3),
         });
@@ -254,6 +254,7 @@ function FlowChart({ groups }) {
           </div>
         </div>
       ))}
+      <p className="flow-hint">Hover a dot to list the species in each group</p>
     </div>
   );
 }
@@ -340,9 +341,6 @@ function ElevationHeatmap({ records: toxicRecords }) {
           <HeatRow key={mi} label={MONTH_ABBR[HEAT_MONTHS[mi] - 1]} row={row} max={heat.max} />
         ))}
       </div>
-      <p className="small">
-        Elevation bins of 500 m (in km, lower bound). DEM (SRTM 90 m) differs from the original elevation by more than 200 m for 36% of records that have both.
-      </p>
     </div>
   );
 }

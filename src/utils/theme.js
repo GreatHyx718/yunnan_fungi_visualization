@@ -60,19 +60,6 @@ export const FAMILY_COLOR = {
 };
 export const OTHER_COLOR = "#bdbdb6";
 
-export const FAMILY_ZH = {
-  Boletaceae: "牛肝菌科",
-  Thelephoraceae: "革菌科",
-  Amanitaceae: "鹅膏科",
-  Agaricaceae: "蘑菇科",
-  Suillaceae: "乳牛肝菌科",
-  Russulaceae: "红菇科",
-  Tricholomataceae: "口蘑科",
-  Phallaceae: "鬼笔科",
-  Schizophyllaceae: "裂褶菌科",
-  Lycoperdaceae: "马勃科",
-  Helvellaceae: "马鞍菌科",
-};
 export const familyColor = (f) => FAMILY_COLOR[f] || OTHER_COLOR;
 
 export const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

@@ -149,3 +149,9 @@
     transform: none;
   }
 }
+
+/* interaction hint under the left-hand text, e.g. "(*) Hover a bubble..." */
+.story-hint {
+  font-size: 0.82rem !important;
+  line-height: 1.5 !important;
+}

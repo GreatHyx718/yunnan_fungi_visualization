@@ -1,10 +1,10 @@
 import { records } from "./theme.js";
 
 export const RANKS = ["phylum", "class", "order", "family", "genus", "species"];
-export const RANK_ZH = { root: "全部", phylum: "门", class: "纲", order: "目", family: "科", genus: "属", species: "种", unid: "未鉴定" };
-export const LEVEL_ZH = ["云南菌菇", "门", "纲", "目", "科", "属", "种"];
+export const RANK_LABEL = { root: "All", phylum: "Phylum", class: "Class", order: "Order", family: "Family", genus: "Genus", species: "Species", unid: "Unidentified" };
+export const LEVEL_LABEL = ["Fungi", "Phylum", "Class", "Order", "Family", "Genus", "Species"];
 export const LEVEL_TOTAL = [1, 2, 7, 30, 95, 271, 393];
-export const NEXT_ZH = { root: "门", phylum: "纲", class: "目", order: "科", family: "属", genus: "种" };
+export const NEXT_PLURAL = { root: "phyla", phylum: "classes", class: "orders", order: "families", family: "genera", genus: "species" };
 // Dot size depends only on the level: the higher the level, the bigger the dot.
 export const LEVEL_SIZE = [15, 11, 8.5, 6.5, 5, 4, 3.2];
 // A view always shows four levels (parent, focus, children, grandchildren; for the whole
@@ -52,7 +52,7 @@ export function buildTree(tokens) {
     n.children.forEach((c) => finish(c, depth + 1));
     if (n.unid > 0 && n.children.length > 0)
       n.children.push({
-        id: `${n.id}/?`, name: "未鉴定到下一级", rank: "unid", type: "node", parent: n, depth: depth + 1,
+        id: `${n.id}/?`, name: "Unidentified to the next rank", rank: "unid", type: "node", parent: n, depth: depth + 1,
         size: LEVEL_SIZE[depth + 1], color: tokens.neutral, count: n.unid, ed: n.unidEd, tox: n.unidTox, children: [],
       });
     return n;

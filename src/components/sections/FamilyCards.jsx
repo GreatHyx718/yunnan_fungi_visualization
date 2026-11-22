@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { C, FAMILY_ZH, MONTH_ABBR, familyColor, prefName, records } from "../../utils/theme.js";
+import { C, MONTH_ABBR, familyColor, prefName, records } from "../../utils/theme.js";
 import { Badge, Bi, Step, Tabs, Tag } from "../../utils/ui.jsx";
 import { MONTH_NAME, byMonth } from "./Top5.jsx";
 import boletusImage from "../../images/boletus-sinoedulis-single中华美味牛肝菌（白牛肝） 1.png";
@@ -137,44 +137,44 @@ function Card({ family, month }) {
     <article className="card" style={{ "--fam": familyColor(family) }}>
       <header>
         <h3>
-          {family} <span className="zh">{FAMILY_ZH[family]}</span>
+          {family}
         </h3>
         <div className="tags">
-          <Tag kind="edible">Edible range 可食用</Tag>
-          {s.flagged ? <Tag kind="toxic">Includes poisonous flag 含有毒标记</Tag> : null}
+          <Tag kind="edible">Edible range</Tag>
+          {s.flagged ? <Tag kind="toxic">Includes poisonous flag</Tag> : null}
           <Tag kind="family">{s.species} species</Tag>
         </div>
       </header>
       <div className="stats3">
         <div>
           <b>{s.all}</b>
-          <span>All records 全部记录</span>
+          <span>All records</span>
         </div>
         <div>
           <b>{s.edible}</b>
-          <span>Edible range 可食记录</span>
+          <span>Edible range records</span>
         </div>
         <div>
           <b>{s.notEdible}</b>
-          <span>Not edible range 不在可食范围</span>
+          <span>Not in edible range</span>
         </div>
       </div>
       <h4>
-        <Bi en="Edible records, Jun–Oct (and share of that month)" zh="6–10 月分布与月内占比" />
+        <Bi en="Edible records, Jun–Oct (and share of that month)" />
       </h4>
       <MonthMini values={s.perMonth} totals={totals} />
       <h4>
-        <Bi en="Elevation" zh="海拔" /> <Badge kind="dem">DEM estimate ±200 m</Badge>
+        <Bi en="Elevation" /> <Badge kind="dem">DEM estimate ±200 m</Badge>
       </h4>
       <ElevationStrip dem={s.dem} />
       <h4>
-        <Bi en="Top 3 prefectures (edible records, counts)" zh="记录最多的州市" />
+        <Bi en="Top 3 prefectures (edible records, counts)" />
       </h4>
       <ol className="top3">
         {s.top3.length ? (
           s.top3.map(([id, n]) => (
             <li key={id}>
-              {prefName.get(id).en} <span className="zh">{prefName.get(id).zh}</span> <b>{n}</b>
+              {prefName.get(id).en} <b>{n}</b>
             </li>
           ))
         ) : (
@@ -255,7 +255,8 @@ export default function FamilyCards() {
                 <Bi en="Family cards" />
               </h2>
               <p className="sec-desc">
-                Scroll to move through the five families of the chosen month, from rank 1 to rank 5. The illustration on the left follows the card.
+                Among the {FAMILY_CARD_MONTHS.reduce((a, m) => a + monthEdible[m], 0)} edible-range records from June to October, Boletaceae ranks first from June to
+                September (tied with Thelephoraceae in September). Agaricaceae leads in October. Pick a month, then scroll from rank 1 to rank 5.
               </p>
             </header>
             <Tabs

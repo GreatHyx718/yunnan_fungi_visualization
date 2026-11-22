@@ -5,7 +5,6 @@ import { C, M_LIST, records, fmt } from "../../utils/theme.js";
 import { Alert, Bi, Note, Step, useTip } from "../../utils/ui.jsx";
 
 const RANKS = ["phylum", "class", "order", "family", "genus", "species"];
-const RANK_ZH = { kingdom: "界", phylum: "门", class: "纲", order: "目", family: "科", genus: "属", species: "种" };
 const SIZE = 760;
 const R = SIZE / 2;
 const UNIT = R / 4; // centre disc + three visible rings
@@ -117,7 +116,7 @@ export default function Sunburst() {
     <>
       <strong>{d.data.name}</strong>
       <div>
-        {d.data.rank === "unid" ? "Not identified to next rank" : `${cap(d.data.rank)} ${RANK_ZH[d.data.rank] || ""}`}
+        {d.data.rank === "unid" ? "Not identified to next rank" : cap(d.data.rank)}
       </div>
       <div>
         {fmt(d.value)} records · {((d.value / total) * 100).toFixed(1)}%
@@ -136,9 +135,7 @@ export default function Sunburst() {
     <Step
       id="hierarchy"
       en="Taxonomic hierarchy"
-      zh="分类层级与范围"
       desc="1,188 GBIF records from Yunnan (2010–2026), all in kingdom Fungi. Arc length is the record count. Click an arc to zoom in, click the centre to go back."
-      descZh="点击弧段钻取，点击中心返回上一层。"
       wide
     >
       <div className="sun-layout">
@@ -210,30 +207,30 @@ export default function Sunburst() {
         <aside className="sun-side">
           <div className="panel">
             <div className="panel-label">
-              <Bi en="How to read" zh="图例" />
+              <Bi en="How to read" />
             </div>
             <div className="legend-row">
               <i className="sw-chip" style={{ background: C.p400, opacity: 0.95 }} />
               <span>
-                Solid: contains confirmed edible species <span className="zh">实心：含已确认可食种</span>
+                Solid: contains confirmed edible species
               </span>
             </div>
             <div className="legend-row">
               <i className="sw-chip" style={{ background: C.p400, opacity: 0.4 }} />
               <span>
-                Faded: no confirmed edible species <span className="zh">淡色：不在可食范围</span>
+                Faded: no confirmed edible species
               </span>
             </div>
             <div className="legend-row">
               <i className="sw-chip" style={{ background: C.n300 }} />
               <span>
-                Unidentified to the next rank <span className="zh">未鉴定到下一级</span>
+                Unidentified to the next rank
               </span>
             </div>
             <div className="legend-row">
               <i className="sw-chip" style={{ background: "#b5b5ae" }} />
               <span>
-                Orders outside the top 8 <span className="zh">其他目</span>
+                Orders outside the top 8
               </span>
             </div>
             <p className="small">
@@ -242,7 +239,7 @@ export default function Sunburst() {
           </div>
           <Alert kind="warning">
             Basidiomycota holds 91% of the records, and most of that area is one class (Agaricomycetes).
-            <span className="zh">担子菌门占 91% 的记录，伞菌纲占绝大部分。</span>
+           
           </Alert>
           <Note>
             Edibility is judged at species level (Wu 2019, Zhang 2021). Above species, “solid” only means the node contains at least one confirmed edible species.

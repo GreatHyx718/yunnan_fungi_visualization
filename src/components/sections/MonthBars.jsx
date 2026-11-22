@@ -58,8 +58,10 @@ export default function MonthBars() {
   const bw = (W - PAD.l - PAD.r) / 12;
   const peakN = rows.filter((r) => HIGHLIGHT_MONTHS.includes(r.m)).reduce((a, r) => a + r.edible + r.other, 0);
   const withMonth = records.length - noMonth;
-  const peakShare = Math.round((peakN / withMonth) * 100);
+  const peakShare = Math.round((peakN / records.length) * 100);
   const august = rows[7].edible + rows[7].other;
+  const july = rows[6].edible + rows[6].other;
+  const otherMax = Math.max(...rows.filter((r) => !HIGHLIGHT_MONTHS.includes(r.m)).map((r) => r.edible + r.other));
 
   return (
     <section id="months" className="story-section">
@@ -68,14 +70,15 @@ export default function MonthBars() {
           <header className="story-head">
             <h2>Observations by month</h2>
           </header>
-          <p>Grandma never checks a calendar; she watches the sky. The data is blunter.</p>
+          <p>
+            Records are concentrated in summer. June to October holds {fmt(peakN)} of the {fmt(records.length)} records ({peakShare}%).
+          </p>
         </div>
         <div className={`story-block${phase === 1 ? " is-active" : ""}`}>
           <p ref={(el) => (stepRefs.current[1] = el)}>
-            There are {fmt(peakN)} entries from June to September, accounting for approximately {peakShare}% of the records that include
-            month information. August has the highest number, with {fmt(august)} entries.
+            August is the peak with {fmt(august)} records, followed by July with {fmt(july)}. No month outside June to October has more than {fmt(otherMax)}.
           </p>
-          <p>June, July, August, September, and October, the five months. Let&rsquo;s open the basket month by month.</p>
+          <p className="story-hint">(*) Hover a bar for the edible-range and other counts.</p>
         </div>
       </div>
 
@@ -126,8 +129,8 @@ export default function MonthBars() {
           })}
         </svg>
           <div className="legend">
-            <span><i className="sw-chip" style={{ background: C.p400 }} /> Edible range <span className="zh">可食范围</span></span>
-            <span><i className="sw-chip" style={{ background: C.a400 }} /> Other records <span className="zh">其他</span></span>
+            <span><i className="sw-chip" style={{ background: C.p400 }} /> Edible range</span>
+            <span><i className="sw-chip" style={{ background: C.a400 }} /> Other records</span>
             {phase === 1 ? (
               <span className="legend-fade">
                 <i className="sw-chip" style={{ background: MUTED_EDIBLE }} />

@@ -2,26 +2,13 @@ import { useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { scaleSqrt } from "d3-scale";
 import { geoPath } from "d3-geo";
-import { pinyin } from "pinyin-pro";
+import { toEnglishName } from "../../utils/placeName.js";
 import countyGeo from "../../data/counties.json";
-import { C, MONTH_ABBR, counties, prefName, prefectures, records } from "../../utils/theme.js";
+import { C, MONTH_ABBR, counties, fmt, prefName, prefectures, records } from "../../utils/theme.js";
 import { projection, pathGen } from "./BubbleMap.jsx";
 import "../../styles/storyLayout.css";
 
 const PEAK_MONTHS = [6, 7, 8, 9, 10]; // June to October
-
-// Convert Chinese county name to English (pinyin with proper capitalization)
-const toEnglishName = (chineseName) => {
-  // Remove common suffixes like 县, 区, 市
-  const cleanName = chineseName.replace(/[县区市]/g, '');
-  // Convert to pinyin with first letter capitalized
-  const pinyinArray = pinyin(cleanName, { 
-    toneType: 'none',
-    type: 'array'
-  });
-  // Capitalize first letter of each word
-  return pinyinArray.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
-};
 
 // The county file is wound the opposite way to what d3-geo expects, which makes
 // every county fill the whole sphere. Reverse each ring once at load time.
@@ -55,6 +42,18 @@ export default function Hotspots() {
   }, [peak]);
   
   const maxC = Math.max(...byCounty.values());
+  // the three busiest counties, and how much of each one's year falls in June–October
+  const top3 = [...byCounty.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([id, n]) => ({
+      name: toEnglishName(counties.find((c) => c.id === id).name),
+      peak: n,
+      all: records.filter((r) => r.ct === id).length,
+    }));
+  const byShare = [...top3].sort((a, b) => b.peak / b.all - a.peak / a.all);
+  const hiC = byShare[0];
+  const loC = byShare[byShare.length - 1];
   const color = scaleSqrt().domain([0, maxC]).range([0, 1]);
   // Uniform map color - no shading by county data
   const shade = (n) => C.map;
@@ -276,8 +275,12 @@ export default function Hotspots() {
             <h2>Where the peak season is busiest</h2>
           </header>
           <div className="story-text">
-            <p>Counties are shaded by records in June–October.</p>
-            <p>Hover over a bubble to see details.</p>
+            <p>
+              {top3.map((c) => c.name).join(", ").replace(/, ([^,]*)$/, " and $1")} hold {fmt(top3.reduce((a, c) => a + c.peak, 0))} of the {fmt(peak.length)}{" "}
+              June–October records with a county ({Math.round((top3.reduce((a, c) => a + c.peak, 0) / peak.length) * 100)}%).{" "}
+              {hiC.peak === hiC.all ? `All ${hiC.all}` : `${hiC.peak} of ${hiC.all}`} records from {hiC.name} fall in these months, against {loC.peak} of {loC.all} from {loC.name}.
+            </p>
+            <p className="story-hint">(*) Hover a bubble for the county name, the count and the monthly breakdown.</p>
           </div>
         </div>
 

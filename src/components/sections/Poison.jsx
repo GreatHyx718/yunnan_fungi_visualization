@@ -8,12 +8,13 @@ import "../../styles/storyLayout.css";
 
 // Colors from design system
 const COLORS = {
-  deaths: "#4a4a4a",      // --n-700 深灰
-  patients: "#888888",    // --n-500 浅灰
-  all: "#344C3D",         // --p-400 绿色
-  poisonous: "#C4A058",   // --warning 黄色
+  deaths: "#4a4a4a",      // --n-700 dark grey
+  patients: "#888888",    // --n-500 light grey
+  all: "#344C3D",         // --p-400 green
+  poisonous: "#C4A058",   // --warning yellow
 };
 const MONTHS = [6, 7, 8, 9, 10];
+const FULL_MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 // Annual trends line chart component with scroll interaction
 function AnnualTrendsChart({ isCumulative, tip }) {
@@ -324,6 +325,12 @@ export default function Poison() {
   const monthTotal = monthRows.reduce((a, d) => a + d.total, 0);
   const monthPoison = monthRows.reduce((a, d) => a + d.poison, 0);
   const peakRow = monthRows.reduce((a, d) => (d.poison > a.poison ? d : a));
+  const years = cdc.annual.filter((d) => d.year >= 2020 && d.year <= 2025);
+  const totalPatients = years.reduce((a, d) => a + d.patients, 0);
+  const totalDeaths = years.reduce((a, d) => a + d.deaths, 0);
+  const worst = years.reduce((a, d) => (d.patients > a.patients ? d : a));
+  const zero = years.find((d) => d.deaths === 0) || years[years.length - 1];
+  const minPatients = Math.min(...years.map((d) => d.patients));
   const stepRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -361,8 +368,10 @@ export default function Poison() {
             <h2>Poisoning in Yunnan</h2>
           </header>
           <p>
-            From 2020 to 2025, Yunnan Province reported 1,615 mushroom poisoning patients and 23 deaths according to China CDC, with most incidents occurring during the rainy season from June to October.
+            China CDC reported {fmt(totalPatients)} mushroom-poisoning patients and {totalDeaths} deaths in Yunnan from 2020 to 2025.{" "}
+            {worst.year} was the worst year, with {worst.patients} patients and {worst.deaths} deaths, and {zero.year} had {zero.patients} patients and no deaths.
           </p>
+          <p className="story-hint">(*) Scroll to move from yearly counts to cumulative totals and then to the GBIF records.</p>
         </div>
 
         <div
@@ -370,7 +379,8 @@ export default function Poison() {
           className={`story-block${activeIndex === 1 ? " is-active" : ""}`}
         >
           <p>
-            The cumulative view shows steady growth over the six-year period. While fatalities remain relatively low, the consistent rise in poisoning cases underscores the ongoing public health challenge.
+            Over the six years the totals reach {fmt(totalPatients)} patients and {totalDeaths} deaths, a case fatality of {((totalDeaths / totalPatients) * 100).toFixed(1)}%.
+            Every year adds {minPatients} or more patients, so the cumulative curve keeps rising.
           </p>
         </div>
 
@@ -379,8 +389,8 @@ export default function Poison() {
           className={`story-block${activeIndex === 2 ? " is-active" : ""}`}
         >
           <p>
-            Between June and October, {fmt(monthTotal)} records were made across all years, and {fmt(monthPoison)} ({Math.round((monthPoison / monthTotal) * 100)}%) belong to
-            species flagged as poisonous. The poisonous records peak in {MONTH_ABBR[peakRow.m - 1]}, with {peakRow.poison}.
+            From June to October, {fmt(monthTotal)} GBIF records were made across all years, and {fmt(monthPoison)} of them ({Math.round((monthPoison / monthTotal) * 100)}%) belong to
+            Poisonous or Edible-Poisonous species. Poisonous records peak in {FULL_MONTH[peakRow.m - 1]}, with {peakRow.poison}.
           </p>
         </div>
       </div>

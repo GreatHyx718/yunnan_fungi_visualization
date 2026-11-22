@@ -7,7 +7,7 @@ import { interpolateZoom } from "d3-interpolate";
 import { records, fmt } from "../../utils/theme.js";
 import { Bi } from "../../utils/ui.jsx";
 import { buildTree, ancestorsOf, visibleFor, defaultChild, pathBetween, clusterTargets, SLOT_SIZE, slotOf } from "../../utils/taxonTree.js";
-import { Legend, HoverCard, zhOf } from "./HierarchyPanels.jsx";
+import { Legend, HoverCard } from "./HierarchyPanels.jsx";
 import "../../styles/storyLayout.css";
 import "../../styles/hierarchyNetwork.css";
 
@@ -34,7 +34,10 @@ const shortName = (n) => {
   const [g, ...rest] = n.name.split(" ");
   return `${g[0]}. ${rest.join(" ")}`;
 };
-const labelOf = (n) => (n.type === "root" ? "云南菌菇" : zhOf(n.name) || shortName(n));
+const EDIBLE_RECORDS = records.filter((r) => r.ed);
+const EDIBLE_N = EDIBLE_RECORDS.length;
+const EDIBLE_SP = new Set(EDIBLE_RECORDS.map((r) => r.sp)).size;
+const labelOf = (n) => (n.type === "root" ? "Fungi" : shortName(n));
 const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
 
 export default function HierarchyNetwork() {
@@ -538,11 +541,12 @@ export default function HierarchyNetwork() {
         </header>
         <div className="story-text">
           <p>
-            I&rsquo;m Xiaojun. I used to follow Grandma up the mountain; now I study away from home and only come back in summer.
+            Yunnan has <strong>{fmt(records.length)} mushroom records</strong> on GBIF from 2010 to 2026. Only {fmt(EDIBLE_N)} of them, from{" "}
+            {EDIBLE_SP} species, fall in the edible range.
           </p>
-          <p>
-            Lately I take a photo of whatever I find and upload it. I&rsquo;m not the only one: <strong>1,188 records</strong> from Yunnan
-            between 2010 and 2026 were made this way. Each one is a photo, a place and a date.
+          <p className="story-hint">
+            (*) Click or scroll into a node to go from phylum down to species. The filters show only groups with edible species or with a
+            poisonous flag.
           </p>
         </div>
       </div>
@@ -557,18 +561,18 @@ export default function HierarchyNetwork() {
             <span key={c.id} style={{ display: "contents" }}>
               {i > 0 ? <span className="sep">›</span> : null}
               <button type="button" aria-current={c === focus} onClick={() => api.current.goToId(c.id)}>
-                {c.rank === "root" ? "全部" : zhOf(c.name) || c.name} ({fmt(c.count)})
+                {c.rank === "root" ? "All" : c.name} ({fmt(c.count)})
               </button>
             </span>
           ))}
         </nav>
 
         <div className="fn-tools">
-          <button type="button" aria-label="放大" onClick={() => api.current.zoomBy(1.4)}>+</button>
-          <button type="button" aria-label="缩小" onClick={() => api.current.zoomBy(1 / 1.4)}>−</button>
-          <button type="button" aria-label="回到全部" onClick={() => api.current.goToId("root")}>⟲</button>
-          <button type="button" aria-label="上一层" title="上一层" onClick={() => api.current.up()}>↑</button>
-          <button type="button" aria-label="下一层（最大分支）" title="下一层（最大分支）" onClick={() => api.current.down()}>↓</button>
+          <button type="button" aria-label="Zoom in" onClick={() => api.current.zoomBy(1.4)}>+</button>
+          <button type="button" aria-label="Zoom out" onClick={() => api.current.zoomBy(1 / 1.4)}>−</button>
+          <button type="button" aria-label="Back to all" onClick={() => api.current.goToId("root")}>⟲</button>
+          <button type="button" aria-label="Up one level" title="Up one level" onClick={() => api.current.up()}>↑</button>
+          <button type="button" aria-label="Down one level (largest branch)" title="Down one level (largest branch)" onClick={() => api.current.down()}>↓</button>
         </div>
 
         <Legend tokens={tokens} mode={mode} setMode={setMode} />
