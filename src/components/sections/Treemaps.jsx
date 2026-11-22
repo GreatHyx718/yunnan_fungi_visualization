@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { hierarchy, treemap, treemapSquarify } from "d3-hierarchy";
-import { FAMILY_COLOR, M_LIST, OTHER_COLOR, records, textOn } from "../../utils/theme.js";
+import { OTHER_COLOR, records } from "../../utils/theme.js";
 import { useTip } from "../../utils/ui.jsx";
 import "../../styles/storyLayout.css";
 
@@ -43,16 +43,34 @@ function layout(tree) {
   return root.leaves();
 }
 
+// Greens from the design system (primary and sage scales), alternating dark and light so
+// neighbouring tiles stay apart. Each family keeps one colour in every month, by overall rank.
+const GREENS = ["#344C3D", "#c1d0b8", "#717e69", "#d4e0d8", "#5a7a5c", "#a8c1b1", "#8C9D83", "#565f50"];
+const familyRank = (() => {
+  const n = new Map();
+  for (const r of records) if (r.fa) n.set(r.fa, (n.get(r.fa) || 0) + 1);
+  return new Map([...n.entries()].sort((a, b) => b[1] - a[1]).map(([name], i) => [name, i]));
+})();
+
 function treemapColor(name) {
-  if (FAMILY_COLOR[name]) return FAMILY_COLOR[name];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
-  return M_LIST[Math.abs(hash) % M_LIST.length];
+  return GREENS[(familyRank.get(name) ?? 0) % GREENS.length];
+}
+
+// white text on dark tiles, dark text on light ones
+function textOn(hex) {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return lum > 0.3 ? "#2c2c2c" : "#ffffff";
 }
 
 export default function Treemaps() {
   const [activeIndex, setActiveIndex] = useState(0);
   const stepRefs = useRef([]);
+  const stageRef = useRef(null);
+  const chartRef = useRef(null);
+  // Offsets (px) that line the text up with the chart's top-left corner: the first block starts
+  // at the chart's top edge, and the last block ends level with it when the sticky stage is released.
+  const [align, setAlign] = useState({ top: null, bottom: null });
   const tip = useTip();
   const months = useMemo(
     () => MONTHS.map((m) => {
@@ -61,6 +79,30 @@ export default function Treemaps() {
     }),
     [],
   );
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const stage = stageRef.current;
+      const chart = chartRef.current;
+      const last = stepRefs.current[MONTHS.length - 1];
+      if (!stage || !chart || !last || window.innerWidth <= 900) {
+        setAlign({ top: null, bottom: null });
+        return;
+      }
+      const top = chart.getBoundingClientRect().top - stage.getBoundingClientRect().top;
+      const bottom = Math.max(0, stage.offsetHeight - top - last.offsetHeight);
+      setAlign((a) => (Math.abs((a.top ?? -1) - top) < 0.5 && Math.abs((a.bottom ?? -1) - bottom) < 0.5 ? a : { top, bottom }));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(stageRef.current);
+    ro.observe(chartRef.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -94,7 +136,10 @@ export default function Treemaps() {
   return (
     <section id="composition" className="story-section treemap-story">
       <div className="story-col story-col--blocks">
-        <div className={`story-block story-block--intro${activeIndex === 0 ? " is-active" : ""}`}>
+        <div
+          className={`story-block story-block--intro${activeIndex === 0 ? " is-active" : ""}`}
+          style={align.top == null ? undefined : { marginTop: align.top, transform: "none" }}
+        >
           <header className="story-head">
             <h2>What was recorded each month</h2>
           </header>
@@ -111,15 +156,16 @@ export default function Treemaps() {
             key={month}
             ref={(el) => (stepRefs.current[index + 1] = el)}
             className={`story-block story-block--month${activeIndex === index + 1 ? " is-active" : ""}`}
+            style={index === MONTHS.length - 2 && align.bottom != null ? { marginBottom: align.bottom } : undefined}
           >
             <p className="story-month">{MONTH_NAMES[index + 1]}</p>
           </div>
         ))}
       </div>
 
-      <div className="story-stage treemap-stage">
+      <div className="story-stage treemap-stage" ref={stageRef}>
         <div className="treemap-chart">
-          <svg viewBox={`0 0 ${W} ${H}`} className="chart" role="img" aria-label={`Treemap of families in ${MONTH_LABELS[activeIndex]}`}>
+          <svg ref={chartRef} viewBox={`0 0 ${W} ${H}`} className="chart" role="img" aria-label={`Treemap of families in ${MONTH_LABELS[activeIndex]}`}>
             {leaves.map((leaf) => {
               const item = leaf.data;
               const width = leaf.x1 - leaf.x0;

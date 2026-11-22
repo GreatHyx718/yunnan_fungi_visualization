@@ -226,13 +226,121 @@ body {
   backdrop-filter: blur(20px);
 }
 
-/* Footer sits at the very bottom of the page, drawn on top of the last storyboard image */
-.site-foot.site-foot--overlay {
+/* Footer: the last storyboard is the backdrop; sources and references sit on its lawn */
+.site-foot-wrap {
   position: relative;
-  z-index: 3;
-  margin-top: -3.5rem;
-  padding-top: 0;
-  padding-bottom: 2rem;
+  background: var(--bg-page);
+}
+.site-foot-art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.site-foot-wrap .site-foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 clamp(1.5rem, 6vw, 5rem) 1.6rem;
   background: transparent;
-  color: #4a5d3c;
+  text-align: left;
+  color: #34452f;
+}
+.foot-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+  gap: 2.5rem;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(52, 69, 47, 0.45);
+}
+.site-foot-wrap h3 {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #34452f;
+}
+.foot-source-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.7rem;
+}
+.foot-source-row p,
+.foot-more {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+.foot-more {
+  margin-top: 0.4rem;
+}
+.foot-logo {
+  flex: 0 0 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+}
+.foot-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+/* the China CDC Weekly mark is white, so it sits on a dark plate */
+.foot-logo--ccdcw {
+  background: #344c3d;
+  padding: 4px 8px;
+}
+.foot-refs ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+.foot-refs li {
+  break-inside: avoid;
+  margin: 0 0 0.4rem;
+  padding-left: 1.4em;
+  text-indent: -1.4em;
+  overflow-wrap: anywhere;
+}
+.foot-refs a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(52, 69, 47, 0.4);
+}
+@media (max-width: 1000px) {
+  .site-foot-wrap .site-foot {
+    position: static;
+    padding-top: 1.5rem;
+    background: var(--bg-page);
+  }
+  .foot-inner { grid-template-columns: 1fr; }
+}
+
+/* text tag used where a source has no logo */
+.foot-logo--tag {
+  border: 1px solid rgba(52, 69, 47, 0.5);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #34452f;
+  text-decoration: none;
+}
+.foot-source-row p a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(52, 69, 47, 0.4);
+}
+
+/* Space between storyboard1 and the Taxonomic hierarchy page (also clears the blur band that falls on this page) */
+#hierarchy.story-section {
+  margin-top: 60px;
 }

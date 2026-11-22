@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Cover from "./components/layout/Cover.jsx";
+import Footer from "./components/layout/Footer.jsx";
 import storyboard1 from "./images/storyboard1.jpg";
 import storyboard2 from "./images/storyboard2.jpg";
 import storyboard3 from "./images/storyboard3.jpg";
@@ -8,7 +9,6 @@ import storyboard5 from "./images/storyboard5.jpg";
 import storyboard6 from "./images/storyboard6.jpg";
 import storyboard7 from "./images/storyboard7.jpg";
 import storyboard8 from "./images/storyboard8.jpg";
-import storyboard9 from "./images/storyboard9.jpg";
 import Sunburst from "./components/sections/HierarchyNetwork.jsx";
 import BubbleMap from "./components/sections/BubbleMap.jsx";
 import MonthBars from "./components/sections/MonthBars.jsx";
@@ -51,6 +51,7 @@ export default function App() {
       <Cover />
       <SeamBlur />
       <Storyboard src={storyboard1} n={1} />
+      <div className="seam-blur seam-blur--static" aria-hidden="true" />
       <main>
         <Sunburst />
         <Storyboard src={storyboard2} n={2} />
@@ -68,11 +69,8 @@ export default function App() {
         <Storyboard src={storyboard8} n={8} />
         <Poison />
         <div className="seam-blur seam-blur--static" aria-hidden="true" />
-        <Storyboard src={storyboard9} n={9} />
       </main>
-      <footer className="site-foot site-foot--overlay">
-        Data: GBIF occurrences for Yunnan 2010–2026 (1,188 records), Wu 2019 and Zhang 2021 edible-species tables, China CDC Weekly poisoning reports, SRTM 90 m elevation.
-      </footer>
+      <Footer />
     </>
   );
 }

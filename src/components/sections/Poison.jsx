@@ -1,15 +1,19 @@
 import { scaleLinear } from "d3-scale";
 import { line, area } from "d3-shape";
 import { useMemo, useRef, useState, useEffect } from "react";
-import { C, cdc } from "../../utils/theme.js";
+import { C, MONTH_ABBR, cdc, fmt, records } from "../../utils/theme.js";
+import { poisonousSpeciesSet } from "../../utils/toxic.js";
 import { useTip } from "../../utils/ui.jsx";
 import "../../styles/storyLayout.css";
 
 // Colors from design system
 const COLORS = {
   deaths: "#4a4a4a",      // --n-700 深灰
-  patients: "#888888"     // --n-500 浅灰
+  patients: "#888888",    // --n-500 浅灰
+  all: "#344C3D",         // --p-400 绿色
+  poisonous: "#C4A058",   // --warning 黄色
 };
+const MONTHS = [6, 7, 8, 9, 10];
 
 // Annual trends line chart component with scroll interaction
 function AnnualTrendsChart({ isCumulative, tip }) {
@@ -87,7 +91,7 @@ function AnnualTrendsChart({ isCumulative, tip }) {
     .y1(d => yScaleDeaths(d.deaths));
 
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} style={{ maxWidth: "100%", height: "auto" }}>
+    <svg viewBox={`0 0 ${w} ${h}`} style={{ display: "block", maxWidth: "100%", width: 600, height: "auto", margin: "0 auto" }}>
       <g transform={`translate(${margin.left},${margin.top})`}>
         {/* Grid lines */}
         {[0, 0.25, 0.5, 0.75, 1].map(t => (
@@ -235,8 +239,91 @@ function AnnualTrendsChart({ isCumulative, tip }) {
   );
 }
 
+// Jun–Oct records of all years: every record vs records of poisonous species (shared axis)
+function MonthlyCompareChart({ tip, rows }) {
+  const w = 720, h = 460;
+  const margin = { top: 30, right: 40, bottom: 90, left: 70 };
+  const chartW = w - margin.left - margin.right;
+  const chartH = h - margin.top - margin.bottom;
+  const max = Math.max(...rows.map((d) => d.total)) * 1.12;
+  const x = scaleLinear().domain([6, 10]).range([40, chartW - 40]);
+  const y = scaleLinear().domain([0, max]).range([chartH, 0]);
+  const lineAll = line().x((d) => x(d.m)).y((d) => y(d.total));
+  const linePoison = line().x((d) => x(d.m)).y((d) => y(d.poison));
+
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} style={{ display: "block", maxWidth: "100%", width: 600, height: "auto", margin: "0 auto" }}>
+      <g transform={`translate(${margin.left},${margin.top})`}>
+        {y.ticks(5).map((t) => (
+          <g key={t}>
+            <line x1={0} x2={chartW} y1={y(t)} y2={y(t)} stroke="#e0e0e0" />
+            <text x={-12} y={y(t)} dy="0.35em" textAnchor="end" fontSize={12} fill="#666">{t}</text>
+          </g>
+        ))}
+        <line x1={0} y1={chartH} x2={chartW} y2={chartH} stroke="#333" strokeWidth={2} />
+        <line x1={0} y1={0} x2={0} y2={chartH} stroke="#333" strokeWidth={2} />
+        <text transform={`translate(-55,${chartH / 2}) rotate(-90)`} textAnchor="middle" fill="#333" fontSize={13} fontWeight={600}>
+          Records, all years
+        </text>
+        {rows.map((d) => (
+          <g key={d.m} transform={`translate(${x(d.m)},${chartH})`}>
+            <line y2={6} stroke="#333" strokeWidth={2} />
+            <text y={24} textAnchor="middle" fontSize={14} fontWeight={600} fill="#333">{MONTH_ABBR[d.m - 1]}</text>
+          </g>
+        ))}
+
+        <path d={lineAll(rows)} fill="none" stroke={COLORS.all} strokeWidth={3} />
+        <path d={linePoison(rows)} fill="none" stroke={COLORS.poisonous} strokeWidth={3} />
+
+        {rows.map((d) => {
+          const tipBody = (
+            <>
+              <strong>{MONTH_ABBR[d.m - 1]}</strong>
+              <div>All records: {fmt(d.total)}</div>
+              <div>Poisonous species: {fmt(d.poison)} ({d.total ? Math.round((d.poison / d.total) * 100) : 0}%)</div>
+            </>
+          );
+          return (
+            <g key={d.m}>
+              <circle cx={x(d.m)} cy={y(d.total)} r={4} fill={COLORS.all} stroke="#fff" strokeWidth={2} pointerEvents="none" />
+              <circle cx={x(d.m)} cy={y(d.poison)} r={4} fill={COLORS.poisonous} stroke="#fff" strokeWidth={2} pointerEvents="none" />
+              <text x={x(d.m)} y={y(d.total) - 12} textAnchor="middle" fontSize={12} fill="#333">{d.total}</text>
+              <text x={x(d.m)} y={y(d.poison) - 12} textAnchor="middle" fontSize={12} fill="#333">{d.poison}</text>
+              <circle cx={x(d.m)} cy={y(d.total)} r={9} fill="transparent" style={{ cursor: "pointer" }} onMouseMove={(e) => tip.show(e, tipBody)} onMouseLeave={tip.hide} />
+              <circle cx={x(d.m)} cy={y(d.poison)} r={9} fill="transparent" style={{ cursor: "pointer" }} onMouseMove={(e) => tip.show(e, tipBody)} onMouseLeave={tip.hide} />
+            </g>
+          );
+        })}
+
+        <g transform={`translate(${chartW - 200},${chartH + 52})`}>
+          <g>
+            <line x1={0} x2={30} y1={0} y2={0} stroke={COLORS.all} strokeWidth={2.5} />
+            <circle cx={15} cy={0} r={3.5} fill={COLORS.all} stroke="#fff" strokeWidth={1.5} />
+            <text x={36} y={4} fontSize={12} fill="#333">All records</text>
+          </g>
+          <g transform="translate(0,24)">
+            <line x1={0} x2={30} y1={0} y2={0} stroke={COLORS.poisonous} strokeWidth={2.5} />
+            <circle cx={15} cy={0} r={3.5} fill={COLORS.poisonous} stroke="#fff" strokeWidth={1.5} />
+            <text x={36} y={4} fontSize={12} fill="#333">Poisonous species</text>
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 export default function Poison() {
   const tip = useTip();
+  const monthRows = useMemo(() => {
+    const set = poisonousSpeciesSet(records);
+    return MONTHS.map((m) => {
+      const rs = records.filter((r) => r.m === m);
+      return { m, total: rs.length, poison: rs.filter((r) => r.sp && set.has(r.sp)).length };
+    });
+  }, []);
+  const monthTotal = monthRows.reduce((a, d) => a + d.total, 0);
+  const monthPoison = monthRows.reduce((a, d) => a + d.poison, 0);
+  const peakRow = monthRows.reduce((a, d) => (d.poison > a.poison ? d : a));
   const stepRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -286,12 +373,26 @@ export default function Poison() {
             The cumulative view shows steady growth over the six-year period. While fatalities remain relatively low, the consistent rise in poisoning cases underscores the ongoing public health challenge.
           </p>
         </div>
+
+        <div
+          ref={(el) => (stepRefs.current[2] = el)}
+          className={`story-block${activeIndex === 2 ? " is-active" : ""}`}
+        >
+          <p>
+            Between June and October, {fmt(monthTotal)} records were made across all years, and {fmt(monthPoison)} ({Math.round((monthPoison / monthTotal) * 100)}%) belong to
+            species flagged as poisonous. The poisonous records peak in {MONTH_ABBR[peakRow.m - 1]}, with {peakRow.poison}.
+          </p>
+        </div>
       </div>
 
       <div className="story-stage">
         <div className="month-stage" style={{ height: '100%' }}>
           <div className="month-chart">
-            <AnnualTrendsChart isCumulative={activeIndex === 1} tip={tip} />
+            {activeIndex === 2 ? (
+              <MonthlyCompareChart tip={tip} rows={monthRows} />
+            ) : (
+              <AnnualTrendsChart isCumulative={activeIndex === 1} tip={tip} />
+            )}
           </div>
         </div>
         {tip.node}
