@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { geoPath } from "d3-geo";
-import { C, counties, prefectures, records } from "../../utils/theme.js";
-import { useTip } from "../../utils/ui.jsx";
+import { C, MONTH_ABBR, prefectures, records } from "../../utils/theme.js";
+import { Badge, useTip } from "../../utils/ui.jsx";
 import { MAP_H, MAP_W, projection } from "./BubbleMap.jsx";
 import "../../styles/storyLayout.css";
 
@@ -56,193 +56,94 @@ const COLORS = {
 
 const BINS = [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000];
 
+const HEAT_MONTHS = [6, 7, 8, 9, 10];
+const byName = (a, b) => a.localeCompare(b);
+
 export default function Amanita() {
   const tip = useTip();
 
   // Classify all species records
-  const { allSpecies, poisonousSpecies, edibleToxicSpecies, edibleSpecies, otherSpecies } = useMemo(() => {
+  const groups = useMemo(() => {
     const speciesSet = new Set();
-    records.forEach(r => r.sp && speciesSet.add(r.sp));
-
-    const allSpecies = Array.from(speciesSet);
-    const poisonousSpecies = allSpecies.filter(sp => TOXIC_SPECIES[sp]?.type === "poisonous");
+    records.forEach((r) => r.sp && speciesSet.add(r.sp));
     const edMax = new Map();
-    records.forEach(r => { if (r.sp) edMax.set(r.sp, Math.max(edMax.get(r.sp) || 0, r.ed || 0)); });
-    const edibleToxicSpecies = allSpecies.filter(sp => TOXIC_SPECIES[sp]?.type === "edible-toxic" || (!TOXIC_SPECIES[sp] && edMax.get(sp) === 2));
-    const edibleSpecies = allSpecies.filter(sp => !TOXIC_SPECIES[sp] && edMax.get(sp) === 1);
-    const otherSpecies = allSpecies.filter(sp => !TOXIC_SPECIES[sp] && edMax.get(sp) !== 1 && edMax.get(sp) !== 2);
-
-    return { allSpecies, poisonousSpecies, edibleToxicSpecies, edibleSpecies, otherSpecies };
+    records.forEach((r) => { if (r.sp) edMax.set(r.sp, Math.max(edMax.get(r.sp) || 0, r.ed || 0)); });
+    const all = Array.from(speciesSet);
+    const poisonous = all.filter((sp) => TOXIC_SPECIES[sp]?.type === "poisonous");
+    const edibleToxic = all.filter((sp) => TOXIC_SPECIES[sp]?.type === "edible-toxic" || (!TOXIC_SPECIES[sp] && edMax.get(sp) === 2));
+    const edible = all.filter((sp) => !TOXIC_SPECIES[sp] && edMax.get(sp) === 1);
+    const other = all.filter((sp) => !TOXIC_SPECIES[sp] && edMax.get(sp) !== 1 && edMax.get(sp) !== 2);
+    return {
+      poisonous: poisonous.sort(byName),
+      edibleToxic: edibleToxic.sort(byName),
+      edible: edible.sort(byName),
+      other: other.sort(byName),
+    };
   }, []);
-  const toxicSet = useMemo(() => new Set([...poisonousSpecies, ...edibleToxicSpecies]), [poisonousSpecies, edibleToxicSpecies]);
+  const toxicSet = useMemo(() => new Set([...groups.poisonous, ...groups.edibleToxic]), [groups]);
 
-  // Toxic records with coordinates, for the map and the elevation chart
+  // Records of Poisonous and Edible-Poisonous species with coordinates, for the map and heatmap
   const toxicRecords = useMemo(
-    () => records.filter(r => r.sp && toxicSet.has(r.sp) && r.lat != null && r.lon != null),
+    () => records.filter((r) => r.sp && toxicSet.has(r.sp) && r.lat != null && r.lon != null),
     [toxicSet],
   );
 
-  // Elevation range holding the most toxic records
-  const peakRange = useMemo(() => {
-    const cells = Array(BINS.length - 1).fill(0);
-    let n = 0;
-    for (const r of toxicRecords) {
-      if (r.el == null) continue;
-      cells[Math.min(BINS.length - 2, Math.max(0, Math.floor(r.el / 500)))]++;
-      n++;
-    }
-    const i = cells.indexOf(Math.max(...cells));
-    return { lo: BINS[i], hi: BINS[i] + 500, share: n ? Math.round((cells[i] / n) * 100) : 0 };
-  }, [toxicRecords]);
-
-  const nToxic = poisonousSpecies.length + edibleToxicSpecies.length;
-
-  const rowStyle = { alignItems: 'center' };
-  const followRow = { alignItems: 'center', paddingTop: 0 };
-  // Chart column scrolls with the page (no sticky stage)
-  const plainStage = { position: 'relative', top: 0, height: 'auto', minHeight: 0, overflow: 'visible' };
-
   return (
-    <>
-      <section id="poisonous" className="story-section" style={rowStyle}>
-        <div className="story-col">
-          <header className="story-head">
-            <h2>Poisonous Mushrooms in Yunnan</h2>
-          </header>
-          <div className="story-text">
-            <p>
-              The Yunnan records name {allSpecies.length} species. {nToxic} of them appear in China CDC mushroom
-              poisoning reports from 2019 to 2025.
-            </p>
-            <p>
-              Sort every species by what the reports and the edible-range literature say. {edibleSpecies.length} stay in
-              the edible range, {poisonousSpecies.length} are poisonous, and {edibleToxicSpecies.length} are edible but
-              also flagged as poisonous. The other {otherSpecies.length} match none of these groups.
-            </p>
-          </div>
-        </div>
-        <div className="story-stage" style={plainStage}>
-          <FlowWithLists
-            poisonousSpecies={poisonousSpecies}
-            edibleToxicSpecies={edibleToxicSpecies}
-            edibleCount={edibleSpecies.length}
-            otherCount={otherSpecies.length}
-          />
-        </div>
-      </section>
+    <section id="poisonous" className="story-section" style={{ gridTemplateColumns: "1fr" }}>
+      <header className="story-head">
+        <h2>Poisonous Mushrooms in Yunnan</h2>
+      </header>
 
-      <section className="story-section" style={followRow}>
-        <div className="story-col">
-          <div className="story-text" style={{ marginTop: 0 }}>
-            <p>
-              {toxicRecords.length} records of Poisonous and Edible-Poisonous species carry coordinates. Brown dots are
-              Poisonous species, yellow dots are Edible-Poisonous ones. Each dot is one observation.
-            </p>
-          </div>
-        </div>
-        <div className="story-stage" style={plainStage}>
+      <div className="poison-flow">
+        <FlowChart groups={groups} />
+      </div>
+
+      <div className="poison-lower">
+        <div>
+          <div className="panel-label">Records of Poisonous and Edible-Poisonous species</div>
           <ToxicBubbleMap records={toxicRecords} tip={tip} />
         </div>
-      </section>
-
-      <section className="story-section" style={followRow}>
-        <div className="story-col">
-          <div className="story-text" style={{ marginTop: 0 }}>
-            <p>
-              {peakRange.share}% of these records with an elevation lie between {peakRange.lo} and {peakRange.hi} m.
-            </p>
-          </div>
-        </div>
-        <div className="story-stage" style={plainStage}>
+        <div>
           <ElevationHeatmap records={toxicRecords} />
         </div>
-      </section>
-    </>
-  );
-}
-
-// Species scroll panel
-function SpeciesPanel({ title, color, species }) {
-  return (
-    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', border: '1px solid #d8d8d8', borderRadius: 6 }}>
-      <div style={{ padding: '0.45rem 0.7rem', fontSize: '0.8rem', fontWeight: 600, color, borderBottom: '1px solid #e8e8e8', flexShrink: 0 }}>
-        {title} ({species.length})
       </div>
-      <ul style={{ listStyle: 'none', margin: 0, padding: '0 0.7rem', overflowY: 'auto', flex: 1, minHeight: 0 }}>
-        {species.map(sp => (
-          <li key={sp} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.3rem 0', borderBottom: '1px solid #f0f0f0' }}>
-            <span style={{ width: 5, height: 5, borderRadius: '50%', background: color, flexShrink: 0 }} />
-            <i style={{ fontSize: '0.75rem', color: C.text2 }}>{sp}</i>
-          </li>
-        ))}
-      </ul>
-    </div>
+    </section>
   );
 }
 
-// Flow chart with the two species lists on its right; arrows point from the channels to the lists
-function FlowWithLists({ poisonousSpecies, edibleToxicSpecies, edibleCount, otherCount }) {
-  const ARROW_W = 56;
-  const arrow = (y1, y2, color) => (
-    <g key={color}>
-      <line x1="0" y1={y1} x2={ARROW_W - 6} y2={y2} stroke={color} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-      <path d={`M ${ARROW_W - 8} ${y2 - 3.5} L ${ARROW_W} ${y2} L ${ARROW_W - 8} ${y2 + 3.5} Z`} fill={color} />
-    </g>
-  );
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: `minmax(0, 1fr) ${ARROW_W}px 220px`, alignItems: 'stretch' }}>
-      <SankeyDiagram
-        poisonousCount={poisonousSpecies.length}
-        edibleToxicCount={edibleToxicSpecies.length}
-        edibleCount={edibleCount}
-        otherCount={otherCount}
-      />
-      <svg viewBox={`0 0 ${ARROW_W} 300`} preserveAspectRatio="none" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-        {arrow(115, 75, COLORS.poisonous)}
-        {arrow(185, 225, COLORS.edibleToxic)}
-      </svg>
-      <div style={{ position: 'relative' }}>
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <SpeciesPanel title="Poisonous" color={COLORS.poisonous} species={poisonousSpecies} />
-          <SpeciesPanel title="Edible-Poisonous" color={COLORS.edibleToxic} species={edibleToxicSpecies} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Particle flow: random cloud on the left funnels through a glowing centre line,
-// then splits along Bezier-like curves into three bounded horizontal channels.
-function SankeyDiagram({ poisonousCount, edibleToxicCount, edibleCount, otherCount }) {
+// Particle flow: a random cloud on the left is gathered into a wide channel, passes a glowing
+// line, and splits into four horizontal channels. Hovering the dot at the end of a channel
+// lists the species in that group.
+function FlowChart({ groups }) {
   const canvasRef = useRef(null);
-  const total = poisonousCount + edibleToxicCount + edibleCount + otherCount;
+  const W = 780, H = 300, CX = 390, CY = 150, L = 210, END = 620, HW = 14, BAND = 36;
+  const channels = useMemo(
+    () => [
+      { y: 45, color: [140, 157, 131], label: "Edible", names: groups.edible },
+      { y: 115, color: [160, 130, 109], label: "Poisonous", names: groups.poisonous },
+      { y: 185, color: [196, 160, 88], label: "Edible-Poisonous", names: groups.edibleToxic },
+      { y: 255, color: [136, 136, 136], label: "Other", names: groups.other },
+    ],
+    [groups],
+  );
+  const total = channels.reduce((a, c) => a + c.names.length, 0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
     const ctx = canvas.getContext("2d");
-    const W = 600, H = 300, CX = 300, CY = 150, L = 170, END = 495, HW = 14, BAND = 36;
-    const channels = [
-      { y: 45, color: [140, 157, 131], n: edibleCount, label: "Edible" },
-      { y: 115, color: [160, 130, 109], n: poisonousCount, label: "Poisonous" },
-      { y: 185, color: [196, 160, 88], n: edibleToxicCount, label: "Edible-Poisonous" },
-      { y: 255, color: [136, 136, 136], n: otherCount, label: "Other" },
-    ];
     const grey = [189, 189, 182];
     const smooth = (t) => { const c = Math.min(1, Math.max(0, t)); return c * c * (3 - 2 * c); };
     const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
     const pickChannel = () => {
       let r = Math.random() * total;
-      for (const c of channels) { if ((r -= c.n) < 0) return c; }
+      for (const c of channels) { if ((r -= c.names.length) < 0) return c; }
       return channels[3];
     };
-
-    let dpr = 1;
     const resize = () => {
-      dpr = window.devicePixelRatio || 1;
-      const w = canvas.clientWidth;
-      canvas.width = w * dpr;
-      canvas.height = (w * H / W) * dpr;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.clientWidth * dpr;
+      canvas.height = canvas.clientWidth * (H / W) * dpr;
     };
     resize();
     const ro = new ResizeObserver(resize);
@@ -262,11 +163,10 @@ function SankeyDiagram({ poisonousCount, edibleToxicCount, edibleCount, otherCou
     const parts = [];
     let raf = 0;
     const frame = () => {
-      const s = canvas.width / W;
-      ctx.setTransform(s, 0, 0, s, 0, 0);
+      const sc = canvas.width / W;
+      ctx.setTransform(sc, 0, 0, sc, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      // channel boundaries
       for (const c of channels) {
         for (const sign of [-1, 1]) {
           ctx.beginPath();
@@ -282,7 +182,6 @@ function SankeyDiagram({ poisonousCount, edibleToxicCount, edibleCount, otherCou
         }
       }
 
-      // glowing centre line
       const g = ctx.createLinearGradient(0, 20, 0, 280);
       g.addColorStop(0, "rgba(52,76,61,0)");
       g.addColorStop(0.5, "rgba(52,76,61,0.9)");
@@ -298,53 +197,63 @@ function SankeyDiagram({ poisonousCount, edibleToxicCount, edibleCount, otherCou
       ctx.stroke();
       ctx.restore();
 
-      // spawn
-      if (parts.length < 420 && Math.random() < 0.8) {
-        const ch = pickChannel();
+      if (parts.length < 520 && Math.random() < 0.85) {
         parts.push({
-          x: 0, y0: 20 + Math.random() * 260, vx: 0.8 + Math.random() * 0.6,
+          x: 0, y0: 20 + Math.random() * 260, vx: 0.9 + Math.random() * 0.6,
           ph: Math.random() * 6.28, amp: 2 + Math.random() * 4,
-          ch, off: (Math.random() * 2 - 1) * (HW - 3),
+          ch: pickChannel(), off: (Math.random() * 2 - 1) * (HW - 3),
         });
       }
-
-      // particles
       for (let i = parts.length - 1; i >= 0; i--) {
         const p = parts[i];
         p.x += p.vx;
-        if (p.x > END + 10) { parts.splice(i, 1); continue; }
-        const m = smooth((p.x - CX) / 60);
-        const col = mix(grey, p.ch.color, m);
-        const fade = p.x > END - 25 ? Math.max(0, (END + 10 - p.x) / 35) : 1;
+        if (p.x > END + 8) { parts.splice(i, 1); continue; }
+        const col = mix(grey, p.ch.color, smooth((p.x - CX) / 60));
+        const fade = p.x > END - 25 ? Math.max(0, (END + 8 - p.x) / 33) : 1;
         ctx.fillStyle = `rgba(${col.join(",")},${0.85 * fade})`;
         ctx.beginPath();
         ctx.arc(p.x, yAt(p), 2.2, 0, 6.283);
         ctx.fill();
       }
 
-      // labels
       ctx.textBaseline = "middle";
       for (const c of channels) {
         ctx.fillStyle = `rgb(${c.color.join(",")})`;
         ctx.font = "700 14px sans-serif";
-        ctx.fillText(String(c.n), 505, c.y - 8);
+        ctx.fillText(String(c.names.length), 646, c.y - 8);
         ctx.fillStyle = "#666";
         ctx.font = "10.5px sans-serif";
-        ctx.fillText(c.label, 505, c.y + 8);
+        ctx.fillText(c.label, 646, c.y + 8);
       }
       ctx.fillStyle = "#666";
       ctx.font = "600 11px sans-serif";
       ctx.fillText(`All species: ${total}`, 8, 12);
-
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
-  }, [poisonousCount, edibleToxicCount, edibleCount, otherCount, total]);
+  }, [channels, total]);
 
   return (
-    <div style={{ background: "transparent" }}>
-      <canvas ref={canvasRef} style={{ width: "100%", aspectRatio: "2 / 1", display: "block" }} />
+    <div className="flow-chart">
+      <canvas ref={canvasRef} style={{ width: "100%", aspectRatio: `${W} / ${H}`, display: "block" }} />
+      {channels.map((c, i) => (
+        <div
+          key={c.label}
+          className={`flow-hit flow-hit--${i < 2 ? "down" : "up"}`}
+          style={{ left: `${((END + 8) / W) * 100}%`, top: `${(c.y / H) * 100}%`, "--c": `rgb(${c.color.join(",")})` }}
+        >
+          <button type="button" className="flow-dot" aria-label={`${c.label}: ${c.names.length} species`} />
+          <div className="flow-panel" style={{ maxHeight: i === 1 ? 200 : 240 }}>
+            <div className="flow-panel__t">{c.label} ({c.names.length})</div>
+            <ul>
+              {c.names.map((n) => (
+                <li key={n}><i>{n}</i></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -353,7 +262,7 @@ function SankeyDiagram({ poisonousCount, edibleToxicCount, edibleCount, otherCou
 function ToxicBubbleMap({ records: toxicRecords, tip }) {
   return (
     <div style={{ padding: 0, background: 'transparent' }}>
-      <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ width: '100%', maxHeight: '62vh' }}>
+      <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ width: "100%", maxHeight: "46vh" }}>
         {prefectures.features.map((f) => (
           <path 
             key={f.properties.adcode} 
@@ -406,69 +315,54 @@ function ToxicBubbleMap({ records: toxicRecords, tip }) {
   );
 }
 
-// Elevation heatmap
+// Elevation x month grid for Poisonous and Edible-Poisonous records with coordinates
 function ElevationHeatmap({ records: toxicRecords }) {
   const heat = useMemo(() => {
-    const cells = Array(BINS.length - 1).fill(0);
-    
+    const cells = HEAT_MONTHS.map(() => Array(BINS.length - 1).fill(0));
     for (const r of toxicRecords) {
-      if (r.el == null) continue;
-      const binIndex = Math.min(BINS.length - 2, Math.max(0, Math.floor(r.el / 500)));
-      cells[binIndex]++;
+      if (r.el == null || !HEAT_MONTHS.includes(r.m)) continue;
+      const b = Math.min(BINS.length - 2, Math.max(0, Math.floor(r.el / 500)));
+      cells[r.m - HEAT_MONTHS[0]][b]++;
     }
-    
-    const max = Math.max(1, ...cells);
-    return { cells, max };
+    return { cells, max: Math.max(1, ...cells.flat()) };
   }, [toxicRecords]);
 
   return (
-    <div style={{ padding: 0, background: 'transparent' }}>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: `80px repeat(${BINS.length - 1}, 1fr)`,
-        gap: '6px',
-        alignItems: 'center'
-      }}>
-        <span style={{ fontSize: '0.85rem', color: '#666', fontWeight: 500 }}>Elevation</span>
-        {BINS.slice(0, -1).map((b, i) => (
-          <span key={i} style={{ 
-            fontSize: '0.75rem', 
-            color: '#666',
-            textAlign: 'center'
-          }}>
-            {b / 1000}k
-          </span>
+    <div>
+      <div className="panel-label">Elevation × month, Poisonous and Edible-Poisonous species (records with coordinates)</div>
+      <Badge kind="dem">DEM estimate ±200 m</Badge>
+      <div className="heat" style={{ gridTemplateColumns: `40px repeat(${BINS.length - 1}, 1fr)`, marginTop: "0.8rem" }}>
+        <span />
+        {BINS.slice(0, -1).map((b) => (
+          <span key={b} className="heat-h">{b / 1000}k</span>
         ))}
-        
-        <span style={{ fontSize: '0.85rem', color: '#666', fontWeight: 500 }}>Count</span>
-        {heat.cells.map((v, i) => (
-          <div
-            key={i}
-            style={{
-              height: '70px',
-              background: v ? `rgba(160,130,109,${0.2 + 0.7 * (v / heat.max)})` : "#f4f4f2",
-              borderRadius: '6px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              color: v / heat.max > 0.55 ? "#fff" : C.text1,
-              border: '1px solid #e8e8e8'
-            }}
-          >
-            {v || ""}
-          </div>
+        {heat.cells.map((row, mi) => (
+          <HeatRow key={mi} label={MONTH_ABBR[HEAT_MONTHS[mi] - 1]} row={row} max={heat.max} />
         ))}
       </div>
-      <p style={{ 
-        marginTop: '1.5rem', 
-        fontSize: '0.75rem', 
-        color: '#888',
-        lineHeight: 1.6
-      }}>
-        Elevation bins of 500m. Shows combined distribution of poisonous and edible-toxic species.
+      <p className="small">
+        Elevation bins of 500 m (in km, lower bound). DEM (SRTM 90 m) differs from the original elevation by more than 200 m for 36% of records that have both.
       </p>
     </div>
+  );
+}
+
+function HeatRow({ label, row, max }) {
+  return (
+    <>
+      <span className="heat-l">{label}</span>
+      {row.map((v, i) => (
+        <span
+          key={i}
+          className="heat-c"
+          style={{
+            background: v ? `rgba(160,130,109,${0.2 + 0.7 * (v / max)})` : "#f4f4f2",
+            color: v / max > 0.55 ? "#fff" : C.text1,
+          }}
+        >
+          {v || ""}
+        </span>
+      ))}
+    </>
   );
 }
