@@ -71,6 +71,14 @@ export default function Hotspots() {
   const maxN = bubbles[0]?.n || 1;
   const rad = (n) => Math.sqrt(n / maxN) * 34; // area proportional to count
 
+  // Legend circles: a round number at or below the maximum, then 1/4 and 1/20 of it
+  const niceDown = (v) => {
+    const p = 10 ** Math.floor(Math.log10(v));
+    return [5, 2, 1].map((m) => m * p).find((x) => x <= v) || 1;
+  };
+  const legendTop = niceDown(maxN);
+  const legendSizes = [legendTop, Math.max(1, Math.round(legendTop / 4)), Math.max(1, Math.round(legendTop / 20))];
+
   // tight box around the map and its bubbles
   const [[px0, py0], [px1, py1]] = pathGen.bounds(prefectures);
   const vx0 = Math.min(px0, ...bubbles.map((b) => b.x - rad(b.n))) - 4;
@@ -341,6 +349,19 @@ export default function Hotspots() {
                   />
                 );
               })}
+
+              {/* Size legend, same place and form as the county bubble map */}
+              <g transform={`translate(${vx1 - 120},${vy1 - 78})`} pointerEvents="none">
+                {legendSizes.map((n) => (
+                  <g key={n}>
+                    <circle cx={30} cy={56 - rad(n)} r={rad(n)} fill="none" stroke={C.text3} strokeWidth={1} />
+                    <text x={30 + 44} y={56 - 2 * rad(n) + 8} className="map-label small">
+                      {n}
+                    </text>
+                    <line x1={30} x2={30 + 38} y1={56 - 2 * rad(n)} y2={56 - 2 * rad(n)} stroke={C.text3} strokeWidth={0.5} />
+                  </g>
+                ))}
+              </g>
             </svg>
           </div>
         </div>
