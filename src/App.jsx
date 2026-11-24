@@ -41,11 +41,55 @@ function SeamBlur() {
   return <div ref={ref} className="seam-blur" aria-hidden="true" />;
 }
 
+// Offset (rem) of a big heading from the top of the sticky stage at the start of a section.
+const HEADING_OFFSET_REM = 3.95;
+
+// When the sticky chart is released and scrolls up with the page, the last text block of a
+// story section should sit at the same height from the chart top as the big heading did at the
+// start. The block keeps its own height (so its vertical rule is unchanged); only the space
+// below it is set here: stage height - heading offset - block height.
+function alignLastBlock() {
+  const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+  document.querySelectorAll(".story-col--blocks").forEach((col) => {
+    const last = col.querySelector(".story-block:last-child");
+    const stage = col.parentElement?.querySelector(".story-stage");
+    if (!last || !stage) return;
+    if (window.innerWidth <= 900) {
+      last.style.marginBottom = "";
+      return;
+    }
+    const space = Math.max(0, stage.offsetHeight - HEADING_OFFSET_REM * rem - last.offsetHeight);
+    last.style.marginBottom = `${space}px`;
+  });
+}
+
+function useAlignLastBlocks() {
+  useEffect(() => {
+    let raf = 0;
+    const run = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(alignLastBlock);
+    };
+    run();
+    const ro = new ResizeObserver(run);
+    document.querySelectorAll(".story-col--blocks, .story-stage").forEach((el) => ro.observe(el));
+    window.addEventListener("resize", run);
+    window.addEventListener("load", run);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("resize", run);
+      window.removeEventListener("load", run);
+    };
+  }, []);
+}
+
 const Storyboard = ({ src, n }) => (
   <img src={src} alt={`Storyboard ${n}`} style={{ display: "block", width: "100%", height: "auto" }} />
 );
 
 export default function App() {
+  useAlignLastBlocks();
   return (
     <>
       <Cover />

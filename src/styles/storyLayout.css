@@ -88,6 +88,8 @@
 .story-block + .story-block {
   transform: translateY(-1.0rem);
 }
+/* The bottom margin of the last block is set by alignLastBlock() in App.jsx so that, when the
+   sticky stage is released, the block's top sits at the same height as the big heading did. */
 .story-block:last-child {
   margin-bottom: 36vh;
 }
@@ -105,6 +107,11 @@
 .story-block--month .story-month {
   margin: 0.15rem 0;
 }
+.story-block .story-sub {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
 .treemap-stage {
   display: flex;
   align-items: center;
@@ -119,9 +126,6 @@
 }
 .treemap-story .story-block--intro {
   margin-bottom: 5rem;
-}
-.treemap-story .story-block:last-child {
-  margin-bottom: 28vh;
 }
 .story-block.is-active {
   border-right-color: var(--text-1);
@@ -147,6 +151,9 @@
     border-right: 0;
     padding-right: 0;
     transform: none;
+  }
+  .story-block:last-child {
+    margin-bottom: 2rem;
   }
 }
 

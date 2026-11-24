@@ -75,7 +75,7 @@ export default function BubbleMap() {
     <section id="map" className="story-section">
       <div className="story-col">
         <header className="story-head">
-          <h2>Observations by prefecture and county</h2>
+          <h2>Observations by location</h2>
         </header>
         <div className="story-text">
           <p>

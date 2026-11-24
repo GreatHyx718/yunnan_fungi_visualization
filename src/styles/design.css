@@ -721,9 +721,6 @@ tbody tr:hover {
 .cards-sticky .step-head {
   margin-bottom: 0.7rem;
 }
-.cards-sticky .step-head h2 {
-  font-size: 1.4rem;
-}
 .cards-body {
   display: grid;
   grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);

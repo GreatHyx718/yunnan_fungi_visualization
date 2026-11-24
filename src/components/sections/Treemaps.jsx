@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { hierarchy, treemap, treemapSquarify } from "d3-hierarchy";
 import { OTHER_COLOR, records } from "../../utils/theme.js";
 import { useTip } from "../../utils/ui.jsx";
@@ -9,14 +9,16 @@ const H = 560;
 const MONTHS = [6, 7, 8, 9, 10];
 const MONTH_LABELS = ["Jun", "Jul", "Aug", "Sep", "Oct"];
 const MONTH_NAMES = ["June", "July", "August", "September", "October"];
-const UNID = "Unidentified";
 const OTHER = "Other families";
 
 function monthTree(m) {
-  const rs = records.filter((r) => r.m === m);
+  const all_ = records.filter((r) => r.m === m);
+  // records with no family are not drawn; they are reported in a note beside the month instead
+  const rs = all_.filter((r) => r.fa);
+  const noFamily = all_.length - rs.length;
   const by = new Map();
   for (const r of rs) {
-    const name = r.fa || UNID;
+    const name = r.fa;
     const item = by.get(name) || { name, n: 0, flagged: 0 };
     item.n++;
     if (r.ed === 2) item.flagged++;
@@ -27,14 +29,14 @@ function monthTree(m) {
   const keep = [];
   const other = { name: OTHER, n: 0, flagged: 0, parts: 0 };
   for (const item of all) {
-    if (item.name === UNID || item.n / rs.length >= 0.03 || item.flagged > 0) keep.push(item);
+    if (item.n / rs.length >= 0.03 || item.flagged > 0) keep.push(item);
     else {
       other.n += item.n;
       other.parts++;
     }
   }
   if (other.n) keep.push(other);
-  return { n: rs.length, leaves: keep, counts: by };
+  return { n: rs.length, noFamily, leaves: keep, counts: by };
 }
 
 function layout(tree) {
@@ -68,9 +70,6 @@ export default function Treemaps() {
   const stepRefs = useRef([]);
   const stageRef = useRef(null);
   const chartRef = useRef(null);
-  // Offsets (px) that line the text up with the chart's top-left corner: the first block starts
-  // at the chart's top edge, and the last block ends level with it when the sticky stage is released.
-  const [align, setAlign] = useState({ top: null, bottom: null });
   const tip = useTip();
   const months = useMemo(
     () => MONTHS.map((m) => {
@@ -79,30 +78,6 @@ export default function Treemaps() {
     }),
     [],
   );
-
-  useLayoutEffect(() => {
-    const measure = () => {
-      const stage = stageRef.current;
-      const chart = chartRef.current;
-      const last = stepRefs.current[MONTHS.length - 1];
-      if (!stage || !chart || !last || window.innerWidth <= 900) {
-        setAlign({ top: null, bottom: null });
-        return;
-      }
-      const top = chart.getBoundingClientRect().top - stage.getBoundingClientRect().top;
-      const bottom = Math.max(0, stage.offsetHeight - top - last.offsetHeight);
-      setAlign((a) => (Math.abs((a.top ?? -1) - top) < 0.5 && Math.abs((a.bottom ?? -1) - bottom) < 0.5 ? a : { top, bottom }));
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(stageRef.current);
-    ro.observe(chartRef.current);
-    window.addEventListener("resize", measure);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -130,9 +105,9 @@ export default function Treemaps() {
   // largest identified family in each month, as a share of that month's records
   const top = useMemo(() => {
     const per = MONTHS.map((m) => {
-      const rs = records.filter((r) => r.m === m);
+      const rs = records.filter((r) => r.m === m && r.fa);
       const c = new Map();
-      for (const r of rs) if (r.fa) c.set(r.fa, (c.get(r.fa) || 0) + 1);
+      for (const r of rs) c.set(r.fa, (c.get(r.fa) || 0) + 1);
       const [name, n] = [...c.entries()].sort((a, b) => b[1] - a[1])[0];
       return { name, pct: Math.round((n / rs.length) * 100) };
     });
@@ -150,10 +125,9 @@ export default function Treemaps() {
       <div className="story-col story-col--blocks">
         <div
           className={`story-block story-block--intro${activeIndex === 0 ? " is-active" : ""}`}
-          style={align.top == null ? undefined : { marginTop: align.top, transform: "none" }}
         >
           <header className="story-head">
-            <h2>What was recorded each month</h2>
+            <h2>What was observed each month</h2>
           </header>
           <p>
             No single family dominates. The largest takes {top.june.pct}% of June&apos;s records ({top.june.name}), and {top.min}% to {top.max}% in each
@@ -166,15 +140,16 @@ export default function Treemaps() {
           className={`story-block story-block--month story-block--month-first${activeIndex === 0 ? " is-active" : ""}`}
         >
           <p className="story-month">June</p>
+          {/* <p className="story-sub">{months[0].tree.noFamily} records have no family</p> */}
         </div>
         {MONTHS.slice(1).map((month, index) => (
           <div
             key={month}
             ref={(el) => (stepRefs.current[index + 1] = el)}
             className={`story-block story-block--month${activeIndex === index + 1 ? " is-active" : ""}`}
-            style={index === MONTHS.length - 2 && align.bottom != null ? { marginBottom: align.bottom } : undefined}
           >
             <p className="story-month">{MONTH_NAMES[index + 1]}</p>
+            {/* <p className="story-sub">{months[index + 1].tree.noFamily} records have no family</p> */}
           </div>
         ))}
       </div>
@@ -186,7 +161,7 @@ export default function Treemaps() {
               const item = leaf.data;
               const width = leaf.x1 - leaf.x0;
               const height = leaf.y1 - leaf.y0;
-              const color = item.name === UNID ? "#d9d9d4" : item.name === OTHER ? OTHER_COLOR : treemapColor(item.name);
+              const color = item.name === OTHER ? OTHER_COLOR : treemapColor(item.name);
               const label = item.name === OTHER ? `Other (${item.parts})` : item.name;
               return (
                 <g
@@ -197,7 +172,7 @@ export default function Treemaps() {
                     tip.show(
                       event,
                       <>
-                        <strong>{item.name}</strong>
+                        <strong>{label}</strong>
                         <div>{item.n} records, {((item.n / tree.n) * 100).toFixed(0)}% of {tree.n}</div>
                         <div className="tip-months">
                           {months.map((month, index) => (

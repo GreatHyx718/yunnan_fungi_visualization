@@ -38,7 +38,7 @@ export default function Footer() {
                 GeoJSON
               </a>
               <p>
-                China administrative boundaries (province / prefecture / county) from{" "}
+                China administrative boundaries from{" "}
                 <a href="https://github.com/BigDataQiChao/GeoMapData_CN" target="_blank" rel="noreferrer">
                   BigDataQiChao/GeoMapData_CN
                 </a>

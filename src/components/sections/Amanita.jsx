@@ -116,7 +116,14 @@ export default function Amanita() {
 // lists the species in that group.
 function FlowChart({ groups }) {
   const canvasRef = useRef(null);
-  const W = 780, H = 300, CX = 300, CY = 150, L = 240, END = 620, HW = 14, BAND = 36;
+  const W = 780, H = 300, CX = 300, CY = 150, L = 160, END = 620, HW = 14, BAND = 88;
+  const SPREAD = BAND * 1.25; // the particle cloud on the left is slightly taller than the middle band
+  // Particle speed in canvas units per 1/60 s: each particle gets SPEED_MIN + random * SPEED_RANGE.
+  // The spawn rate follows the mean speed, so the density on screen stays the same when you change them.
+  const SPEED_MIN = 0.9, SPEED_RANGE = 0.6;
+  const SPAWN_PER_FRAME = 0.9 * ((SPEED_MIN + SPEED_RANGE / 2) / 0.6); // 0.9 at the original speed
+  const MAX_PARTS = 2000;
+  const KEEP = BAND / SPREAD; // fraction of the cloud height kept at the split (1 = no squeeze)
   const channels = useMemo(
     () => [
       { y: 45, color: [140, 157, 131], label: "Edible", names: groups.edible },
@@ -134,6 +141,8 @@ function FlowChart({ groups }) {
     const ctx = canvas.getContext("2d");
     const grey = [189, 189, 182];
     const smooth = (t) => { const c = Math.min(1, Math.max(0, t)); return c * c * (3 - 2 * c); };
+    // smootherstep: slope and curvature are both 0 at the ends, so the curve blends into the flat channels with no visible kink
+    const ease = (t) => { const c = Math.min(1, Math.max(0, t)); return c * c * c * (c * (c * 6 - 15) + 10); };
     const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
     const pickChannel = () => {
       let r = Math.random() * total;
@@ -152,17 +161,22 @@ function FlowChart({ groups }) {
     const yAt = (p) => {
       if (p.x < CX) {
         const t = Math.min(1, p.x / (CX - 60));
-        const k = 1 - 0.75 * smooth(t);
+        const k = 1 - (1 - KEEP) * smooth(t);
         return CY + (p.y0 - CY) * k + Math.sin(p.x * 0.03 + p.ph) * p.amp * (1 - 0.8 * t);
       }
-      const yc = CY + (p.y0 - CY) * 0.25;
-      const s = smooth((p.x - CX) / L);
+      const yc = CY + (p.y0 - CY) * KEEP;
+      const s = ease((p.x - CX) / L);
       return yc + (p.ch.y + p.off - yc) * s + Math.sin(p.x * 0.05 + p.ph) * 0.8 * s;
     };
 
     const parts = [];
     let raf = 0;
-    const frame = () => {
+    let last = 0;
+    let spawnAcc = 0;
+    const frame = (now) => {
+      // dt is measured in 60 fps frames, so the flow speed does not depend on the actual frame rate
+      const dt = last ? Math.min(4, (now - last) / 16.667) : 1;
+      last = now;
       const sc = canvas.width / W;
       ctx.setTransform(sc, 0, 0, sc, 0, 0);
       ctx.clearRect(0, 0, W, H);
@@ -170,8 +184,8 @@ function FlowChart({ groups }) {
       for (const c of channels) {
         for (const sign of [-1, 1]) {
           ctx.beginPath();
-          for (let x = CX; x <= END; x += 5) {
-            const t = smooth((x - CX) / L);
+          for (let x = CX; x <= END; x += 2) {
+            const t = ease((x - CX) / L);
             const y0 = CY + sign * BAND;
             const y = y0 + (c.y + sign * HW - y0) * t;
             if (x === CX) ctx.moveTo(x, y); else ctx.lineTo(x, y);
@@ -197,16 +211,19 @@ function FlowChart({ groups }) {
       ctx.stroke();
       ctx.restore();
 
-      if (parts.length < 1000 && Math.random() < 0.9) {
+      spawnAcc += SPAWN_PER_FRAME * dt;
+      while (spawnAcc >= 1) {
+        spawnAcc -= 1;
+        if (parts.length >= MAX_PARTS) continue;
         parts.push({
-          x: 0, y0: 20 + Math.random() * 260, vx: 0.45 + Math.random() * 0.3,
+          x: 0, y0: CY + (Math.random() * 2 - 1) * SPREAD, vx: SPEED_MIN + Math.random() * SPEED_RANGE,
           ph: Math.random() * 6.28, amp: 2 + Math.random() * 4,
           ch: pickChannel(), off: (Math.random() * 2 - 1) * (HW - 3),
         });
       }
       for (let i = parts.length - 1; i >= 0; i--) {
         const p = parts[i];
-        p.x += p.vx;
+        p.x += p.vx * dt;
         if (p.x > END + 8) { parts.splice(i, 1); continue; }
         const col = mix(grey, p.ch.color, smooth((p.x - CX) / 60));
         const fade = p.x > END - 25 ? Math.max(0, (END + 8 - p.x) / 33) : 1;
@@ -235,17 +252,21 @@ function FlowChart({ groups }) {
   }, [channels, total]);
 
   return (
-    <div className="flow-chart">
+    <div>
+      {/* the dots are positioned in % of this box, so it must be exactly the canvas (no hint text inside) */}
+      <div className="flow-chart">
       <canvas ref={canvasRef} style={{ width: "100%", aspectRatio: `${W} / ${H}`, display: "block" }} />
       {channels.map((c, i) => (
         <div
           key={c.label}
           className={`flow-hit flow-hit--${i < 2 ? "down" : "up"}`}
-          style={{ left: `${((END + 8) / W) * 100}%`, top: `${(c.y / H) * 100}%`, "--c": `rgb(${c.color.join(",")})` }}
+          style={{ left: `${(END / W) * 100}%`, top: `${(c.y / H) * 100}%`, "--c": `rgb(${c.color.join(",")})` }}
         >
           <button type="button" className="flow-dot" aria-label={`${c.label}: ${c.names.length} species`} />
           <div className="flow-panel" style={{ maxHeight: i === 1 ? 200 : 240 }}>
-            <div className="flow-panel__t">{c.label} ({c.names.length})</div>
+            <div className="flow-panel__t">
+              {c.label} ({c.names.length}){c.names.length > 40 ? " · scroll to see all" : ""}
+            </div>
             <ul>
               {c.names.map((n) => (
                 <li key={n}><i>{n}</i></li>
@@ -254,7 +275,8 @@ function FlowChart({ groups }) {
           </div>
         </div>
       ))}
-      <p className="flow-hint">Hover a dot to list the species in each group</p>
+      </div>
+      <p className="flow-hint">Click a dot to list the species in each group</p>
     </div>
   );
 }
