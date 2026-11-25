@@ -93,9 +93,9 @@ function MonthMini({ values, totals }) {
   return (
     <div className="mini-bars">
       {values.map((v, i) => (
-        <div key={i} className="mini-col">
+        <div key={i} className="mini-col" style={{ "--i": i }}>
           <span className="mini-n">{v}</span>
-          <i style={{ height: `${adjustedHeights[i]}px` }} />
+          <i style={{ height: `${adjustedHeights[i]}px`, "--i": i }} />
           <span className="mini-m">{MONTH_ABBR[FAMILY_CARD_MONTHS[i] - 1]}</span>
           <span className="mini-share">{totals[i] ? `${((v / totals[i]) * 100).toFixed(0)}%` : "–"}</span>
         </div>
@@ -114,7 +114,7 @@ function ElevationStrip({ dem }) {
     <div className="elev">
       <div className="elev-track">
         {dem.map((v, i) => (
-          <i key={i} className="elev-dot" style={{ left: `${x(v)}%` }} />
+          <i key={i} className="elev-dot" style={{ left: `${x(v)}%`, "--d": (i % 25) * 14 }} />
         ))}
         <b className="elev-med" style={{ left: `${x(med)}%` }} />
       </div>

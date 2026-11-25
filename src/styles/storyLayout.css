@@ -163,6 +163,54 @@
   }
 }
 
+/* Poisoning page: the chart fades in when the chart type changes, the monthly lines are drawn from
+   left to right, and their points and numbers appear after the lines. */
+.chart-swap {
+  animation: chartSwapIn 0.5s ease both;
+}
+@keyframes chartSwapIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawLine 1.1s ease-out 0.15s forwards;
+}
+.draw-line--late {
+  animation-delay: 0.4s;
+}
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+.fade-late {
+  opacity: 0;
+  animation: fadeLate 0.5s ease 0.9s forwards;
+}
+/* clip rectangle that opens from the left edge to the right edge */
+.reveal-rect {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: revealX 1.1s ease-out 0.1s both;
+}
+@keyframes revealX {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes fadeLate {
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chart-swap,
+  .draw-line,
+  .reveal-rect,
+  .fade-late {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
 /* interaction hint under the left-hand text, e.g. "(*) Hover a bubble..." */
 .story-hint {
   font-size: 0.82rem !important;

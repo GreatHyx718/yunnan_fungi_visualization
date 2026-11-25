@@ -16,8 +16,45 @@ const COLORS = {
 const MONTHS = [6, 7, 8, 9, 10];
 const FULL_MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
+// Eases a list of { year, patients, deaths } rows towards a new target, so the lines, points and
+// axes glide between the yearly and cumulative views. The first render and reduced-motion users
+// get the target straight away; at the end of the motion the value is exactly the target.
+function useTweenedRows(target, ms = 800) {
+  const [rows, setRows] = useState(target);
+  const current = useRef(target);
+  useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      current.current = target;
+      setRows(target);
+      return undefined;
+    }
+    const from = current.current;
+    const start = performance.now();
+    let raf = 0;
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / ms);
+      const e = easeInOut(t);
+      const next = t >= 1
+        ? target
+        : target.map((d, i) => ({
+          ...d,
+          patients: from[i].patients + (d.patients - from[i].patients) * e,
+          deaths: from[i].deaths + (d.deaths - from[i].deaths) * e,
+        }));
+      current.current = next;
+      setRows(next);
+      if (t < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target, ms]);
+  return rows;
+}
+
 // Annual trends line chart component with scroll interaction
-function AnnualTrendsChart({ isCumulative, tip }) {
+function AnnualTrendsChart({ isCumulative, tip, reveal = false }) {
   const data = useMemo(() => {
     const years = [2020, 2021, 2022, 2023, 2024, 2025];
     const result = years.map(y => {
@@ -51,7 +88,7 @@ function AnnualTrendsChart({ isCumulative, tip }) {
     return cumulative;
   }, [data]);
 
-  const currentData = isCumulative ? cumulativeData : data;
+  const currentData = useTweenedRows(isCumulative ? cumulativeData : data);
 
   const w = 720;
   const h = 460;
@@ -154,21 +191,26 @@ function AnnualTrendsChart({ isCumulative, tip }) {
           {isCumulative ? "Cumulative Deaths" : "Deaths"}
         </text>
 
-        {/* Area fills for cumulative view */}
-        {isCumulative && (
-          <>
-            <path
-              d={areaGenPatients(currentData)}
-              fill={COLORS.patients}
-              fillOpacity={0.2}
-            />
-            <path
-              d={areaGenDeaths(currentData)}
-              fill={COLORS.deaths}
-              fillOpacity={0.2}
-            />
-          </>
+        {/* When coming back from the GBIF chart, areas, lines and points are uncovered from left to right */}
+        {reveal && (
+          <clipPath id="poison-reveal">
+            <rect className="reveal-rect" x={-14} y={-14} width={chartW + 28} height={chartH + 28} />
+          </clipPath>
         )}
+        <g clipPath={reveal ? "url(#poison-reveal)" : undefined}>
+        {/* Area fills: always drawn, faded in for the cumulative view and out for the yearly one */}
+        <path
+          d={areaGenPatients(currentData)}
+          fill={COLORS.patients}
+          fillOpacity={isCumulative ? 0.2 : 0}
+          style={{ transition: "fill-opacity 0.8s ease" }}
+        />
+        <path
+          d={areaGenDeaths(currentData)}
+          fill={COLORS.deaths}
+          fillOpacity={isCumulative ? 0.2 : 0}
+          style={{ transition: "fill-opacity 0.8s ease" }}
+        />
 
         {/* Lines */}
         <path
@@ -222,6 +264,8 @@ function AnnualTrendsChart({ isCumulative, tip }) {
           </g>
         ))}
 
+        </g>
+
         {/* Legend below chart on the right side */}
         <g transform={`translate(${chartW - 200},${chartH + 46})`}>
           <g transform="translate(0,0)">
@@ -273,8 +317,8 @@ function MonthlyCompareChart({ tip, rows }) {
           </g>
         ))}
 
-        <path d={lineAll(rows)} fill="none" stroke={COLORS.all} strokeWidth={3} />
-        <path d={linePoison(rows)} fill="none" stroke={COLORS.poisonous} strokeWidth={3} />
+        <path className="draw-line" pathLength={1} d={lineAll(rows)} fill="none" stroke={COLORS.all} strokeWidth={3} />
+        <path className="draw-line draw-line--late" pathLength={1} d={linePoison(rows)} fill="none" stroke={COLORS.poisonous} strokeWidth={3} />
 
         {rows.map((d) => {
           const tipBody = (
@@ -285,7 +329,7 @@ function MonthlyCompareChart({ tip, rows }) {
             </>
           );
           return (
-            <g key={d.m}>
+            <g key={d.m} className="fade-late">
               <circle cx={x(d.m)} cy={y(d.total)} r={4} fill={COLORS.all} stroke="#fff" strokeWidth={2} pointerEvents="none" />
               <circle cx={x(d.m)} cy={y(d.poison)} r={4} fill={COLORS.poisonous} stroke="#fff" strokeWidth={2} pointerEvents="none" />
               <text x={x(d.m)} y={y(d.total) - 12} textAnchor="middle" fontSize={12} fill="#333">{d.total}</text>
@@ -333,6 +377,9 @@ export default function Poison() {
   const minPatients = Math.min(...years.map((d) => d.patients));
   const stepRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  // true once the GBIF chart has been shown, so that returning to the CDC charts plays the reveal
+  const seenGbif = useRef(false);
+  if (activeIndex === 2) seenGbif.current = true;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -398,10 +445,15 @@ export default function Poison() {
       <div className="story-stage">
         <div className="month-stage" style={{ height: '100%' }}>
           <div className="month-chart">
+            {/* the key makes the chart fade in again when switching between the CDC charts and the GBIF chart */}
             {activeIndex === 2 ? (
-              <MonthlyCompareChart tip={tip} rows={monthRows} />
+              <div key="gbif" className="chart-swap">
+                <MonthlyCompareChart tip={tip} rows={monthRows} />
+              </div>
             ) : (
-              <AnnualTrendsChart isCumulative={activeIndex === 1} tip={tip} />
+              <div key="cdc" className="chart-swap">
+                <AnnualTrendsChart isCumulative={activeIndex === 1} tip={tip} reveal={seenGbif.current} />
+              </div>
             )}
           </div>
         </div>

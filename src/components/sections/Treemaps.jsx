@@ -155,6 +155,7 @@ export default function Treemaps() {
                 <g
                   key={item.name}
                   transform={`translate(${leaf.x0},${leaf.y0})`}
+                  style={{ transform: `translate(${leaf.x0}px, ${leaf.y0}px)` }}
                   className="tile"
                   onMouseMove={(event) =>
                     tip.show(
@@ -172,7 +173,7 @@ export default function Treemaps() {
                   }
                   onMouseLeave={tip.hide}
                 >
-                  <rect className="tile-rect" width={width} height={height} fill={color} rx={2} />
+                  <rect className="tile-rect" width={width} height={height} fill={color} rx={2} style={{ width, height }} />
                   {width > 58 && height > 22 ? (
                     <text x={7} y={17} fill={textOn(color)} className="tile-t">
                       {label.length * 6.4 > width - 14 ? `${label.slice(0, Math.floor((width - 14) / 6.4) - 1)}…` : label}
