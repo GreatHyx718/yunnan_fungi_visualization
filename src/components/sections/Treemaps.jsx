@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { hierarchy, treemap, treemapSquarify } from "d3-hierarchy";
-import { OTHER_COLOR, records } from "../../utils/theme.js";
+import { records } from "../../utils/theme.js";
+import { DUNHUANG_OTHER, rankColors, textOn } from "../../utils/treemapPalette.js";
 import { useTip } from "../../utils/ui.jsx";
 import "../../styles/storyLayout.css";
 
@@ -45,24 +46,11 @@ function layout(tree) {
   return root.leaves();
 }
 
-// Greens from the design system (primary and sage scales), alternating dark and light so
-// neighbouring tiles stay apart. Each family keeps one colour in every month, by overall rank.
-const GREENS = ["#344C3D", "#c1d0b8", "#717e69", "#d4e0d8", "#5a7a5c", "#a8c1b1", "#8C9D83", "#565f50"];
-const familyRank = (() => {
-  const n = new Map();
-  for (const r of records) if (r.fa) n.set(r.fa, (n.get(r.fa) || 0) + 1);
-  return new Map([...n.entries()].sort((a, b) => b[1] - a[1]).map(([name], i) => [name, i]));
-})();
-
-function treemapColor(name) {
-  return GREENS[(familyRank.get(name) ?? 0) % GREENS.length];
-}
-
-// white text on dark tiles, dark text on light ones
-function textOn(hex) {
-  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
-  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return lum > 0.3 ? "#2c2c2c" : "#ffffff";
+// Colours: each month ranks its own families by record count (largest = Rank 1) and takes the
+// fixed Dunhuang colour of that rank (see utils/treemapPalette.js). "Other" is never ranked.
+function monthColors(tree) {
+  const ranked = tree.leaves.filter((item) => item.name !== OTHER).sort((a, b) => b.n - a.n);
+  return rankColors(ranked);
 }
 
 export default function Treemaps() {
@@ -74,7 +62,7 @@ export default function Treemaps() {
   const months = useMemo(
     () => MONTHS.map((m) => {
       const tree = monthTree(m);
-      return { m, tree, leaves: layout(tree) };
+      return { m, tree, leaves: layout(tree), colors: monthColors(tree) };
     }),
     [],
   );
@@ -114,7 +102,7 @@ export default function Treemaps() {
     const rest = per.slice(1).map((p) => p.pct);
     return { june: per[0], min: Math.min(...rest), max: Math.max(...rest) };
   }, []);
-  const { tree, leaves } = months[activeIndex];
+  const { tree, leaves, colors } = months[activeIndex];
   const comparisonCount = (name, month) => {
     if (name === OTHER) return month.tree.leaves.find((item) => item.name === OTHER)?.n || 0;
     return month.tree.counts.get(name)?.n || 0;
@@ -127,7 +115,7 @@ export default function Treemaps() {
           className={`story-block story-block--intro${activeIndex === 0 ? " is-active" : ""}`}
         >
           <header className="story-head">
-            <h2>What was observed each month</h2>
+            <h2>Peak-season composition</h2>
           </header>
           <p>
             No single family dominates. The largest takes {top.june.pct}% of June&apos;s records ({top.june.name}), and {top.min}% to {top.max}% in each
@@ -161,7 +149,7 @@ export default function Treemaps() {
               const item = leaf.data;
               const width = leaf.x1 - leaf.x0;
               const height = leaf.y1 - leaf.y0;
-              const color = item.name === OTHER ? OTHER_COLOR : treemapColor(item.name);
+              const color = item.name === OTHER ? DUNHUANG_OTHER : colors.get(item.name);
               const label = item.name === OTHER ? `Other (${item.parts})` : item.name;
               return (
                 <g
@@ -184,7 +172,7 @@ export default function Treemaps() {
                   }
                   onMouseLeave={tip.hide}
                 >
-                  <rect width={width} height={height} fill={color} rx={3} />
+                  <rect className="tile-rect" width={width} height={height} fill={color} rx={2} />
                   {width > 58 && height > 22 ? (
                     <text x={7} y={17} fill={textOn(color)} className="tile-t">
                       {label.length * 6.4 > width - 14 ? `${label.slice(0, Math.floor((width - 14) / 6.4) - 1)}…` : label}

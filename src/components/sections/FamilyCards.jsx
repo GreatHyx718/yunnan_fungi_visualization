@@ -252,7 +252,7 @@ export default function FamilyCards() {
           <div className="step-inner">
             <header className="step-head">
               <h2>
-                <Bi en="Family cards" />
+                <Bi en="Edible families" />
               </h2>
               <p className="sec-desc">
                 Among the {FAMILY_CARD_MONTHS.reduce((a, m) => a + monthEdible[m], 0)} edible-range records from June to October, Boletaceae ranks first from June to

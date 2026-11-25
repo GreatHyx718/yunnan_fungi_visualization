@@ -117,9 +117,15 @@
   align-items: center;
 }
 .treemap-chart {
+  box-sizing: border-box;
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
+  padding: 0.6rem;
+  /* same background as the Family cards (.card); no border, no shadow, square corners */
+  background: var(--bg-surface);
+  border: 0;
+  border-radius: 0;
 }
 .treemap-story .story-block {
   margin-bottom: 30vh;

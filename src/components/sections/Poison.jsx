@@ -223,13 +223,13 @@ function AnnualTrendsChart({ isCumulative, tip }) {
         ))}
 
         {/* Legend below chart on the right side */}
-        <g transform={`translate(${chartW - 200},${chartH + 52})`}>
+        <g transform={`translate(${chartW - 200},${chartH + 46})`}>
           <g transform="translate(0,0)">
             <line x1={0} y1={0} x2={30} y2={0} stroke={COLORS.patients} strokeWidth={2.5} />
             <circle cx={15} cy={0} r={3.5} fill={COLORS.patients} stroke="#fff" strokeWidth={1.5} />
             <text x={36} y={4} fontSize={12} fill="#333">Poisoning Patients</text>
           </g>
-          <g transform="translate(0,24)">
+          <g transform="translate(0,20)">
             <line x1={0} y1={0} x2={30} y2={0} stroke={COLORS.deaths} strokeWidth={2.5} strokeDasharray="6,4" />
             <circle cx={15} cy={0} r={3.5} fill={COLORS.deaths} stroke="#fff" strokeWidth={1.5} />
             <text x={36} y={4} fontSize={12} fill="#333">Deaths</text>
@@ -365,7 +365,7 @@ export default function Poison() {
           className={`story-block${activeIndex === 0 ? " is-active" : ""}`}
         >
           <header className="story-head">
-            <h2>Poisoning in Yunnan</h2>
+            <h2>Poisoning cases</h2>
           </header>
           <p>
             China CDC reported {fmt(totalPatients)} mushroom-poisoning patients and {totalDeaths} deaths in Yunnan from 2020 to 2025.{" "}

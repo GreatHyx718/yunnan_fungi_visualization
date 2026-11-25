@@ -272,7 +272,7 @@ export default function Hotspots() {
       <section id="hotspots" className="story-section">
         <div className="story-col">
           <header className="story-head">
-            <h2>Where the peak season is busiest</h2>
+            <h2>Peak-season hotspots</h2>
           </header>
           <div className="story-text">
             <p>

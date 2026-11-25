@@ -91,7 +91,7 @@ export default function Amanita() {
   return (
     <section id="poisonous" className="story-section" style={{ gridTemplateColumns: "1fr" }}>
       <header className="story-head">
-        <h2>Poisonous Mushrooms in Yunnan</h2>
+        <h2>Poisonous species</h2>
       </header>
 
       <div className="poison-flow">
